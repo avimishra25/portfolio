@@ -1,9 +1,25 @@
-import React, { useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
+import { motion, useMotionValue, useTransform, useSpring, useReducedMotion, useInView } from 'framer-motion';
 import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
-import HeroCanvas from './canvas/HeroCanvas.jsx';
+const HeroCanvas = lazy(() => import('./canvas/HeroCanvas.jsx'));
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+  const [ready, setReady] = useState(false);
+  const [pageVisible, setPageVisible] = useState(!document.hidden);
+  const sceneMouse = useRef({ x: 0, y: 0 });
+  useEffect(() => {
+    const reveal = () => setReady(true);
+    const idle = window.requestIdleCallback?.(reveal, { timeout: 2000 });
+    const timer = idle === undefined ? window.setTimeout(reveal, 300) : undefined;
+    const onVisibility = () => setPageVisible(!document.hidden);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      if (idle !== undefined) window.cancelIdleCallback(idle);
+      window.clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
   // Framer Motion parallax for the profile cutout
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -18,19 +34,23 @@ export default function Hero() {
   const springTY = useSpring(translateY, { stiffness: 120, damping: 18 });
 
   const containerRef = useRef(null);
+  const inView = useInView(containerRef);
 
   const handleMouseMove = (e) => {
+    if (reduceMotion) return;
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(x);
     mouseY.set(y);
+    sceneMouse.current = { x: x * 2, y: -y * 2 };
   };
 
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
+    sceneMouse.current = { x: 0, y: 0 };
   };
 
   return (
@@ -42,7 +62,11 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-24 md:pt-28 overflow-hidden"
     >
       {/* Ambient 3D canvas */}
-      <HeroCanvas />
+      {ready && !reduceMotion && (
+        <Suspense fallback={null}>
+          <HeroCanvas mouse={sceneMouse} active={inView && pageVisible} />
+        </Suspense>
+      )}
 
       {/* Radial glow backdrop for the cutout */}
       <div className="pointer-events-none absolute inset-0 bg-hero-radial" />
@@ -158,7 +182,7 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-full border border-blue-400/15" />
             <div className="absolute inset-4 rounded-full border border-red-400/10" />
             <motion.div
-              animate={{ rotate: 360 }}
+              animate={{ rotate: reduceMotion ? 0 : 360 }}
               transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
               className="absolute inset-2 rounded-full border border-dashed border-blue-400/20"
             />
@@ -169,10 +193,10 @@ export default function Hero() {
             {/* Circular photo frame — clips the cutout cleanly */}
             <motion.div
               style={{
-                rotateX: springRX,
-                rotateY: springRY,
-                x: springTX,
-                y: springTY,
+                rotateX: reduceMotion ? 0 : springRX,
+                rotateY: reduceMotion ? 0 : springRY,
+                x: reduceMotion ? 0 : springTX,
+                y: reduceMotion ? 0 : springTY,
                 transformStyle: 'preserve-3d',
               }}
               className="absolute inset-6 rounded-full overflow-hidden border border-white/10 bg-gradient-to-b from-blue-600/10 to-red-500/5 shadow-glow"
@@ -209,7 +233,7 @@ export default function Hero() {
       >
         <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
         <motion.span
-          animate={{ y: [0, 6, 0] }}
+          animate={{ y: reduceMotion ? 0 : [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.6 }}
         >
           <ArrowDown size={16} />

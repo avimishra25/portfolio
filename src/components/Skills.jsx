@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { Float, Preload } from '@react-three/drei';
+
+
 import { Code2, Layout, Cloud, Wrench } from 'lucide-react';
 
 const categories = [
@@ -39,33 +39,14 @@ const categories = [
   },
 ];
 
-/** A tiny R3F float indicator — a glowing icosahedron. */
+/** Lightweight decorative gem; no WebGL context or animation loop. */
 function FloatIndicator({ color }) {
   return (
-    <div className="w-16 h-16">
-      <Canvas camera={{ position: [0, 0, 3], fov: 40 }} dpr={[1, 1.5]}>
-        <Suspense fallback={null}>
-          <ambientLight intensity={0.6} />
-          <pointLight position={[3, 3, 3]} intensity={1} color={color} />
-          <Float speed={2} rotationIntensity={1.2} floatIntensity={1.8}>
-            <mesh>
-              <icosahedronGeometry args={[0.9, 0]} />
-              <meshStandardMaterial
-                color={color}
-                emissive={color}
-                emissiveIntensity={0.4}
-                metalness={0.6}
-                roughness={0.2}
-              />
-            </mesh>
-          </Float>
-          <Preload all />
-        </Suspense>
-      </Canvas>
+    <div aria-hidden="true" className="w-16 h-16 shrink-0 grid place-items-center" style={{ color }}>
+      <div className="skill-gem w-10 h-12" />
     </div>
   );
 }
-
 export default function Skills() {
   return (
     <section id="skills" className="relative py-24 md:py-32">

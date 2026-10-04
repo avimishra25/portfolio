@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring, useMotionTemplate, useReducedMotion } from 'framer-motion';
 import { Github, ExternalLink, Layers, ShoppingBag, Cpu } from 'lucide-react';
 
 const projects = [
@@ -36,6 +36,7 @@ const projects = [
 ];
 
 function TiltCard({ project, index }) {
+  const reduceMotion = useReducedMotion();
   const cardRef = useRef(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -44,11 +45,13 @@ function TiltCard({ project, index }) {
   const rotateY = useTransform(mx, [-0.5, 0.5], [-10, 10]);
   const glowX = useTransform(mx, [-0.5, 0.5], ['20%', '80%']);
   const glowY = useTransform(my, [-0.5, 0.5], ['20%', '80%']);
+  const background = useMotionTemplate`radial-gradient(400px circle at ${glowX} ${glowY}, rgba(59, 130, 246, 0.15), transparent 40%)`;
 
   const springRX = useSpring(rotateX, { stiffness: 200, damping: 20 });
   const springRY = useSpring(rotateY, { stiffness: 200, damping: 20 });
 
   const handleMove = (e) => {
+    if (reduceMotion) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -77,8 +80,8 @@ function TiltCard({ project, index }) {
     >
       <motion.div
         style={{
-          rotateX: springRX,
-          rotateY: springRY,
+          rotateX: reduceMotion ? 0 : springRX,
+          rotateY: reduceMotion ? 0 : springRY,
           transformStyle: 'preserve-3d',
         }}
         className="relative glass rounded-3xl p-8 h-full overflow-hidden"
@@ -86,7 +89,7 @@ function TiltCard({ project, index }) {
         {/* Cursor-following glow */}
         <motion.div
           style={{
-            background: `radial-gradient(400px circle at ${glowX} ${glowY}, rgba(59, 130, 246,0.15), transparent 40%)`,
+            background,
           }}
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
         />

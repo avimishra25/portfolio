@@ -1,5 +1,5 @@
-import React, { Suspense, lazy } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
+import { MotionConfig } from 'framer-motion';
 import Hero from './components/Hero.jsx';
 import Experience from './components/Experience.jsx';
 import Projects from './components/Projects.jsx';
@@ -10,6 +10,7 @@ import Extracurricular from './components/Extracurricular.jsx';
 
 export default function App() {
   return (
+    <MotionConfig reducedMotion="user">
     <div className="relative min-h-screen bg-base text-zinc-100 overflow-hidden">
       <div className="pointer-events-none fixed inset-0 bg-grid opacity-40" />
       <Navbar />
@@ -27,5 +28,6 @@ export default function App() {
         </p>
       </footer>
     </div>
+    </MotionConfig>
   );
 }

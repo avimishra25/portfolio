@@ -1,6 +1,5 @@
-import React, { useRef, useMemo, Suspense } from 'react';
+import React, { useRef, useMemo, Component } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial, Preload, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
@@ -37,8 +36,11 @@ function Starfield({ count = 2500, mouse }) {
 
   return (
     <group>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled>
-        <PointMaterial
+      <points ref={ref}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
           transparent
           color="#3b82f6"
           size={0.008}
@@ -47,7 +49,7 @@ function Starfield({ count = 2500, mouse }) {
           blending={THREE.AdditiveBlending}
           opacity={0.9}
         />
-      </Points>
+      </points>
     </group>
   );
 }
@@ -79,37 +81,30 @@ function Constellation({ mouse }) {
   );
 }
 
-export default function HeroCanvas() {
-  const mouse = useRef({ x: 0, y: 0 });
+class SceneBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? null : this.props.children; }
+}
 
-  const onPointerMove = (e) => {
-    const x = (e.clientX / window.innerWidth) * 2 - 1;
-    const y = -(e.clientY / window.innerHeight) * 2 + 1;
-    mouse.current.x = x;
-    mouse.current.y = y;
-  };
-
+export default function HeroCanvas({ mouse, active }) {
   return (
     <div
-      className="absolute inset-0 -z-10"
-      onPointerMove={onPointerMove}
+      className="absolute inset-0 pointer-events-none"
       aria-hidden="true"
     >
+      <SceneBoundary>
       <Canvas
+        frameloop={active ? 'always' : 'never'}
+        fallback={null}
         camera={{ position: [0, 0, 2.6], fov: 60 }}
-        dpr={[1, 1.75]}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: true, powerPreference: 'low-power' }}
       >
-        <Suspense fallback={null}>
-          <ambientLight intensity={0.4} />
-          <pointLight position={[3, 3, 3]} intensity={0.4} color="#3b82f6" />
           <Starfield mouse={mouse} />
           <Constellation mouse={mouse} />
-          <Preload all />
-          <AdaptiveDpr pixelated />
-          <AdaptiveEvents />
-        </Suspense>
       </Canvas>
+      </SceneBoundary>
     </div>
   );
 }
