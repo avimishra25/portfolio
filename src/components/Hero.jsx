@@ -75,15 +75,6 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-8 items-center w-full">
         {/* LEFT: Copy */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 mb-7 text-xs text-zinc-300 border border-white/10 rounded-full px-3 py-2 bg-white/[0.025]"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Available for full-time opportunities
-          </motion.div>
-
           <p className="text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">Avi Mishra / Software Engineer</p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
