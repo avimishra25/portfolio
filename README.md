@@ -12,8 +12,8 @@ A production 3D personal portfolio built with React, React Three Fiber, and Fram
 
 - **R3F Hero canvas** — 2,500-point starfield + slow-rotating icosahedron constellation, pointer-driven parallax, loaded after the page becomes idle and paused offscreen or in hidden tabs.
 - **Circular avatar frame** — parallax tilt (`useMotionValue` + `useSpring`) with cursor tracking, blue/red rim glow, and a rotating dashed ring.
-- **3D tilt project cards** — perspective transform + cursor-following radial glow overlay.
-- **Lightweight CSS gem indicators** on each skill category, without additional WebGL contexts.
+- **Project previews** — a real CareerCompass landing-page capture and a DripStore architecture illustration, with subtle tilt, cursor glow, and clear project/source buttons.
+- **Compact skill columns** with clear category headings and no additional WebGL contexts.
 - **Working contact form** wired to [Web3Forms](https://web3forms.com/) — no backend, no signup.
 - **Fully responsive** — the whole layout collapses gracefully to mobile.
 

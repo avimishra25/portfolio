@@ -11,13 +11,13 @@ import Extracurricular from './components/Extracurricular.jsx';
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-    <div className="relative min-h-screen bg-base text-zinc-100 overflow-hidden">
-      <div className="pointer-events-none fixed inset-0 bg-grid opacity-40" />
+    <div className="relative min-h-screen bg-base text-zinc-100 overflow-x-clip">
+      <div className="pointer-events-none fixed inset-0 bg-grid opacity-20" />
       <Navbar />
       <main className="relative">
         <Hero />
-        <Experience />
         <Projects />
+        <Experience />
         <Skills />
         <Extracurricular />
         <Contact />

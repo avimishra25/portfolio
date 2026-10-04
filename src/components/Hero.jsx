@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion, useInView } from 'framer-motion';
-import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail } from 'lucide-react';
 const HeroCanvas = lazy(() => import('./canvas/HeroCanvas.jsx'));
 
 export default function Hero() {
@@ -59,7 +59,7 @@ export default function Hero() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen flex items-center pt-24 md:pt-28 overflow-hidden"
+      className="relative min-h-[min(900px,100svh)] flex items-center pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
     >
       {/* Ambient 3D canvas */}
       {ready && !reduceMotion && (
@@ -70,48 +70,47 @@ export default function Hero() {
 
       {/* Radial glow backdrop for the cutout */}
       <div className="pointer-events-none absolute inset-0 bg-hero-radial" />
-      <div className="aurora" />
+      <div className="aurora opacity-40" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-8 items-center w-full">
         {/* LEFT: Copy */}
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="chip mb-6"
+            className="inline-flex items-center gap-2.5 mb-7 text-xs text-zinc-300 border border-white/10 rounded-full px-3 py-2 bg-white/[0.025]"
           >
-            <Sparkles size={12} /> Available for Full-Time · 2026
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Available for full-time opportunities
           </motion.div>
 
+          <p className="text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">Avi Mishra / Software Engineer</p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05, duration: 0.7 }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]"
+            className="text-[clamp(2.6rem,5.1vw,4.6rem)] font-semibold tracking-[-0.055em] leading-[1.06] max-w-[650px]"
           >
-            Hi, I'm <span className="text-gradient">Avi Mishra</span>
+            Full-stack products.<br /><span className="text-gradient">Intelligent tools.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.7 }}
-            className="mt-4 text-lg md:text-xl text-zinc-300 max-w-xl"
+            className="mt-6 text-lg text-zinc-300 max-w-lg leading-relaxed"
           >
-            Software Engineer · Distributed Systems & Full-Stack (MERN)
+            I build across the stack — from thoughtful interfaces to the systems and ML behind them.
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.7 }}
-            className="mt-5 text-zinc-400 leading-relaxed max-w-xl"
+            className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-lg"
           >
             Final-year B.Tech CSE student at{' '}
-            <span className="text-zinc-200">Pandit Deendayal Energy University</span>. I ship
-            multi-service ML-driven platforms, harden production chatbots against prompt
-            injection, and design scalable cloud architectures.
+            <span className="text-zinc-300">Pandit Deendayal Energy University</span>, focused on MERN, applied ML, and distributed systems.
           </motion.p>
 
           <motion.div
@@ -121,12 +120,12 @@ export default function Hero() {
             className="mt-8 flex flex-wrap gap-3"
           >
             <a href="#projects" className="btn-primary">
-              <Sparkles size={16} /> Explore Projects
+              View Projects <ArrowUpRight size={18} />
             </a>
             <a
               href="/assets/Avi_Mishra_CV.pdf"
               download
-              className="btn-ghost"
+              className="btn-ghost !border-white/25 !bg-white/[0.06]"
             >
               <Download size={16} /> Download Resume
             </a>
@@ -174,13 +173,13 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ perspective: 1400 }}
-          className="relative flex items-center justify-center py-6"
+          className="relative flex items-center justify-center py-6 w-full max-w-[420px] mx-auto lg:max-w-none"
         >
           {/* Everything sized to fit — max width capped so nothing overflows */}
-          <div className="relative w-full max-w-[420px] md:max-w-[480px] aspect-square">
+          <div className="relative w-full max-w-[400px] lg:max-w-[440px] aspect-square">
             {/* Outer rings — sized to the container so they never bleed out */}
             <div className="absolute inset-0 rounded-full border border-blue-400/15" />
-            <div className="absolute inset-4 rounded-full border border-red-400/10" />
+            <div className="absolute inset-4 rounded-full border border-blue-400/10" />
             <motion.div
               animate={{ rotate: reduceMotion ? 0 : 360 }}
               transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
@@ -188,7 +187,7 @@ export default function Hero() {
             />
 
             {/* Radial glow inside the frame */}
-            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-blue-600/30 via-red-500/20 to-transparent blur-2xl animate-pulse-glow" />
+            <div className="absolute inset-8 rounded-full bg-blue-500/15 blur-2xl" />
 
             {/* Circular photo frame — clips the cutout cleanly */}
             <motion.div
@@ -199,7 +198,7 @@ export default function Hero() {
                 y: reduceMotion ? 0 : springTY,
                 transformStyle: 'preserve-3d',
               }}
-              className="absolute inset-6 rounded-full overflow-hidden border border-white/10 bg-gradient-to-b from-blue-600/10 to-red-500/5 shadow-glow"
+              className="absolute inset-6 rounded-full overflow-hidden border border-white/10 bg-gradient-to-b from-blue-600/10 to-slate-900/80"
             >
               <img
                 src="/assets/avi-cutout.png"
@@ -218,18 +217,21 @@ export default function Hero() {
 
             {/* Floating accent dots on the ring */}
             <div className="absolute top-4 right-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-blue-400 shadow-glow" />
-            <div className="absolute bottom-4 right-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-red-400 shadow-red" />
+            <div className="absolute bottom-4 right-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-blue-300" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-white/10 bg-[#11151f] px-5 py-3 text-xs text-zinc-300 shadow-xl">
+              Based in Ahmedabad, India <span className="text-blue-300 ml-2">↗</span>
+            </div>
           </div>
         </motion.div>
       </div>
 
       {/* Scroll cue */}
       <motion.a
-        href="#experience"
+        href="#projects"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center text-zinc-500 hover:text-blue-300 transition"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center text-zinc-500 hover:text-blue-300 transition"
       >
         <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
         <motion.span

@@ -1,26 +1,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-
 import { Code2, Layout, Cloud, Wrench } from 'lucide-react';
 
 const categories = [
   {
     label: 'Languages',
     icon: Code2,
-    color: '#3b82f6',
     skills: ['Java', 'C/C++', 'Python', 'JavaScript (ES6+)', 'SQL', 'HTML/CSS'],
   },
   {
     label: 'Frontend & Backend',
     icon: Layout,
-    color: '#ef4444',
     skills: ['React.js', 'Node.js', 'Express.js', 'Flask', 'Tailwind CSS', 'Scikit-learn'],
   },
   {
     label: 'Cloud & Databases',
     icon: Cloud,
-    color: '#3b82f6',
     skills: [
       'AWS S3',
       'AWS EC2',
@@ -34,19 +29,10 @@ const categories = [
   {
     label: 'CS Fundamentals & Tools',
     icon: Wrench,
-    color: '#ef4444',
     skills: ['DSA (100+ LeetCode)', 'OOP', 'OS', 'Networks', 'Git', 'Postman', 'n8n'],
   },
 ];
 
-/** Lightweight decorative gem; no WebGL context or animation loop. */
-function FloatIndicator({ color }) {
-  return (
-    <div aria-hidden="true" className="w-16 h-16 shrink-0 grid place-items-center" style={{ color }}>
-      <div className="skill-gem w-10 h-12" />
-    </div>
-  );
-}
 export default function Skills() {
   return (
     <section id="skills" className="relative py-24 md:py-32">
@@ -58,16 +44,16 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <span className="chip mb-4"><Wrench size={12} /> Technical Matrix</span>
+          <span className="chip mb-4"><Wrench size={12} /> The toolkit</span>
           <h2 className="section-heading">
-            Tools I <span className="text-gradient">build with</span>
+            Tools I <span className="text-blue-300">build with</span>
           </h2>
           <p className="mt-3 text-zinc-400 max-w-2xl">
             Full-stack MERN, applied ML, and distributed cloud architectures.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
           {categories.map((cat, i) => {
             const Icon = cat.icon;
             return (
@@ -77,16 +63,16 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="glass rounded-2xl p-6 hover:border-blue-400/30 transition-colors"
+                className="border-t border-white/15 pt-6"
               >
                 <div className="flex items-center gap-4 mb-5">
-                  <FloatIndicator color={cat.color} />
+
                   <div>
                     <div className="flex items-center gap-2 text-blue-300 mb-1">
                       <Icon size={16} />
                       <span className="text-xs uppercase tracking-widest">Stack</span>
                     </div>
-                    <h3 className="text-xl font-semibold">{cat.label}</h3>
+                    <h3 className="text-lg font-semibold tracking-tight">{cat.label}</h3>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">

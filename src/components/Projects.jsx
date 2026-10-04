@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, useMotionTemplate, useReducedMotion } from 'framer-motion';
 import { Github, ExternalLink, Layers, ShoppingBag, Cpu } from 'lucide-react';
+import ProjectPreview from './ProjectPreview.jsx';
 
 const projects = [
   {
     title: 'CareerCompass AI',
     icon: Cpu,
-    accent: 'from-blue-600/30 to-red-500/30',
     description:
       'Distributed 3-service architecture (React on Vercel, Express on Render, Flask ML engine on Hugging Face). 2-pass NLP matching (spaCy + TF-IDF) with 92% keyword recall across 12 roles and 200+ skills.',
     highlights: [
@@ -21,7 +21,6 @@ const projects = [
   {
     title: 'DripStore',
     icon: ShoppingBag,
-    accent: 'from-red-500/30 to-blue-600/30',
     description:
       'Full-stack MERN e-commerce app featuring a 7-model REST API, RBAC, and Cloudinary media upload pipelines. Razorpay payment gateway with server-side cryptographic signature verification.',
     highlights: [
@@ -41,8 +40,8 @@ function TiltCard({ project, index }) {
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
 
-  const rotateX = useTransform(my, [-0.5, 0.5], [8, -8]);
-  const rotateY = useTransform(mx, [-0.5, 0.5], [-10, 10]);
+  const rotateX = useTransform(my, [-0.5, 0.5], [2, -2]);
+  const rotateY = useTransform(mx, [-0.5, 0.5], [-2, 2]);
   const glowX = useTransform(mx, [-0.5, 0.5], ['20%', '80%']);
   const glowY = useTransform(my, [-0.5, 0.5], ['20%', '80%']);
   const background = useMotionTemplate`radial-gradient(400px circle at ${glowX} ${glowY}, rgba(59, 130, 246, 0.15), transparent 40%)`;
@@ -84,7 +83,7 @@ function TiltCard({ project, index }) {
           rotateY: reduceMotion ? 0 : springRY,
           transformStyle: 'preserve-3d',
         }}
-        className="relative glass rounded-3xl p-8 h-full overflow-hidden"
+        className="relative rounded-2xl border border-white/10 bg-[#10131b] h-full overflow-hidden flex flex-col hover:border-blue-400/30 transition-colors"
       >
         {/* Cursor-following glow */}
         <motion.div
@@ -94,54 +93,47 @@ function TiltCard({ project, index }) {
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
         />
 
-        <div className="relative" style={{ transform: 'translateZ(30px)' }}>
+        <ProjectPreview title={project.title} />
+        <div className="relative p-6 md:p-8 flex flex-col flex-1">
           <div className="flex items-start justify-between mb-6">
-            <div className={`p-3 rounded-2xl bg-gradient-to-br ${project.accent} border border-white/10`}>
-              <Icon size={24} className="text-blue-200" />
+            <div className="flex items-center gap-3 text-blue-300">
+              <Icon size={18} />
+              <span className="text-xs font-medium tracking-[0.16em] uppercase">{index === 0 ? 'Applied AI · Full stack' : 'E-commerce · Full stack'}</span>
             </div>
-            <div className="flex gap-2">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="p-2 rounded-lg border border-white/10 hover:border-blue-400/50 hover:text-blue-300 transition"
-              >
-                <Github size={16} />
-              </a>
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Demo"
-                  className="p-2 rounded-lg border border-white/10 hover:border-blue-400/50 hover:text-blue-300 transition"
-                >
-                  <ExternalLink size={16} />
-                </a>
-              )}
-            </div>
+            <span className="text-xs font-mono text-zinc-500">0{index + 1}</span>
           </div>
 
-          <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight mb-3">{project.title}</h3>
           <p className="text-zinc-400 leading-relaxed mb-5">{project.description}</p>
 
           <ul className="space-y-2 mb-6">
             {project.highlights.map((h, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-zinc-300">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue-400 to-red-400 shrink-0" />
+                <span className="mt-1.5 h-1 w-1 rounded-full bg-blue-400 shrink-0" />
                 <span>{h}</span>
               </li>
             ))}
           </ul>
 
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((t) => (
-              <span key={t} className="chip">
-                {t}
-              </span>
-            ))}
+          <div className="flex flex-wrap gap-2 mb-7">
+            {project.tags.map((t) => <span key={t} className="project-tag">{t}</span>)}
           </div>
+            <div className="flex flex-wrap gap-3 mt-auto pt-5 border-t border-white/10">
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noreferrer" className="btn-primary text-sm" aria-label={`View ${project.title} live project`}>
+                  View project <ExternalLink size={15} />
+                </a>
+              )}
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`View ${project.title} source code on GitHub`}
+                className="btn-ghost text-sm"
+              >
+                <Github size={16} /> Source code
+              </a>
+            </div>
         </div>
       </motion.div>
     </motion.div>
@@ -161,7 +153,7 @@ export default function Projects() {
         >
           <span className="chip mb-4"><Layers size={12} /> Featured Work</span>
           <h2 className="section-heading">
-            Projects with <span className="text-gradient">real metrics</span>
+            Selected <span className="text-blue-300">work.</span>
           </h2>
           <p className="mt-3 text-zinc-400 max-w-2xl">
             End-to-end systems — from distributed ML services to production e-commerce.

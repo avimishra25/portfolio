@@ -47,7 +47,7 @@ function Starfield({ count = 2500, mouse }) {
           sizeAttenuation
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={0.9}
+          opacity={0.35}
         />
       </points>
     </group>
@@ -74,7 +74,7 @@ function Constellation({ mouse }) {
         color="#ef4444"
         wireframe
         transparent
-        opacity={0.25}
+        opacity={0.09}
         blending={THREE.AdditiveBlending}
       />
     </mesh>
@@ -90,7 +90,7 @@ class SceneBoundary extends Component {
 export default function HeroCanvas({ mouse, active }) {
   return (
     <div
-      className="absolute inset-0 pointer-events-none"
+      className="absolute bottom-0 right-0 h-1/2 lg:h-full w-full lg:w-[55%] pointer-events-none opacity-50"
       aria-hidden="true"
     >
       <SceneBoundary>

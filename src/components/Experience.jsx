@@ -46,16 +46,16 @@ export default function Experience() {
         >
           <span className="chip mb-4"><Briefcase size={12} /> Experience</span>
           <h2 className="section-heading">
-            Where I've <span className="text-gradient">shipped</span> lately
+            Where I've <span className="text-blue-300">shipped</span> lately
           </h2>
           <p className="mt-3 text-zinc-400 max-w-2xl">
-            Production internships with measurable impact — security, performance, and QA.
+            Hands-on engineering across security, performance, automation, and QA.
           </p>
         </motion.div>
 
         <div className="relative">
           {/* Timeline spine */}
-          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/60 via-red-400/40 to-transparent" />
+          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/60 via-blue-400/20 to-transparent" />
 
           {experience.map((exp, idx) => (
             <motion.div
@@ -67,8 +67,8 @@ export default function Experience() {
               className="relative pl-12 md:pl-20 mb-12"
             >
               {/* Node */}
-              <div className="absolute left-2 md:left-6 top-2 h-5 w-5 rounded-full bg-gradient-to-br from-blue-400 to-red-500 shadow-glow" />
-              <div className="glass rounded-2xl p-6 md:p-8 hover:border-blue-400/30 transition-colors">
+              <div className="absolute left-2 md:left-6 top-2 h-5 w-5 rounded-full bg-blue-400 shadow-glow" />
+              <div className="py-2 md:py-3">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                   <h3 className="text-xl md:text-2xl font-semibold">
                     {exp.role} <span className="text-blue-300">· {exp.company}</span>
@@ -87,10 +87,10 @@ export default function Experience() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 + i * 0.08 }}
-                        className="group relative p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:border-blue-400/30 hover:bg-white/[0.04] transition-all"
+                        className="group relative py-5 border-t border-white/10"
                       >
                         <div className="flex items-start gap-3">
-                          <div className="p-2 rounded-lg bg-gradient-to-br from-blue-600/20 to-red-500/20 text-blue-300 group-hover:from-blue-600/40 group-hover:to-red-500/40 transition-colors">
+                          <div className="p-2 rounded-lg bg-blue-500/10 text-blue-300 transition-colors">
                             <Icon size={16} />
                           </div>
                           <div>

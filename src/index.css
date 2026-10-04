@@ -6,6 +6,11 @@
   color-scheme: dark;
 }
 
+/* Section top padding leaves room for the fixed navigation at anchor targets. */
+html { scroll-behavior: smooth; }
+::selection { background: #3b82f6; color: white; }
+:focus-visible { outline: 2px solid #93c5fd; outline-offset: 5px; }
+
 html,
 body,
 #root {
@@ -15,7 +20,7 @@ body,
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Custom scrollbar */
@@ -26,7 +31,7 @@ body {
   background: #09090b;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#3b82f6, #ef4444);
+  background: #334155;
   border-radius: 8px;
 }
 
@@ -44,13 +49,11 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-red-400;
   }
   .section-heading {
-    @apply text-3xl md:text-5xl font-bold tracking-tight;
+    @apply text-3xl md:text-5xl font-semibold tracking-tight;
   }
   .btn-primary {
     @apply inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium
-           bg-gradient-to-r from-blue-600 to-red-500 text-zinc-950
-           hover:from-blue-400 hover:to-red-400 transition-all
-           shadow-glow hover:shadow-red;
+           bg-blue-600 text-white hover:bg-blue-500 transition-colors;
   }
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium
@@ -61,6 +64,32 @@ body {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium
            border border-blue-400/20 bg-blue-400/5 text-blue-200;
   }
+}
+
+.project-tag {
+  @apply text-xs text-zinc-400 border border-white/10 rounded-md px-2.5 py-1;
+}
+.project-preview { border-bottom: 1px solid rgb(255 255 255 / 0.08); overflow: hidden; }
+.preview-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; background: #171c28; color: #94a3b8;
+  font-size: 10px; letter-spacing: .04em;
+}
+.preview-toolbar i { width: 6px; height: 6px; border-radius: 50%; background: #475569; }
+.commerce-diagram {
+  min-height: 285px; aspect-ratio: 16 / 9; padding: 24px;
+  display: grid; align-items: center;
+  background: radial-gradient(ellipse at 50% 30%, #192b4c, #0c1320 80%);
+}
+.architecture-node {
+  display: flex; align-items: center; gap: 10px; border: 1px solid #ffffff18;
+  border-radius: 9px; padding: 10px 14px; font-size: 12px; color: #cbd5e1;
+}
+.architecture-branches { height: 20px; display: flex; justify-content: space-around; }
+.architecture-branches span { width: 1px; background: #60a5fa40; }
+
+@media (max-width: 767px) {
+  .commerce-diagram { aspect-ratio: auto; }
 }
 
 /* Soft aurora background */
@@ -81,13 +110,6 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
-}
-
-/* Decorative skill badges do not need separate WebGL renderers. */
-.skill-gem {
-  clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-  background: conic-gradient(from 30deg, transparent, currentColor, transparent, currentColor);
-  box-shadow: inset 0 0 20px currentColor;
 }
 
 @media (prefers-reduced-motion: reduce) {

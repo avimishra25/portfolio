@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, Sparkles } from 'lucide-react';
 
 const links = [
   { href: '#hero', label: 'Home' },
-  { href: '#experience', label: 'Experience' },
   { href: '#projects', label: 'Projects' },
+  { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
   { href: '#contact', label: 'Contact' },
 ];
@@ -13,12 +13,50 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('#hero');
+  const pendingAnchor = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const finishNavigation = () => {
+    if (!pendingAnchor.current) return;
+    const href = pendingAnchor.current;
+    pendingAnchor.current = null;
+    document.querySelector(href)?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth', block: 'start' });
+  };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 20);
+      const marker = Math.max(120, window.innerHeight * 0.3);
+      let current = '#hero';
+      for (const link of links) {
+        if (document.querySelector(link.href)?.getBoundingClientRect().top <= marker) current = link.href;
+      }
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) current = '#contact';
+      setActive(current);
+    };
+    const onScroll = () => { if (!frame) frame = window.requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        document.getElementById('menu-toggle')?.focus();
+      }
+    };
+    if (open) document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open]);
 
   return (
     <motion.header
@@ -26,12 +64,12 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 inset-x-0 z-50 transition-all ${
-        scrolled ? 'py-3 backdrop-blur-xl bg-base/70 border-b border-white/5' : 'py-5'
+        scrolled ? 'py-3 backdrop-blur-xl bg-base/90 border-b border-white/10' : 'py-5 bg-base/80 backdrop-blur-lg'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-2 group">
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-400 to-red-500 text-zinc-950 font-black">
+          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500 text-white font-black">
             A
             <span className="absolute inset-0 rounded-xl bg-blue-400/40 blur-lg group-hover:blur-xl transition-all -z-10" />
           </span>
@@ -45,7 +83,8 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="px-4 py-2 text-sm text-zinc-300 hover:text-blue-300 rounded-lg hover:bg-white/5 transition-colors"
+              aria-current={active === l.href ? 'location' : undefined}
+              className={`px-4 py-2 text-sm rounded-lg transition-colors ${active === l.href ? 'text-blue-200 bg-blue-400/10' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
             >
               {l.label}
             </a>
@@ -59,14 +98,18 @@ export default function Navbar() {
           className="md:hidden p-2 rounded-lg border border-white/10"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
+          id="menu-toggle"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={finishNavigation}>
         {open && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -77,8 +120,14 @@ export default function Navbar() {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="py-2 text-zinc-300 hover:text-blue-300"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    pendingAnchor.current = l.href;
+                    window.history.pushState(null, '', l.href);
+                    setOpen(false);
+                  }}
+                  aria-current={active === l.href ? 'location' : undefined}
+                  className={`py-2 ${active === l.href ? 'text-blue-300' : 'text-zinc-300 hover:text-blue-300'}`}
                 >
                   {l.label}
                 </a>
