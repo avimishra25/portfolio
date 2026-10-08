@@ -1,22 +1,17 @@
-import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion, useInView } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail } from 'lucide-react';
-const HeroCanvas = lazy(() => import('./canvas/HeroCanvas.jsx'));
+import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, Pause, Play } from 'lucide-react';
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
-  const [ready, setReady] = useState(false);
+  const videoRef = useRef(null);
+  const [videoPaused, setVideoPaused] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
   const [pageVisible, setPageVisible] = useState(!document.hidden);
-  const sceneMouse = useRef({ x: 0, y: 0 });
   useEffect(() => {
-    const reveal = () => setReady(true);
-    const idle = window.requestIdleCallback?.(reveal, { timeout: 2000 });
-    const timer = idle === undefined ? window.setTimeout(reveal, 300) : undefined;
     const onVisibility = () => setPageVisible(!document.hidden);
     document.addEventListener('visibilitychange', onVisibility);
     return () => {
-      if (idle !== undefined) window.cancelIdleCallback(idle);
-      window.clearTimeout(timer);
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
@@ -36,6 +31,20 @@ export default function Hero() {
   const containerRef = useRef(null);
   const inView = useInView(containerRef);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (reduceMotion || videoPaused || !inView || !pageVisible) {
+      video.pause();
+    } else {
+      let cancelled = false;
+      video.play().catch(() => {
+        if (!cancelled) setVideoPaused(true);
+      });
+      return () => { cancelled = true; video.pause(); };
+    }
+  }, [reduceMotion, videoPaused, inView, pageVisible]);
+
   const handleMouseMove = (e) => {
     if (reduceMotion) return;
     const rect = containerRef.current?.getBoundingClientRect();
@@ -44,13 +53,11 @@ export default function Hero() {
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(x);
     mouseY.set(y);
-    sceneMouse.current = { x: x * 2, y: -y * 2 };
   };
 
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
-    sceneMouse.current = { x: 0, y: 0 };
   };
 
   return (
@@ -61,16 +68,37 @@ export default function Hero() {
       onMouseLeave={handleMouseLeave}
       className="relative min-h-[min(900px,100svh)] flex items-center pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
     >
-      {/* Ambient 3D canvas */}
-      {ready && !reduceMotion && (
-        <Suspense fallback={null}>
-          <HeroCanvas mouse={sceneMouse} active={inView && pageVisible} />
-        </Suspense>
+      {/* Decorative footage with a still fallback and contrast overlays. */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <img src="/assets/hero-poster.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        {!reduceMotion && !videoFailed && (
+          <video
+            ref={videoRef}
+            src="/assets/hero-video.mp4"
+            poster="/assets/hero-poster.jpg"
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onError={() => setVideoFailed(true)}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#09090b]/80 via-[#09090b]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-[#09090b]/20" />
+      </div>
+      {!reduceMotion && !videoFailed && (
+        <button
+          type="button"
+          onClick={() => setVideoPaused((paused) => !paused)}
+          aria-label={videoPaused ? 'Play background video' : 'Pause background video'}
+          className="absolute bottom-6 right-6 z-20 flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 text-xs text-zinc-200 backdrop-blur hover:bg-black/70 transition"
+        >
+          {videoPaused ? <Play size={14} /> : <Pause size={14} />}
+          {videoPaused ? 'Play background' : 'Pause background'}
+        </button>
       )}
-
-      {/* Radial glow backdrop for the cutout */}
-      <div className="pointer-events-none absolute inset-0 bg-hero-radial" />
-      <div className="aurora opacity-40" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-8 items-center w-full">
         {/* LEFT: Copy */}
