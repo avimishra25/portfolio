@@ -1,93 +1,52 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Layout, Cloud, Wrench } from 'lucide-react';
+import { Layout, Server, BrainCircuit, Wrench } from 'lucide-react';
 
 const categories = [
   {
-    label: 'Languages',
-    icon: Code2,
-    skills: ['Java', 'C/C++', 'Python', 'JavaScript (ES6+)', 'SQL', 'HTML/CSS'],
+    label: 'Frontend', icon: Layout, number: '01',
+    description: 'Responsive interfaces that turn complex workflows into clear, usable experiences.',
+    skills: ['React.js', 'JavaScript (ES6+)', 'HTML/CSS', 'Tailwind CSS'],
   },
   {
-    label: 'Frontend & Backend',
-    icon: Layout,
-    skills: ['React.js', 'Node.js', 'Express.js', 'Flask', 'Tailwind CSS', 'Scikit-learn'],
+    label: 'Backend & Systems', icon: Server, number: '02',
+    description: 'APIs, data models, and cloud services that connect the product behind the interface.',
+    skills: ['Node.js', 'Express.js', 'MongoDB', 'SQL / MySQL', 'Firebase Firestore', 'AWS S3 / EC2', 'AWS DynamoDB / Aurora'],
   },
   {
-    label: 'Cloud & Databases',
-    icon: Cloud,
-    skills: [
-      'AWS S3',
-      'AWS EC2',
-      'AWS DynamoDB',
-      'AWS Aurora',
-      'MongoDB',
-      'MySQL',
-      'Firebase Firestore',
-    ],
-  },
-  {
-    label: 'CS Fundamentals & Tools',
-    icon: Wrench,
-    skills: ['DSA (100+ LeetCode)', 'OOP', 'OS', 'Networks', 'Git', 'Postman', 'n8n'],
+    label: 'Applied ML', icon: BrainCircuit, number: '03',
+    description: 'Text analysis, matching, and predictive models delivered through practical web tools.',
+    skills: ['Python', 'Flask', 'Scikit-learn', 'spaCy', 'TF-IDF', 'OpenAI API'],
   },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="mb-14"
-        >
+    <section id="skills" className="section-shell">
+      <div className="section-container">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }} className="section-intro">
           <span className="chip mb-4"><Wrench size={12} /> The toolkit</span>
-          <h2 className="section-heading">
-            Tools I <span className="text-blue-300">build with</span>
-          </h2>
-          <p className="mt-3 text-zinc-400 max-w-2xl">
-            Full-stack MERN, applied ML, and distributed cloud architectures.
-          </p>
+          <h2 className="section-heading">From interface <span className="text-blue-300">to intelligence.</span></h2>
+          <p className="section-description">Three connected disciplines. One focus: building useful software from end to end.</p>
         </motion.div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
-          {categories.map((cat, i) => {
-            const Icon = cat.icon;
-            return (
-              <motion.div
-                key={cat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="border-t border-white/15 pt-6"
-              >
-                <div className="flex items-center gap-4 mb-5">
-
-                  <div>
-                    <div className="flex items-center gap-2 text-blue-300 mb-1">
-                      <Icon size={16} />
-                      <span className="text-xs uppercase tracking-widest">Stack</span>
-                    </div>
-                    <h3 className="text-lg font-semibold tracking-tight">{cat.label}</h3>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {cat.skills.map((s) => (
-                    <span
-                      key={s}
-                      className="px-3 py-1.5 rounded-lg text-sm border border-white/10 bg-white/[0.03] text-zinc-200 hover:border-blue-400/40 hover:text-blue-200 transition"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="grid lg:grid-cols-3 gap-5">
+          {categories.map(({ label, icon: Icon, number, description, skills }, i) => (
+            <motion.article key={label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.5, delay: i * 0.08 }} className="surface-panel p-6 md:p-7">
+              <div className="mb-7 flex justify-between items-center">
+                <span className="rounded-xl border border-blue-300/15 bg-blue-400/5 p-3 text-blue-300"><Icon size={20} /></span>
+                <span aria-hidden="true" className="text-xs font-mono text-zinc-400">{number}</span>
+              </div>
+              <h3 className="text-xl font-semibold tracking-tight">{label}</h3>
+              <p className="mt-3 mb-6 text-sm text-zinc-400 leading-relaxed lg:min-h-[4.5rem]">{description}</p>
+              <ul className="flex flex-wrap gap-2">
+                {skills.map(skill => <li key={skill} className="rounded-lg border border-white/10 bg-white/[0.025] px-3 py-1.5 text-xs text-zinc-300">{skill}</li>)}
+              </ul>
+            </motion.article>
+          ))}
+        </div>
+        <div className="mt-6 border-t border-white/10 pt-6 grid md:grid-cols-[180px_1fr] gap-3">
+          <h3 className="text-sm font-medium text-zinc-200">The foundations</h3>
+          <p className="text-sm leading-relaxed text-zinc-400">Java · C/C++ · DSA (100+ LeetCode) · OOP · Operating systems · Networks · Git · Postman · n8n</p>
         </div>
       </div>
     </section>

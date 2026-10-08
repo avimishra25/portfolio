@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { animate, motion, useInView, useReducedMotion } from 'framer-motion';
 import { Briefcase, ShieldCheck, Zap, Workflow, Bug } from 'lucide-react';
 
 const experience = [
@@ -12,12 +12,12 @@ const experience = [
       {
         icon: ShieldCheck,
         title: 'AI Agent Security',
-        text: 'Hardened production voice/chatbots against prompt injection using layered refusal policies; streamed responses and deduplicated calls to reduce latency and token spend.',
+        text: 'Added layered refusal policies to production voice and chat agents. Streamed responses and deduplicated calls to reduce latency and token spend.',
       },
       {
         icon: Zap,
         title: 'Web Optimization',
-        text: 'Boosted page performance by 17–20% on CMS architectures via asset restructuring, minification, and Lighthouse verification.',
+        text: 'Restructured and minified CMS assets, then verified performance improvements with Lighthouse.',
       },
       {
         icon: Workflow,
@@ -27,35 +27,61 @@ const experience = [
       {
         icon: Bug,
         title: 'Enterprise QA',
-        text: 'White-box testing on Firebase Firestore ERP/CRM systems, surfacing 24 defects and debugging missing composite indexes behind release blockers.',
+        text: 'Tested Firebase Firestore ERP/CRM systems and traced release blockers to missing composite indexes.',
       },
     ],
   },
 ];
 
+function CountMetric({ value, lowerValue, suffix }) {
+  const ref = useRef(null);
+  const visible = useInView(ref, { once: true, amount: 1 });
+  const reduceMotion = useReducedMotion();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (!visible || reduceMotion) return;
+    const animation = animate(0, 1, {
+      duration: 1.6,
+      ease: 'easeOut',
+      onUpdate: setProgress,
+    });
+    return () => animation.stop();
+  }, [visible, reduceMotion]);
+
+  const format = (fraction) => `${lowerValue === undefined ? '' : `${Math.round(lowerValue * fraction)}–`}${Math.round(value * fraction)}${suffix}`;
+
+  return (
+    <p ref={ref} className="text-3xl font-semibold tracking-tight text-blue-200 tabular-nums">
+      <span className="sr-only">{format(1)}</span>
+      <span aria-hidden="true">{format(reduceMotion ? 1 : progress)}</span>
+    </p>
+  );
+}
+
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-24 md:py-32">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="experience" className="section-shell">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="mb-14"
+          className="section-intro"
         >
           <span className="chip mb-4"><Briefcase size={12} /> Experience</span>
           <h2 className="section-heading">
-            Where I've <span className="text-blue-300">shipped</span> lately
+            Engineering with <span className="text-blue-300">impact.</span>
           </h2>
-          <p className="mt-3 text-zinc-400 max-w-2xl">
-            Hands-on engineering across security, performance, automation, and QA.
+          <p className="section-description">
+            Production experience across AI security, web performance, automation, and quality.
           </p>
         </motion.div>
 
         <div className="relative">
           {/* Timeline spine */}
-          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/60 via-blue-400/20 to-transparent" />
+          <div className="absolute left-1.5 md:left-2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/60 via-blue-400/20 to-transparent" />
 
           {experience.map((exp, idx) => (
             <motion.div
@@ -64,18 +90,29 @@ export default function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="relative pl-12 md:pl-20 mb-12"
+              className="relative pl-7 md:pl-10"
             >
               {/* Node */}
-              <div className="absolute left-2 md:left-6 top-2 h-5 w-5 rounded-full bg-blue-400 shadow-glow" />
+              <div className="absolute left-0 md:left-0.5 top-3 h-3 w-3 rounded-full bg-blue-300 ring-4 ring-blue-400/10" />
               <div className="py-2 md:py-3">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                   <h3 className="text-xl md:text-2xl font-semibold">
-                    {exp.role} <span className="text-blue-300">· {exp.company}</span>
+                    {exp.role}
                   </h3>
                   <span className="text-sm text-zinc-400">{exp.period}</span>
                 </div>
-                <p className="text-sm text-zinc-500 mb-6">{exp.location}</p>
+                <p className="text-blue-300 font-medium">{exp.company}</p>
+                <p className="text-sm text-zinc-400 mt-1">{exp.location}</p>
+                <div className="my-7 grid sm:grid-cols-2 gap-3">
+                  <div className="surface-panel p-5">
+                    <CountMetric lowerValue={17} value={20} suffix="%" />
+                    <p className="mt-1 text-sm text-zinc-400">Improvement in CMS page performance</p>
+                  </div>
+                  <div className="surface-panel p-5">
+                    <CountMetric value={24} suffix=" defects" />
+                    <p className="mt-1 text-sm text-zinc-400">Surfaced in ERP / CRM testing</p>
+                  </div>
+                </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {exp.bullets.map((b, i) => {

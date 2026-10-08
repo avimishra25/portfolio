@@ -5,6 +5,10 @@ import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, Pause, Play 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
   const videoRef = useRef(null);
+  // Select once on entry so resizing does not trigger a second video download.
+  const [videoSource] = useState(() => window.matchMedia('(max-width: 767px)').matches
+    ? '/assets/hero-video-mobile.mp4'
+    : '/assets/hero-video.mp4');
   const [videoPaused, setVideoPaused] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const [pageVisible, setPageVisible] = useState(!document.hidden);
@@ -74,7 +78,7 @@ export default function Hero() {
         {!reduceMotion && !videoFailed && (
           <video
             ref={videoRef}
-            src="/assets/hero-video.mp4"
+            src={videoSource}
             poster="/assets/hero-poster.jpg"
             muted
             loop
@@ -110,7 +114,7 @@ export default function Hero() {
             transition={{ delay: 0.05, duration: 0.7 }}
             className="text-[clamp(2.6rem,5.1vw,4.6rem)] font-semibold tracking-[-0.055em] leading-[1.06] max-w-[650px]"
           >
-            Full-stack products.<br /><span className="text-gradient">Intelligent tools.</span>
+            I build web apps<br /><span className="text-gradient">with intelligence<br />built in.</span>
           </motion.h1>
 
           <motion.p
@@ -119,7 +123,7 @@ export default function Hero() {
             transition={{ delay: 0.15, duration: 0.7 }}
             className="mt-6 text-lg text-zinc-300 max-w-lg leading-relaxed"
           >
-            I build across the stack — from thoughtful interfaces to the systems and ML behind them.
+            From thoughtful interfaces to reliable APIs and applied ML — I bring the pieces together.
           </motion.p>
 
           <motion.p
@@ -232,7 +236,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center text-zinc-500 hover:text-blue-300 transition"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center text-zinc-400 hover:text-blue-300 transition"
       >
         <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
         <motion.span

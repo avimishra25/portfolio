@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Mail, MapPin, Github, Linkedin } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Github, Linkedin, Copy, Check } from 'lucide-react';
 
 export default function Contact() {
+  const [copyStatus, setCopyStatus] = useState('idle');
+  const email = 'aviam2425@gmail.com';
+
+  useEffect(() => {
+    if (copyStatus !== 'copied') return;
+    const timer = window.setTimeout(() => setCopyStatus('idle'), 3000);
+    return () => window.clearTimeout(timer);
+  }, [copyStatus]);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopyStatus('copied');
+    } catch {
+      setCopyStatus('manual');
+    }
+  };
+
   return (
     <section id="contact" className="relative px-6 py-20 md:py-28">
       <motion.div
@@ -32,6 +50,16 @@ export default function Contact() {
             <a href="mailto:aviam2425@gmail.com" className="btn-primary w-full sm:w-auto lg:w-full justify-between gap-10 !px-6 !py-4">
               Let's talk <ArrowUpRight size={20} />
             </a>
+            <button type="button" onClick={copyEmail} className="btn-ghost mt-4 text-sm min-h-11">
+              {copyStatus === 'copied' ? <Check size={16} /> : <Copy size={16} />}
+              {copyStatus === 'copied' ? 'Email copied' : 'Copy email address'}
+            </button>
+            <p role="status" className="mt-2 text-xs text-zinc-300">
+              {copyStatus === 'copied' ? 'Email address copied to clipboard.' : copyStatus === 'manual' ? 'Automatic copying is unavailable. Select and copy the address below.' : ''}
+            </p>
+            {copyStatus === 'manual' && (
+              <input aria-label="Email address to copy" readOnly value={email} onFocus={event => event.target.select()} ref={node => { if (node) { node.focus(); node.select(); } }} className="mt-2 w-full rounded-lg border border-white/20 bg-black/30 p-3 text-sm text-zinc-100" />
+            )}
             <a href="mailto:aviam2425@gmail.com" className="mt-4 flex items-center gap-2 text-sm text-zinc-400 hover:text-blue-200 transition-colors">
               <Mail size={15} /> aviam2425@gmail.com
             </a>

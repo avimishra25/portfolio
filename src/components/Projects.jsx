@@ -100,7 +100,7 @@ function TiltCard({ project, index }) {
               <Icon size={18} />
               <span className="text-xs font-medium tracking-[0.16em] uppercase">{index === 0 ? 'Applied AI · Full stack' : 'E-commerce · Full stack'}</span>
             </div>
-            <span className="text-xs font-mono text-zinc-500">0{index + 1}</span>
+            <span className="text-xs font-mono text-zinc-400">0{index + 1}</span>
           </div>
 
           <h3 className="text-2xl md:text-3xl font-semibold tracking-tight mb-3">{project.title}</h3>

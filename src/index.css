@@ -10,6 +10,12 @@
 html { scroll-behavior: smooth; }
 ::selection { background: #3b82f6; color: white; }
 :focus-visible { outline: 2px solid #93c5fd; outline-offset: 5px; }
+.skip-link {
+  position: fixed; top: 12px; left: 12px; z-index: 100;
+  transform: translateY(-200%); padding: 12px 20px;
+  border-radius: 8px; background: #fff; color: #09090b; font-weight: 600;
+}
+.skip-link:focus { transform: translateY(0); }
 
 html,
 body,
@@ -36,6 +42,11 @@ body {
 }
 
 @layer components {
+  .section-shell { @apply relative py-20 md:py-28; }
+  .section-container { @apply max-w-7xl mx-auto px-6; }
+  .section-intro { @apply mb-10 md:mb-12; }
+  .section-description { @apply mt-3 text-zinc-400 max-w-2xl leading-relaxed; }
+  .surface-panel { @apply rounded-2xl border border-white/10 bg-[#10131b]; }
   .glass {
     @apply bg-white/5 backdrop-blur-xl border border-white/10;
   }
@@ -49,11 +60,11 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-red-400;
   }
   .section-heading {
-    @apply text-3xl md:text-5xl font-semibold tracking-tight;
+    @apply text-3xl md:text-5xl font-semibold tracking-tight leading-tight;
   }
   .btn-primary {
     @apply inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium
-           bg-blue-600 text-white hover:bg-blue-500 transition-colors;
+           bg-blue-600 text-white hover:bg-blue-700 transition-colors;
   }
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium

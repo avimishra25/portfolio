@@ -7,6 +7,7 @@ const links = [
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
+  { href: '#beyond', label: 'Beyond Code' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -78,7 +79,7 @@ export default function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1">
           {links.map((l) => (
             <a
               key={l.href}
@@ -95,7 +96,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="md:hidden p-2 rounded-lg border border-white/10"
+          className="lg:hidden p-2 rounded-lg border border-white/10"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           id="menu-toggle"
@@ -113,7 +114,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-base/95 backdrop-blur-xl border-t border-white/5"
+            className="lg:hidden overflow-hidden bg-base/95 backdrop-blur-xl border-t border-white/5"
           >
             <div className="px-6 py-4 flex flex-col gap-2">
               {links.map((l) => (
