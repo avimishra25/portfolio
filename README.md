@@ -1,111 +1,134 @@
 # Avi Mishra — Portfolio
 
-> Software Engineer · Distributed Systems & Full-Stack (MERN)
+> Software Engineer · Full-Stack & Applied ML · Freelance Video Editor
 
-A production 3D personal portfolio built with React, React Three Fiber, and Framer Motion. Dark theme with a blue → red gradient system, glassmorphism, and a pointer-reactive R3F starfield in the hero.
+A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It brings together software projects, engineering experience, and selected video edits in a responsive dark interface.
 
-**🌐 Live:** [portfolio-avimishra25s-projects.vercel.app](https://portfolio-avimishra25s-projects.vercel.app/)
-
----
+**Live:** [portfolio-avimishra25s-projects.vercel.app](https://portfolio-avimishra25s-projects.vercel.app/)
 
 ## Highlights
 
-- **R3F Hero canvas** — 2,500-point starfield + slow-rotating icosahedron constellation, pointer-driven parallax, loaded after the page becomes idle and paused offscreen or in hidden tabs.
-- **Circular avatar frame** — parallax tilt (`useMotionValue` + `useSpring`) with cursor tracking, blue/red rim glow, and a rotating dashed ring.
-- **Project previews** — a real CareerCompass landing-page capture and a DripStore architecture illustration, with subtle tilt, cursor glow, and clear project/source buttons.
-- **Compact skill columns** with clear category headings and no additional WebGL contexts.
-- **Working contact form** wired to [Web3Forms](https://web3forms.com/) — no backend, no signup.
-- **Fully responsive** — the whole layout collapses gracefully to mobile.
+- **Video hero:** muted background footage with pause/play controls, a still-image fallback, and a softly framed portrait. Playback pauses when the hero leaves the viewport or the tab is hidden.
+- **Smaller mobile video:** phones load a roughly 2.2 MB portrait version; larger screens load a roughly 5 MB landscape version. The source is chosen on page entry to avoid downloading another version on resize.
+- **Selected software projects:** CareerCompass AI and DripStore previews, technical highlights, and source links.
+- **Experience:** internship contributions and counters that animate once to 17–20% performance improvement and 24 defects surfaced.
+- **Skills:** Frontend, Backend & Systems, and Applied ML, supported by a separate foundations row.
+- **Beyond the code:** freelance editing specialties, Premiere Pro / DaVinci Resolve / After Effects, and VGA editorial and filmmaking experience.
+- **Selected edits:** four thumbnail-led videos with native playback, sound, and fullscreen controls. Video files load only after a click, and only one gallery player is mounted at a time.
+- **Contact:** direct email, a dedicated editing inquiry link, and copy-email with a manual fallback when clipboard access is unavailable.
+- **Navigation:** desktop and compact menus, section highlighting, a keyboard skip link, and a back-to-top link.
 
-Animations respect the system reduced-motion preference; the decorative 3D scene is skipped when reduced motion is enabled.
+Reduced-motion preferences disable the decorative hero video and show final counter values immediately. Focus indicators and accessible control labels support keyboard navigation. Gallery video captions remain pending accurate dialogue transcripts.
 
-## Tech Stack
+## Stack
 
 | Layer | Tools |
-|---|---|
-| Framework | React 18, Vite 5 |
-| Styling | Tailwind CSS 3 (dark theme, glassmorphism, custom shadows) |
-| 3D | `three`, `@react-three/fiber`, `@react-three/drei` |
+| --- | --- |
+| UI | React 18, Vite 5 |
+| Styling | Tailwind CSS 3 |
 | Animation | Framer Motion |
 | Icons | Lucide React |
-| Forms | Web3Forms |
-| Deploy | Vercel |
+| Media | Native HTML video, local MP4 files and JPEG posters |
+| Hosting | Vercel |
+
+The previous `HeroCanvas.jsx` and Three.js dependencies remain in the repository but are not used by the current hero.
 
 ## Local development
+
+Install Node.js and npm, then:
 
 ```bash
 git clone https://github.com/avimishra25/portfolio.git
 cd portfolio
-npm install
+npm ci
 npm run dev
 ```
 
-The dev server runs on `http://localhost:5173`.
-
-To build for production:
+Vite prints the local address, normally `http://localhost:5173`. If the port is occupied, it chooses another available port.
 
 ```bash
-npm run build
-npm run preview
+npm run build    # Generate the production site in dist/
+npm run preview  # Serve the production build locally
 ```
 
-## Assets
+No API keys or environment variables are required for the current site. Contact actions use email links and the browser clipboard; there is no contact-form backend.
 
-Two asset files live under `public/assets/`:
+## Updating content
 
+| Content | Location |
+| --- | --- |
+| Headline, portrait, resume link, hero video | `src/components/Hero.jsx` |
+| Projects and source/demo links | `src/components/Projects.jsx` |
+| Project preview layouts | `src/components/ProjectPreview.jsx` |
+| Internship details and counters | `src/components/Experience.jsx` |
+| Skills and foundations | `src/components/Skills.jsx` |
+| Editing services and filmmaking background | `src/components/Extracurricular.jsx` |
+| Gallery titles, categories, durations, and media IDs | `src/components/SelectedEdits.jsx` |
+| Email, clipboard behavior, and contact links | `src/components/Contact.jsx` |
+| Section links | `src/components/Navbar.jsx` |
+| Footer and section order | `src/App.jsx` |
+| Shared styles | `src/index.css` |
+| Search descriptions, canonical URL, and sharing metadata | `index.html` |
+
+Email links also appear in the hero and Beyond the Code section. Update all occurrences when changing the contact address.
+
+### Media assets
+
+```text
+public/
+├── favicon.svg
+└── assets/
+    ├── Avi_Mishra_CV.pdf
+    ├── avi-cutout.png
+    ├── careercompass-preview.jpg
+    ├── og-image.png
+    ├── hero-poster.jpg
+    ├── hero-video.mp4
+    ├── hero-video-mobile.mp4
+    └── edits/
+        ├── bike-night-ride.{jpg,mp4}
+        ├── cinematic-storytelling.{jpg,mp4}
+        ├── 7000-rpm.{jpg,mp4}
+        └── vga-x-medium.{jpg,mp4}
 ```
-public/assets/avi-cutout.png       # Transparent profile cutout
-public/assets/Avi_Mishra_CV.pdf    # Downloadable resume
-```
 
-Replace either to update the site.
+Each gallery entry maps its `id` to `/assets/edits/<id>.jpg` and `/assets/edits/<id>.mp4`. To add an edit, supply both files and add its title, category, duration, and ID to the `edits` array. Keep the duration label in sync with the video.
 
-## Configuration
-
-**Contact form** — get a free access key from [web3forms.com](https://web3forms.com/) (they email it, no signup) and paste it into `src/components/Contact.jsx`:
-
-```js
-const WEB3FORMS_ACCESS_KEY = 'YOUR_KEY_HERE';
-```
-
-**Social links** — update the URLs in `src/components/Hero.jsx` and `src/components/Contact.jsx`.
-
-## Project structure
-
-```
-avi-portfolio/
-├── public/
-│   └── assets/           # Cutout, resume, OG image
-├── src/
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── index.css
-│   └── components/
-│       ├── Navbar.jsx
-│       ├── Hero.jsx
-│       ├── Experience.jsx
-│       ├── Projects.jsx
-│       ├── Skills.jsx
-│       ├── Extracurricular.jsx
-│       ├── Contact.jsx
-│       └── canvas/
-│           └── HeroCanvas.jsx
-├── index.html
-├── tailwind.config.js
-└── vite.config.js
-```
+The four web copies total roughly 51 MB. They preserve the original durations and audio while using smaller 720p H.264 files with streaming-friendly MP4 metadata. Originals are not included. Posters load lazily; gallery MP4s are not requested until playback is selected.
 
 ## Deployment
 
-Every push to `main` auto-deploys to Vercel. Pull requests get their own preview URL.
+The connected Vercel project deploys pushes to `main`.
 
-## Featured projects on the site
+- Build command: `npm run build`
+- Output directory: `dist`
+- Framework: Vite
 
-- **[CareerCompass AI](https://github.com/avimishra25/CareerCompass-AI)** — Distributed 3-service ML platform (React + Express + Flask), 2-pass NLP matching (spaCy + TF-IDF), ATS scoring engine (R² = 0.87).
-- **[DripStore](https://github.com/avimishra25/dripstore)** — Full-stack MERN e-commerce app with 7-model REST API, RBAC, Razorpay integration.
+When changing the public domain, update the canonical, Open Graph, and Twitter URLs in `index.html`. After replacing the sharing image, update its version query to help refresh cached previews.
+
+## Verification
+
+The repository currently provides build and preview scripts; it does not include a permanent automated test suite.
+
+Before publishing:
+
+1. Run `npm run build` and `git diff --check`.
+2. Check phone, tablet, and desktop layouts for wrapping and horizontal overflow.
+3. Test keyboard navigation, the skip link, menu, and visible focus indicators.
+4. Check copy-email success and its manual fallback, email links, and resume download.
+5. Verify hero pause/resume, reduced motion, counter end values, and gallery playback.
+6. Confirm gallery videos are not downloaded before a click and switching edits replaces the active player.
+7. Check the live deployment and sharing metadata after pushing.
+
+Desktop and phone automated accessibility scans passed during the latest implementation checks. These supplement manual review; spoken-dialogue captions are still outstanding.
+
+## Featured projects
+
+- **[CareerCompass AI](https://github.com/avimishra25/CareerCompass-AI):** React, Express, and Flask ML services with resume analysis, career matching, and ATS scoring.
+- **[DripStore](https://github.com/avimishra25/dripstore):** MERN e-commerce with role-based access, Razorpay payment verification, and Cloudinary media uploads.
 
 ## Contact
 
-**Avi Mishra** · Ahmedabad, Gujarat, India
-📧 [aviam2425@gmail.com](mailto:aviam2425@gmail.com)
-🔗 [LinkedIn](https://www.linkedin.com/in/avi-mishra2425) · [GitHub](https://github.com/avimishra25)
+**Avi Mishra** · Ahmedabad, India
+
+[Email](mailto:aviam2425@gmail.com) · [LinkedIn](https://www.linkedin.com/in/avi-mishra2425) · [GitHub](https://github.com/avimishra25)
