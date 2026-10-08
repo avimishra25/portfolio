@@ -83,7 +83,7 @@ function TiltCard({ project, index }) {
           rotateY: reduceMotion ? 0 : springRY,
           transformStyle: 'preserve-3d',
         }}
-        className="relative rounded-2xl border border-white/10 bg-[#10131b] h-full overflow-hidden flex flex-col hover:border-blue-400/30 transition-colors"
+        className="project-card relative rounded-2xl border border-white/10 bg-[#10131b] h-full overflow-hidden flex flex-col hover:border-blue-400/30 transition-colors"
       >
         {/* Cursor-following glow */}
         <motion.div

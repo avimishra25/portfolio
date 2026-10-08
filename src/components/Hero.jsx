@@ -66,7 +66,7 @@ export default function Hero() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-[min(900px,100svh)] flex items-center pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
+      className="hero-section relative lg:min-h-[min(900px,100svh)] flex items-center pt-24 pb-20 lg:pt-40 lg:pb-32 overflow-hidden"
     >
       {/* Decorative footage with a still fallback and contrast overlays. */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -100,9 +100,9 @@ export default function Hero() {
         </button>
       )}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-8 items-center w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-5 lg:gap-8 items-center w-full">
         {/* LEFT: Copy */}
-        <div>
+        <div className="hero-copy">
           <p className="text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">Avi Mishra / Software Engineer</p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -192,23 +192,10 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ perspective: 1400 }}
-          className="relative flex items-center justify-center py-6 w-full max-w-[420px] mx-auto lg:max-w-none"
+          className="relative order-first lg:order-none flex items-center justify-center w-full max-w-[150px] sm:max-w-[220px] mx-auto lg:max-w-none"
         >
-          {/* Everything sized to fit — max width capped so nothing overflows */}
-          <div className="relative w-full max-w-[400px] lg:max-w-[440px] aspect-square">
-            {/* Outer rings — sized to the container so they never bleed out */}
-            <div className="absolute inset-0 rounded-full border border-blue-400/15" />
-            <div className="absolute inset-4 rounded-full border border-blue-400/10" />
-            <motion.div
-              animate={{ rotate: reduceMotion ? 0 : 360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-2 rounded-full border border-dashed border-blue-400/20"
-            />
-
-            {/* Radial glow inside the frame */}
-            <div className="absolute inset-8 rounded-full bg-blue-500/15 blur-2xl" />
-
-            {/* Circular photo frame — clips the cutout cleanly */}
+          <div className="relative w-full lg:max-w-[440px] aspect-square">
+            <div aria-hidden="true" className="absolute inset-4 rounded-full bg-blue-500/10 blur-3xl" />
             <motion.div
               style={{
                 rotateX: reduceMotion ? 0 : springRX,
@@ -217,7 +204,7 @@ export default function Hero() {
                 y: reduceMotion ? 0 : springTY,
                 transformStyle: 'preserve-3d',
               }}
-              className="absolute inset-6 rounded-full overflow-hidden border border-white/10 bg-gradient-to-b from-blue-600/10 to-slate-900/80"
+              className="absolute inset-0 overflow-hidden rounded-[38%_38%_28%_28%] bg-gradient-to-b from-blue-400/[0.04] to-transparent"
             >
               <img
                 src="/assets/avi-cutout.png"
@@ -226,20 +213,15 @@ export default function Hero() {
                 style={{
                   objectPosition: '50% 15%',
                   filter:
-                    'drop-shadow(0 0 30px rgba(59, 130, 246,0.35)) drop-shadow(0 0 50px rgba(239, 68, 68,0.2))',
+                    'drop-shadow(0 0 24px rgba(59, 130, 246,0.18))',
                 }}
                 draggable="false"
               />
-              {/* Inner rim glow */}
-              <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-blue-400/30 shadow-[inset_0_0_60px_rgba(59, 130, 246,0.15)] pointer-events-none" />
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent" />
             </motion.div>
-
-            {/* Floating accent dots on the ring */}
-            <div className="absolute top-4 right-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-blue-400 shadow-glow" />
-            <div className="absolute bottom-4 right-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-blue-300" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-white/10 bg-[#11151f] px-5 py-3 text-xs text-zinc-300 shadow-xl">
-              Based in Ahmedabad, India <span className="text-blue-300 ml-2">↗</span>
-            </div>
+            <p className="absolute -bottom-3 left-0 right-0 hidden lg:block text-center text-xs tracking-wide text-zinc-400">
+              Based in Ahmedabad, India
+            </p>
           </div>
         </motion.div>
       </div>

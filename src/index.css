@@ -119,3 +119,32 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Shared interaction rhythm; hover motion is limited to precise pointers. */
+.btn-primary, .btn-ghost, .contact-social {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease,
+    box-shadow 180ms ease, translate 180ms ease;
+}
+.project-card {
+  transition: border-color 220ms ease, box-shadow 220ms ease, translate 220ms ease;
+}
+.project-preview > img { transition: transform 450ms ease; }
+.preview-toolbar { position: relative; z-index: 1; }
+.project-card:focus-within { border-color: rgb(147 197 253 / 0.45); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .btn-primary:hover, .btn-ghost:hover, .contact-social:hover { translate: 0 -2px; }
+  .btn-primary:hover { box-shadow: 0 8px 24px rgb(37 99 235 / 0.22); }
+  .project-card:hover { translate: 0 -4px; box-shadow: 0 18px 45px rgb(0 0 0 / 0.25); }
+  .project-card:hover .project-preview > img { transform: scale(1.025); }
+  .btn-primary:active, .btn-ghost:active { translate: 0 0; }
+}
+@media (max-width: 1023px) {
+  .hero-copy > p:first-child { font-size: 11px; margin-bottom: 12px; }
+  .hero-copy > h1 { font-size: clamp(2.15rem, 6vw, 3.5rem); }
+  .hero-copy > p { margin-top: 14px; }
+  .hero-copy > p:first-child { margin-top: 0; }
+  .hero-copy > p:nth-of-type(2) { font-size: 16px; line-height: 1.6; }
+  .hero-copy > p:nth-of-type(3) { font-size: 12px; line-height: 1.6; }
+  .hero-copy > div { margin-top: 20px; }
+  .hero-copy .btn-primary, .hero-copy .btn-ghost { padding: 11px 13px; font-size: 12px; }
+}

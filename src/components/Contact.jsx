@@ -1,210 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Github, Linkedin, Check, AlertCircle, Loader2 } from 'lucide-react';
-
-// 1) Go to https://web3forms.com/ and enter your email (aviam2425@gmail.com)
-// 2) Copy the access key they email you and paste it below.
-// 3) That's it — no signup, no backend needed. Submissions arrive in your inbox.
-const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+import { ArrowUpRight, Mail, MapPin, Github, Linkedin } from 'lucide-react';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | sending | success | error
-
-  const validate = () => {
-    const e = {};
-    if (!form.name.trim()) e.name = 'Please tell me your name';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'A valid email helps me reply';
-    if (form.message.trim().length < 10) e.message = 'A little more detail, please (10+ chars)';
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-    setStatus('sending');
-
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Portfolio contact from ${form.name}`,
-          from_name: form.name,
-          email: form.email,
-          message: form.message,
-          botcheck: '', // honeypot
-        }),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setStatus('success');
-        setForm({ name: '', email: '', message: '' });
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        console.error('Web3Forms error:', data);
-        setStatus('error');
-      }
-    } catch (err) {
-      console.error(err);
-      setStatus('error');
-    }
-  };
-
-  const field =
-    'w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-blue-400/60 focus:shadow-glow transition-all disabled:opacity-60';
-
   return (
-    <section id="contact" className="relative py-24 md:py-32">
-      <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="chip mb-4"><Mail size={12} /> Get in touch</span>
-          <h2 className="section-heading">
-            Let's <span className="text-gradient">build</span> something
-          </h2>
-          <p className="mt-4 text-zinc-400 leading-relaxed max-w-md">
-            Open to Software Engineering roles, ML platform work, and interesting distributed
-            systems problems. I read every message.
-          </p>
-
-          <div className="mt-8 space-y-4">
-            <a
-              href="mailto:aviam2425@gmail.com"
-              className="flex items-center gap-3 text-zinc-300 hover:text-blue-300 transition"
-            >
-              <span className="p-2 rounded-lg border border-white/10">
-                <Mail size={16} />
-              </span>
-              aviam2425@gmail.com
-            </a>
-            <div className="flex items-center gap-3 text-zinc-300">
-              <span className="p-2 rounded-lg border border-white/10">
-                <MapPin size={16} />
-              </span>
-              Ahmedabad, Gujarat, India
-            </div>
-            <div className="flex items-center gap-3 pt-2">
-              <a
-                href="https://github.com/avimishra25"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="p-2 rounded-lg border border-white/10 hover:border-blue-400/50 hover:text-blue-300 transition"
-              >
-                <Github size={18} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/avi-mishra2425"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                className="p-2 rounded-lg border border-white/10 hover:border-blue-400/50 hover:text-blue-300 transition"
-              >
-                <Linkedin size={18} />
-              </a>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.form
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          onSubmit={handleSubmit}
-          className="glass rounded-3xl p-6 md:p-8 space-y-4"
-        >
+    <section id="contact" className="relative px-6 py-20 md:py-28">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6 }}
+        className="relative max-w-7xl mx-auto overflow-hidden rounded-[2rem] border border-blue-300/15 bg-[#0e1420] p-7 sm:p-12 lg:p-16"
+      >
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-32 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+        <div className="relative grid lg:grid-cols-[1.5fr_1fr] items-end gap-10 lg:gap-16">
           <div>
-            <label htmlFor="name" className="block text-sm text-zinc-400 mb-2">Your name</label>
-            <input
-              id="name"
-              type="text"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className={field}
-              placeholder="Ada Lovelace"
-              disabled={status === 'sending'}
-            />
-            {errors.name && <p className="mt-1 text-xs text-rose-400">{errors.name}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm text-zinc-400 mb-2">Email</label>
-            <input
-              id="email"
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className={field}
-              placeholder="you@company.com"
-              disabled={status === 'sending'}
-            />
-            {errors.email && <p className="mt-1 text-xs text-rose-400">{errors.email}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-sm text-zinc-400 mb-2">Message</label>
-            <textarea
-              id="message"
-              rows={5}
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className={`${field} resize-none`}
-              placeholder="Tell me about the role, project, or idea…"
-              disabled={status === 'sending'}
-            />
-            {errors.message && <p className="mt-1 text-xs text-rose-400">{errors.message}</p>}
-          </div>
-
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="btn-primary w-full justify-center disabled:opacity-70 disabled:cursor-not-allowed"
-          >
-            {status === 'sending' && (
-              <>
-                <Loader2 size={16} className="animate-spin" /> Sending…
-              </>
-            )}
-            {status === 'success' && (
-              <>
-                <Check size={16} /> Message sent — I'll reply soon!
-              </>
-            )}
-            {status === 'error' && (
-              <>
-                <AlertCircle size={16} /> Something broke — email me directly
-              </>
-            )}
-            {status === 'idle' && (
-              <>
-                <Send size={16} /> Send message
-              </>
-            )}
-          </button>
-
-          {status === 'error' && (
-            <p className="text-xs text-zinc-400 text-center">
-              Reach me at{' '}
-              <a href="mailto:aviam2425@gmail.com" className="text-blue-300 hover:underline">
-                aviam2425@gmail.com
-              </a>
+            <p className="mb-6 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-blue-200">
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_12px_#6ee7b740]" />
+              Open to software engineering roles
             </p>
-          )}
-        </motion.form>
-      </div>
+            <h2 className="text-[clamp(2.4rem,5vw,4.8rem)] font-semibold leading-[1.08] tracking-[-0.05em]">
+              Let's build<br />
+              <span className="text-gradient">something useful.</span>
+            </h2>
+            <p className="mt-6 max-w-lg text-zinc-400 leading-relaxed">
+              A thoughtful interface, a smarter tool, or a system ready to grow.
+              If that sounds like your next project, I'd love to hear about it.
+            </p>
+          </div>
+          <div className="lg:pb-1">
+            <a href="mailto:aviam2425@gmail.com" className="btn-primary w-full sm:w-auto lg:w-full justify-between gap-10 !px-6 !py-4">
+              Let's talk <ArrowUpRight size={20} />
+            </a>
+            <a href="mailto:aviam2425@gmail.com" className="mt-4 flex items-center gap-2 text-sm text-zinc-400 hover:text-blue-200 transition-colors">
+              <Mail size={15} /> aviam2425@gmail.com
+            </a>
+          </div>
+        </div>
+        <div className="relative mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-5">
+          <p className="flex items-center gap-2 text-sm text-zinc-400"><MapPin size={15} /> Ahmedabad, India</p>
+          <div className="flex gap-5">
+            <a href="https://github.com/avimishra25" target="_blank" rel="noreferrer" className="contact-social inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-blue-200"><Github size={16} /> GitHub <ArrowUpRight size={14} /></a>
+            <a href="https://www.linkedin.com/in/avi-mishra2425" target="_blank" rel="noreferrer" className="contact-social inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-blue-200"><Linkedin size={16} /> LinkedIn <ArrowUpRight size={14} /></a>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
