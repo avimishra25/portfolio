@@ -17,7 +17,7 @@ export default function Extracurricular() {
               <div>
                 <p className="text-xs md:text-sm uppercase tracking-[0.16em] text-blue-300 mb-3">Film & freelance</p>
                 <h3 className="text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] font-semibold tracking-tight leading-[1.15]">Video editor.<br />Visual storyteller.</h3>
-                <p className="mt-4 text-sm md:text-base lg:text-lg text-zinc-400 leading-relaxed">Freelance video editing<br />Editor-in-Chief · VGA, PDEU</p>
+                <p className="mt-4 text-sm md:text-[1rem] lg:text-lg text-zinc-300 leading-relaxed">Freelance video editing<br />Editor-in-Chief · VGA, PDEU</p>
                 <div className="mt-6">
                   <p className="text-xs md:text-sm font-medium text-zinc-400 mb-3">Editing toolkit</p>
                   <ul className="flex flex-wrap gap-2">
