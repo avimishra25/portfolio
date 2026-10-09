@@ -150,7 +150,7 @@ body {
   .btn-primary:active, .btn-ghost:active { translate: 0 0; }
 }
 @media (max-width: 1023px) {
-  .hero-copy > p:first-child { font-size: 11px; margin-bottom: 12px; }
+  .hero-copy > .hero-identity { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
   .hero-copy > h1 { font-size: clamp(2.15rem, 6vw, 3.5rem); }
   .hero-copy > p { margin-top: 14px; }
   .hero-copy > p:first-child { margin-top: 0; }

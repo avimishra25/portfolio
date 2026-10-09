@@ -88,7 +88,7 @@ export default function Hero() {
             className="absolute inset-0 h-full w-full object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/75 lg:bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#09090b]/80 via-[#09090b]/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-[#09090b]/20" />
       </div>
@@ -107,7 +107,20 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-5 lg:gap-8 items-center w-full">
         {/* LEFT: Copy */}
         <div className="hero-copy">
-          <p className="text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">Avi Mishra / Software Engineer</p>
+          <p className="hero-identity text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">
+            <span className="relative block h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-blue-300/20 bg-slate-900 lg:hidden">
+              <img
+                src="/assets/avi-cutout.png"
+                alt=""
+                className="h-full w-full scale-[1.35] origin-bottom object-cover object-top"
+              />
+            </span>
+            <span className="flex flex-col gap-1 lg:block">
+              <span className="text-base tracking-normal normal-case text-zinc-100 lg:text-sm lg:text-blue-300 lg:tracking-[0.18em] lg:uppercase">Avi Mishra</span>
+              <span className="hidden lg:inline"> / </span>
+              <span className="text-[10px] tracking-[0.14em] lg:text-sm lg:tracking-[0.18em]">Software Engineer</span>
+            </span>
+          </p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -196,7 +209,7 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ perspective: 1400 }}
-          className="relative order-first lg:order-none flex items-center justify-center w-full max-w-[180px] sm:max-w-[240px] mx-auto lg:max-w-none lg:self-start lg:-mt-4"
+          className="relative hidden lg:flex items-center justify-center w-full mx-auto lg:self-start lg:-mt-4"
         >
           <div className="relative w-full lg:max-w-[540px] aspect-square">
             <div aria-hidden="true" className="absolute inset-4 rounded-full bg-blue-500/10 blur-3xl" />
