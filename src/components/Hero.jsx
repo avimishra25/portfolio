@@ -97,10 +97,10 @@ export default function Hero() {
           type="button"
           onClick={() => setVideoPaused((paused) => !paused)}
           aria-label={videoPaused ? 'Play background video' : 'Pause background video'}
-          className="absolute bottom-6 right-6 z-20 flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 text-xs text-zinc-200 backdrop-blur hover:bg-black/70 transition"
+          className="hero-video-toggle absolute bottom-6 right-6 z-20 flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-4 py-2 text-xs text-zinc-200 backdrop-blur hover:bg-black/70 transition"
         >
           {videoPaused ? <Play size={14} /> : <Pause size={14} />}
-          {videoPaused ? 'Play background' : 'Pause background'}
+          <span>{videoPaused ? 'Play background' : 'Pause background'}</span>
         </button>
       )}
 
@@ -108,7 +108,7 @@ export default function Hero() {
         {/* LEFT: Copy */}
         <div className="hero-copy">
           <p className="hero-identity text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">
-            <span className="relative block h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-blue-300/20 bg-slate-900 lg:hidden">
+            <span className="hero-avatar relative block h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-blue-300/20 bg-slate-900 lg:hidden">
               <img
                 src="/assets/avi-cutout.png"
                 alt=""
@@ -127,7 +127,7 @@ export default function Hero() {
             transition={{ delay: 0.05, duration: 0.7 }}
             className="text-[clamp(2.6rem,5.1vw,4.6rem)] font-semibold tracking-[-0.055em] leading-[1.06] max-w-[650px]"
           >
-            I build web apps<br /><span className="text-gradient">with intelligence<br />built in.</span>
+            I build web apps<br /><span className="text-gradient">with intelligence<br className="hidden lg:block" />{' '}built in.</span>
           </motion.h1>
 
           <motion.p
@@ -153,7 +153,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7 }}
-            className="mt-8 flex flex-wrap gap-3"
+            className="hero-actions mt-8 flex flex-wrap gap-3"
           >
             <a href="#projects" className="btn-primary">
               View Projects <ArrowUpRight size={18} />
@@ -171,7 +171,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.7 }}
-            className="mt-8 flex items-center gap-4 text-zinc-400"
+            className="hero-socials mt-8 flex items-center gap-4 text-zinc-400"
           >
             <span className="text-xs uppercase tracking-widest">Connect</span>
             <span className="h-px flex-1 bg-white/10 max-w-[60px]" />

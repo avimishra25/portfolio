@@ -64,7 +64,7 @@ export default function Navbar() {
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all ${
+      className={`site-header fixed top-0 inset-x-0 z-50 transition-all ${
         scrolled ? 'py-3 backdrop-blur-xl bg-base/90 border-b border-white/10' : 'py-5 bg-base/80 backdrop-blur-lg'
       }`}
     >
