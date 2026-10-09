@@ -108,11 +108,11 @@ export default function Hero() {
         {/* LEFT: Copy */}
         <div className="hero-copy">
           <p className="hero-identity text-sm font-medium text-blue-300 tracking-[0.18em] uppercase mb-4">
-            <span className="hero-avatar relative block h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-blue-300/20 bg-slate-900 lg:hidden">
+            <span className="hero-avatar relative block h-20 w-16 shrink-0 lg:hidden">
               <img
                 src="/assets/avi-cutout.png"
                 alt=""
-                className="h-full w-full scale-[1.35] origin-bottom object-cover object-top"
+                className="h-full w-full object-cover"
               />
             </span>
             <span className="flex flex-col gap-1 lg:block">
