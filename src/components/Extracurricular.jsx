@@ -12,7 +12,7 @@ export default function Extracurricular() {
             <h2 className="section-heading">A different kind <span className="text-blue-300">of storytelling.</span></h2>
           </div>
           <div className="surface-panel overflow-hidden grid md:grid-cols-[1fr_2fr]">
-            <div className="relative border-b md:border-b-0 md:border-r border-white/10 bg-gradient-to-br from-blue-500/10 to-transparent p-7 md:p-9 flex flex-row md:flex-col items-start justify-between gap-5 md:gap-8">
+            <div className="relative border-b md:border-b-0 md:border-r border-white/10 bg-gradient-to-br from-blue-500/10 to-transparent p-7 md:p-9 flex flex-row md:flex-col items-start justify-between md:justify-center gap-5 md:gap-6">
               <Clapperboard aria-hidden="true" size={36} strokeWidth={1.3} className="shrink-0 text-blue-300" />
               <div>
                 <p className="text-xs uppercase tracking-[0.16em] text-blue-300 mb-3">Film & freelance</p>
