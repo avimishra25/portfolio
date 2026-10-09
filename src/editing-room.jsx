@@ -12,8 +12,8 @@ function EditingRoom() {
       <header className="relative border-b border-white/10">
         <div className="section-container flex flex-wrap items-center justify-between gap-4 py-6">
           <a href="/#hero" className="font-semibold tracking-tight">Avi<span className="text-blue-300">.</span>Mishra</a>
-          <a href="/#beyond" className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-blue-200">
-            <ArrowLeft size={16} /> Back to Beyond Code
+          <a href="/" className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-blue-200">
+            <ArrowLeft size={16} /> Back to portfolio
           </a>
         </div>
       </header>
