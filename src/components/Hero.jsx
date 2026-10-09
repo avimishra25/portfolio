@@ -190,15 +190,15 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* RIGHT: Profile in a circular frame */}
+        {/* RIGHT: Larger portrait aligned with the headline on desktop. */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ perspective: 1400 }}
-          className="relative order-first lg:order-none flex items-center justify-center w-full max-w-[150px] sm:max-w-[220px] mx-auto lg:max-w-none"
+          className="relative order-first lg:order-none flex items-center justify-center w-full max-w-[150px] sm:max-w-[220px] mx-auto lg:max-w-none lg:self-start lg:mt-8"
         >
-          <div className="relative w-full lg:max-w-[440px] aspect-square">
+          <div className="relative w-full lg:max-w-[540px] aspect-square">
             <div aria-hidden="true" className="absolute inset-4 rounded-full bg-blue-500/10 blur-3xl" />
             <motion.div
               style={{
@@ -213,7 +213,7 @@ export default function Hero() {
               <img
                 src="/assets/avi-cutout.png"
                 alt="Avi Mishra"
-                className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+                className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none lg:scale-[1.18] lg:origin-bottom"
                 style={{
                   objectPosition: '50% 15%',
                   filter:
