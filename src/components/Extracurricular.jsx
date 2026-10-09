@@ -15,14 +15,14 @@ export default function Extracurricular() {
             <div className="relative border-b md:border-b-0 md:border-r border-white/10 bg-gradient-to-br from-blue-500/10 to-transparent p-7 md:p-9 flex flex-row md:flex-col items-start justify-between md:justify-center gap-5 md:gap-6">
               <Clapperboard aria-hidden="true" size={36} strokeWidth={1.3} className="shrink-0 text-blue-300" />
               <div>
-                <p className="text-xs uppercase tracking-[0.16em] text-blue-300 mb-3">Film & freelance</p>
-                <h3 className="text-2xl font-semibold tracking-tight">Video editor.<br />Visual storyteller.</h3>
-                <p className="mt-3 text-sm text-zinc-400 leading-relaxed">Freelance video editing<br />Editor-in-Chief · VGA, PDEU</p>
+                <p className="text-xs md:text-sm uppercase tracking-[0.16em] text-blue-300 mb-3">Film & freelance</p>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] font-semibold tracking-tight leading-[1.15]">Video editor.<br />Visual storyteller.</h3>
+                <p className="mt-4 text-sm md:text-base lg:text-lg text-zinc-400 leading-relaxed">Freelance video editing<br />Editor-in-Chief · VGA, PDEU</p>
                 <div className="mt-6">
-                  <p className="text-xs font-medium text-zinc-400 mb-3">Editing toolkit</p>
+                  <p className="text-xs md:text-sm font-medium text-zinc-400 mb-3">Editing toolkit</p>
                   <ul className="flex flex-wrap gap-2">
                     {['Adobe Premiere Pro', 'DaVinci Resolve', 'Adobe After Effects'].map(tool => (
-                      <li key={tool} className="rounded-lg border border-white/10 bg-white/[0.025] px-3 py-1.5 text-xs text-zinc-300">{tool}</li>
+                      <li key={tool} className="rounded-lg border border-white/10 bg-white/[0.025] px-3 py-1.5 md:py-2 text-xs md:text-sm text-zinc-300">{tool}</li>
                     ))}
                   </ul>
                 </div>
