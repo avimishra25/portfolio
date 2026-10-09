@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Film, Award, Clapperboard, ArrowUpRight } from 'lucide-react';
-import SelectedEdits from './SelectedEdits.jsx';
 
 export default function Extracurricular() {
   return (
@@ -37,9 +36,14 @@ export default function Extracurricular() {
                   <li key={specialty} className="flex items-start gap-2"><span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-400" />{specialty}</li>
                 ))}
               </ul>
-              <a href="mailto:aviam2425@gmail.com?subject=Video%20editing%20inquiry" className="btn-primary self-start mt-6 text-sm">
-                Discuss an edit <ArrowUpRight size={16} />
-              </a>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a href="/editing-room.html" className="btn-primary text-sm">
+                  Explore the editing room <Clapperboard size={16} />
+                </a>
+                <a href="mailto:aviam2425@gmail.com?subject=Video%20editing%20inquiry" className="btn-ghost text-sm">
+                  Discuss an edit <ArrowUpRight size={16} />
+                </a>
+              </div>
               <p className="mt-5 text-sm text-zinc-400 leading-relaxed">As Editor-in-Chief of PDEU's Video Graphic Association, I led the editorial vision and edited a short film nominated in the IFP 50-Hour Filmmaking Challenge.</p>
               <div className="mt-6 flex items-start gap-3 border-t border-white/10 pt-5 text-sm text-blue-200">
                 <Award size={19} className="shrink-0 mt-0.5" />
@@ -47,7 +51,6 @@ export default function Extracurricular() {
               </div>
             </div>
           </div>
-          <SelectedEdits />
         </motion.div>
       </div>
     </section>

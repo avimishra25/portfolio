@@ -16,8 +16,7 @@ export default function SelectedEdits() {
     <div className="mt-12 md:mt-16" aria-labelledby="selected-edits-heading">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-xs uppercase tracking-[0.16em] text-blue-300 mb-2">In the editing room</p>
-          <h3 id="selected-edits-heading" className="text-2xl md:text-3xl font-semibold tracking-tight">Selected edits.</h3>
+          <h2 id="selected-edits-heading" className="text-2xl md:text-3xl font-semibold tracking-tight">Selected edits.</h2>
         </div>
         <p className="text-sm text-zinc-400">Edited by me. Press play to watch with sound.</p>
       </div>
@@ -63,7 +62,7 @@ export default function SelectedEdits() {
               </div>
               <div className="p-5">
                 <p className="mb-1 text-xs text-blue-300">{edit.category}</p>
-                <h4 className="text-lg font-semibold tracking-tight">{edit.title}</h4>
+                <h3 className="text-lg font-semibold tracking-tight">{edit.title}</h3>
                 {failedId === edit.id && (
                   <p role="status" className="mt-3 text-sm text-zinc-400">
                     This video couldn't load.{' '}
