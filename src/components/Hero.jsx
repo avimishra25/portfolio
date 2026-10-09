@@ -196,7 +196,7 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ perspective: 1400 }}
-          className="relative order-first lg:order-none flex items-center justify-center w-full max-w-[150px] sm:max-w-[220px] mx-auto lg:max-w-none lg:self-start lg:-mt-4"
+          className="relative order-first lg:order-none flex items-center justify-center w-full max-w-[180px] sm:max-w-[240px] mx-auto lg:max-w-none lg:self-start lg:-mt-4"
         >
           <div className="relative w-full lg:max-w-[540px] aspect-square">
             <div aria-hidden="true" className="absolute inset-4 rounded-full bg-blue-500/10 blur-3xl" />
