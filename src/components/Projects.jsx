@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, useMotionTemplate, useReducedMotion } from 'framer-motion';
-import { Github, ExternalLink, Layers, ShoppingBag, Cpu } from 'lucide-react';
+import { Github, ExternalLink, Layers, ShoppingBag, Cpu, Layout } from 'lucide-react';
 import ProjectPreview from './ProjectPreview.jsx';
 
 const projects = [
   {
     title: 'CareerCompass AI',
+    category: 'Applied AI · Full stack',
     icon: Cpu,
     description:
       'Career intelligence platform with resume analysis, matching across 12 career profiles, and custom job-description matching. React, Express, and Flask services deployed on Vercel, Render, and Hugging Face Spaces.',
@@ -21,6 +22,7 @@ const projects = [
   },
   {
     title: 'DripStore',
+    category: 'E-commerce · Full stack',
     icon: ShoppingBag,
     description:
       'Sneaker and streetwear storefront with guest carts, customer accounts, and product/order administration. Deployed on Render as a single Docker service with credential-free customer and admin demos.',
@@ -33,6 +35,21 @@ const projects = [
     tags: ['React', 'Express', 'MongoDB', 'Razorpay', 'Cloudinary', 'JWT', 'Docker', 'Render'],
     github: 'https://github.com/avimishra25/dripstore',
     demo: 'https://dripstore-demo.onrender.com/',
+  },
+  {
+    title: 'Personal Portfolio',
+    category: 'Design & Development',
+    icon: Layout,
+    description:
+      'A personal showcase bringing software engineering and visual storytelling together. Designed and built with React, Tailwind CSS, and Framer Motion, with a responsive dark interface and a cinematic video hero.',
+    highlights: [
+      'Responsive layouts with scroll reveals and interactive project cards',
+      'Adaptive hero video with mobile footage, playback controls, and a still-image fallback',
+      'On-demand video gallery for selected editing work',
+      'Reduced-motion support, keyboard navigation, and accessible control labels',
+    ],
+    tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
+    github: 'https://github.com/avimishra25/portfolio',
   },
 ];
 
@@ -100,7 +117,7 @@ function TiltCard({ project, index }) {
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-3 text-blue-300">
               <Icon size={18} />
-              <span className="text-xs font-medium tracking-[0.16em] uppercase">{index === 0 ? 'Applied AI · Full stack' : 'E-commerce · Full stack'}</span>
+              <span className="text-xs font-medium tracking-[0.16em] uppercase">{project.category}</span>
             </div>
             <span className="text-xs font-mono text-zinc-400">0{index + 1}</span>
           </div>
@@ -158,7 +175,7 @@ export default function Projects() {
             Selected <span className="text-blue-300">work.</span>
           </h2>
           <p className="mt-3 text-zinc-400 max-w-2xl">
-            End-to-end systems — from distributed ML services to production e-commerce.
+            From distributed ML services and production e-commerce to thoughtful interface design.
           </p>
         </motion.div>
 

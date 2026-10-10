@@ -10,7 +10,7 @@ A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It
 
 - **Video hero:** muted background footage with pause/play controls, a still-image fallback, and a softly framed portrait. Playback pauses when the hero leaves the viewport or the tab is hidden.
 - **Smaller mobile video:** phones load a roughly 2.2 MB portrait version; larger screens load a roughly 5 MB landscape version. The source is chosen on page entry to avoid downloading another version on resize.
-- **Selected software projects:** CareerCompass AI and DripStore previews, technical highlights, and source links.
+- **Selected software projects:** CareerCompass AI, DripStore, and Personal Portfolio previews, technical highlights, and source links.
 - **Experience:** internship contributions and counters that animate once to 17–20% performance improvement and 24 defects surfaced.
 - **Skills:** Frontend, Backend & Systems, and Applied ML, supported by a separate foundations row.
 - **Beyond the code:** freelance editing specialties, Premiere Pro / DaVinci Resolve / After Effects, and VGA editorial and filmmaking experience.
