@@ -7,7 +7,7 @@ export default function ProjectPreview({ title }) {
     <div className="project-preview">
       <div className="preview-toolbar" aria-hidden="true">
         <span className="flex gap-1.5"><i /><i /><i /></span>
-        <span>{isDripStore ? 'dripstore / storefront preview' : 'careercompass / live preview'}</span>
+        <span>{isDripStore ? 'dripstore / live demo' : 'careercompass / live preview'}</span>
         <span className="w-8" />
       </div>
       <img

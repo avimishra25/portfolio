@@ -125,7 +125,7 @@ Desktop and phone automated accessibility scans passed during the latest impleme
 ## Featured projects
 
 - **[CareerCompass AI](https://github.com/avimishra25/CareerCompass-AI):** React, Express, and Flask services with resume analysis, heuristic ATS readiness scoring, job-description matching and skill gaps, Gemini career chat, PDF reports, and progress tracking.
-- **[DripStore](https://github.com/avimishra25/dripstore):** MERN e-commerce with role-based access, Razorpay payment verification, and Cloudinary media uploads.
+- **[DripStore](https://github.com/avimishra25/dripstore):** Sneaker and streetwear e-commerce with payment recovery, signed Razorpay webhooks, transactional inventory updates, per-size stock, and role-based administration. The [live Render demo](https://dripstore-demo.onrender.com/) runs as one Docker service with credential-free customer/admin access and simulated payments; no real money is charged.
 
 ## Contact
 

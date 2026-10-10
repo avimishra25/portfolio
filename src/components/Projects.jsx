@@ -23,15 +23,16 @@ const projects = [
     title: 'DripStore',
     icon: ShoppingBag,
     description:
-      'Full-stack MERN e-commerce app featuring a 7-model REST API, RBAC, and Cloudinary media upload pipelines. Razorpay payment gateway with server-side cryptographic signature verification.',
+      'Sneaker and streetwear storefront with guest carts, customer accounts, and product/order administration. Deployed on Render as a single Docker service with credential-free customer and admin demos.',
     highlights: [
-      '7-model REST API with role-based access control',
-      'Razorpay integration + HMAC-SHA256 signature verification',
-      'Cloudinary media pipeline for optimized product uploads',
+      'Razorpay verification, signed webhooks, and recovery for interrupted payments',
+      'MongoDB transactions apply payment and inventory updates exactly once',
+      'Per-size stock, role-based admin controls, and audited order transitions',
+      'Live demo with simulated success, failure, and cancellation flows; no real charges',
     ],
-    tags: ['MERN', 'Razorpay', 'Cloudinary', 'RBAC', 'REST API'],
+    tags: ['React', 'Express', 'MongoDB', 'Razorpay', 'Cloudinary', 'JWT', 'Docker', 'Render'],
     github: 'https://github.com/avimishra25/dripstore',
-    demo: null,
+    demo: 'https://dripstore-demo.onrender.com/',
   },
 ];
 
