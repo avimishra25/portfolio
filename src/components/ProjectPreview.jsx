@@ -11,12 +11,12 @@ export default function ProjectPreview({ title }) {
         <span className="w-8" />
       </div>
       <img
-        src={isDripStore ? '/assets/dripstore-preview.png' : '/assets/careercompass-preview.jpg'}
+        src={isDripStore ? '/assets/dripstore-preview.jpg' : '/assets/careercompass-preview.jpg'}
         alt={isDripStore
-          ? 'DripStore storefront with Wear the Culture headline, sneaker highlights, and shopping links'
+          ? 'Live DripStore demo with playground controls, Wear the Culture headline, and sneaker highlights'
           : 'CareerCompass AI landing page with resume analysis and career matching tools'}
-        width={isDripStore ? 1782 : 1275}
-        height={isDripStore ? 877 : 717}
+        width={isDripStore ? 1274 : 1275}
+        height={717}
         loading="lazy"
         className={isDripStore
           ? 'block w-full aspect-[16/9] object-contain bg-[#090909]'
