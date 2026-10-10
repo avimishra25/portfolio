@@ -124,7 +124,7 @@ Desktop and phone automated accessibility scans passed during the latest impleme
 
 ## Featured projects
 
-- **[CareerCompass AI](https://github.com/avimishra25/CareerCompass-AI):** React, Express, and Flask ML services with resume analysis, career matching, and ATS scoring.
+- **[CareerCompass AI](https://github.com/avimishra25/CareerCompass-AI):** React, Express, and Flask services with resume analysis, heuristic ATS readiness scoring, job-description matching and skill gaps, Gemini career chat, PDF reports, and progress tracking.
 - **[DripStore](https://github.com/avimishra25/dripstore):** MERN e-commerce with role-based access, Razorpay payment verification, and Cloudinary media uploads.
 
 ## Contact
