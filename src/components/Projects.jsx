@@ -50,6 +50,7 @@ const projects = [
     ],
     tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
     github: 'https://github.com/avimishra25/portfolio',
+    demo: 'https://portfolio-avimishra25s-projects.vercel.app/',
   },
 ];
 
