@@ -16,10 +16,10 @@ export default function ProjectPreview({ title }) {
         alt={isPortfolio
           ? 'Avi Mishra personal portfolio — Software Engineer and Video Editor'
           : isDripStore
-          ? 'Live DripStore demo with playground controls, Wear the Culture headline, and sneaker highlights'
+          ? 'Live DripStore demo with playground controls, Wear the Culture headline, and a red-and-ivory high-top sneaker'
           : 'CareerCompass AI landing page with resume analysis and career matching tools'}
-        width={isPortfolio ? 1730 : isDripStore ? 1274 : 1275}
-        height={isPortfolio ? 909 : 717}
+        width={isPortfolio ? 1730 : isDripStore ? 1248 : 1275}
+        height={isPortfolio ? 909 : isDripStore ? 702 : 717}
         loading="lazy"
         className={isPortfolio || isDripStore
           ? 'block w-full aspect-[16/9] object-contain bg-[#090909]'
