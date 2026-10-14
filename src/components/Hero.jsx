@@ -53,7 +53,7 @@ function TitleReel() {
             </div>
             <div className="title-track">
               <span className="track-label">A1</span>
-              <span className="track-clip track-clip-audio">editing.wav · Premiere · Resolve</span>
+              <span className="track-clip track-clip-audio"><span className="track-clip-name">editing.wav · Premiere · Resolve</span></span>
             </div>
           </div>
         </div>

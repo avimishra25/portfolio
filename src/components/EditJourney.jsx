@@ -38,7 +38,7 @@ export function EditingDesk() {
     <div className="desk-reel-one"><Reel rotation={reduced ? 0 : smoothRotation} /></div>
     <div className="desk-reel-two"><Reel rotation={reduced ? 0 : reverse} small /></div>
     <svg className="loose-film" viewBox="0 0 560 500" aria-hidden="true"><path d="M170 160 C400 15 580 160 425 230 S205 285 405 400" fill="none" stroke="#0c1e1b" strokeWidth="33" /><path d="M170 160 C400 15 580 160 425 230 S205 285 405 400" fill="none" stroke="#e9c773" strokeWidth="24" strokeDasharray="2 12" /></svg>
-    <motion.div className="desk-film" animate={reduced ? {} : { rotate: cut % 2 ? -5 : -9 }}>
+    <motion.div className="desk-film" animate={reduced ? {} : { rotate: cut % 2 ? -3 : -6 }}>
       <div className="film-perfs" />
       <motion.div className="desk-frames" style={{ x: reduced ? 0 : filmX }}>
         {['bike-night-ride', 'cinematic-storytelling', '7000-rpm', 'vga-x-medium'].map((name, index) => <div className="film-frame" key={name}><img src={`/assets/edits/${name}.jpg`} alt="" /><span>AVI / 00{index + 1}</span></div>)}

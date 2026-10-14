@@ -413,10 +413,19 @@ body {
 
 .track-clip-audio {
   flex: 1;
+  padding-left: 6px;
   color: #10170f;
   background:
     repeating-linear-gradient(90deg, #10170f30 0 2px, transparent 2px 5px) center / 100% 60% no-repeat,
     var(--studio-green);
+}
+
+/* Solid backing so the waveform never runs through the clip name. */
+.track-clip-name {
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: var(--studio-green);
+  font-weight: 600;
 }
 
 .title-playhead {
@@ -1445,17 +1454,23 @@ body {
   color: #162b24;
 }
 
+/* A taped-down label: its own backing keeps it legible wherever the film strip lands. */
 .desk-note {
   position: absolute;
-  left: 7%;
+  left: 6%;
   bottom: 12%;
+  padding: .3em .6em .35em;
   color: #f9dda2;
+  background: #13211a;
+  border: 1px solid #f9dda233;
+  border-radius: 3px;
+  box-shadow: 3px 4px #0c1712aa;
   font-family: Georgia,serif;
   font-style: italic;
-  font-size: clamp(13px, 5.2cqi, 24px);
+  font-size: clamp(12px, 4.6cqi, 22px);
   line-height: 1.2;
-  transform: rotate(-6deg);
-  z-index: 5;
+  transform: rotate(-4deg);
+  z-index: 6;
 }
 
 .make-cut {
