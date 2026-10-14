@@ -14,18 +14,16 @@ export default function SelectedEdits() {
 
   return (
     <div className="mt-12 md:mt-16" aria-labelledby="selected-edits-heading">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h2 id="selected-edits-heading" className="text-2xl md:text-3xl font-semibold tracking-tight">Selected edits.</h2>
-        </div>
-        <p className="text-sm text-zinc-400">Edited by me. Press play to watch with sound.</p>
+      <div className="edits-header">
+        <h2 id="selected-edits-heading">Selected edits</h2>
+        <p>Edited by me. Press play to watch with sound.</p>
       </div>
       <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-        {edits.map(edit => {
+        {edits.map((edit, index) => {
           const base = `/assets/edits/${edit.id}`;
           const active = activeId === edit.id;
           return (
-            <article key={edit.id} className="surface-panel overflow-hidden">
+            <article key={edit.id} className="edit-card">
               <div className="aspect-video bg-black">
                 {active ? (
                   <video
@@ -60,9 +58,9 @@ export default function SelectedEdits() {
                   </button>
                 )}
               </div>
-              <div className="p-5">
-                <p className="mb-1 text-xs text-amber-300">{edit.category}</p>
-                <h3 className="text-lg font-semibold tracking-tight">{edit.title}</h3>
+              <div className="edit-card-body">
+                <p className="edit-card-meta"><span>CLIP {String(index + 1).padStart(2, '0')}</span><span>{edit.category}</span></p>
+                <h3>{edit.title}</h3>
                 {failedId === edit.id && (
                   <p role="status" className="mt-3 text-sm text-zinc-400">
                     This video couldn't load.{' '}

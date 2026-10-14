@@ -72,13 +72,14 @@ No API keys or environment variables are required for the current site. Contact 
 | --- | --- |
 | Name title, tagline, resume link | `src/components/Hero.jsx` |
 | Editing desk, film-reel rail, scene dividers | `src/components/EditJourney.jsx` |
-| Section order, labels, and scene names | `src/chapters.js` |
+| Section order and labels (menu, reel rail, scene dividers) | `src/chapters.js` |
 | Projects and source/demo links | `src/components/Projects.jsx` |
 | Project preview layouts | `src/components/ProjectPreview.jsx` |
 | Internship details, impact metrics, and changelog | `src/components/Experience.jsx` |
 | Tech bins, usage levels, and foundations | `src/components/Skills.jsx` |
 | Editing services and filmmaking background | `src/components/Extracurricular.jsx` |
 | Gallery titles, categories, durations, and media IDs | `src/components/SelectedEdits.jsx` |
+| Editing room page layout | `src/editing-room.jsx` |
 | Email, clipboard behavior, and the `contact.json` panel | `src/components/Contact.jsx` |
 | Header and compact menu | `src/components/Navbar.jsx` |
 | Footer and section order | `src/App.jsx` |

@@ -57,7 +57,6 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
         >
           <div className="contact-pitch">
-            <p className="studio-label mb-4">06 / CONTACT</p>
             <h2 className="contact-heading">Let's build<br /><span className="text-gradient">something useful.</span></h2>
             <p className="contact-text">
               A thoughtful interface, a smarter tool, or a system ready to grow.

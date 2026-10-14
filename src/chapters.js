@@ -1,11 +1,11 @@
-// Single source for the portfolio's sections: navbar chapters, the film-reel nav, and scene breaks.
+// Single source for the portfolio's sections: the menu, the film-reel nav, and the scene breaks that label each section.
 export const chapters = [
-  { id: 'hero', label: 'Intro', scene: 'INTRO' },
-  { id: 'projects', label: 'Projects', scene: 'THE BUILDS' },
-  { id: 'experience', label: 'Experience', scene: 'ON SET' },
-  { id: 'skills', label: 'Skills', scene: 'THE TOOLKIT' },
-  { id: 'beyond', label: 'Editing Room', scene: 'THE EDIT' },
-  { id: 'contact', label: 'Contact', scene: 'NEXT SCENE' },
+  { id: 'hero', label: 'Intro' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'skills', label: 'Tech Stack' },
+  { id: 'beyond', label: 'Editing Room' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 export const chapterNumber = (index) => String(index + 1).padStart(2, '0');

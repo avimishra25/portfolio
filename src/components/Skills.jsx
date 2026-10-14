@@ -40,7 +40,7 @@ export default function Skills() {
     <section id="skills" className="section-shell">
       <div className="section-container">
         <div className="section-intro studio-section-heading">
-          <div><p className="studio-label mb-4">04 / TECH STACK</p><h2 className="section-heading">The tech bins.<br /><span className="text-gradient">Sorted by use.</span></h2></div>
+          <div><h2 className="section-heading">The tech bins.<br /><span className="text-gradient">Sorted by use.</span></h2></div>
           <p className="section-description">Every tool, tagged by how far it has shipped.<br />From prototype to production.</p>
         </div>
 

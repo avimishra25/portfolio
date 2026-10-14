@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ArrowLeft, ArrowUpRight, Clapperboard } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import SelectedEdits from './components/SelectedEdits.jsx';
 import './index.css';
 
@@ -10,20 +10,31 @@ function EditingRoom() {
       <a href="#main-content" className="skip-link" onClick={() => document.getElementById('main-content')?.focus({ preventScroll: true })}>Skip to content</a>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grid opacity-20" />
       <header className="relative border-b border-white/10">
-        <div className="section-container flex flex-wrap items-center justify-between gap-4 py-6">
-          <a href="/#hero" className="font-semibold tracking-tight">Avi<span className="text-amber-300">.</span>Mishra</a>
-          <a href="/" className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-amber-200">
+        <div className="section-container flex flex-wrap items-center justify-between gap-4 py-5">
+          <a href="/#hero" className="flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500 text-white font-black">A</span>
+            <span className="font-semibold tracking-tight">Avi<span className="text-amber-300">.</span>Mishra</span>
+          </a>
+          <span className="studio-label hidden md:block">ENGINEERING / VISUAL STORYTELLING</span>
+          <a href="/#beyond" className="btn-ghost !py-2 text-sm">
             <ArrowLeft size={16} /> Back to portfolio
           </a>
         </div>
       </header>
       <main id="main-content" tabIndex={-1} className="relative section-container py-16 md:py-24">
-        <span className="chip mb-5"><Clapperboard size={14} /> Film & freelance</span>
-        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">In the <span className="text-amber-300">editing room.</span></h1>
-        <p className="section-description">A collection of cinematic stories, night rides, and moments shaped in the edit.</p>
+        <div className="section-intro studio-section-heading">
+          <div>
+            <p className="studio-label mb-4">EDITING ROOM / FILM &amp; FREELANCE</p>
+            <h1 className="section-heading">In the editing room.<br /><span className="text-gradient">Every cut, on purpose.</span></h1>
+          </div>
+          <p className="section-description">Cinematic stories, night rides,<br />and moments shaped in the edit.</p>
+        </div>
         <SelectedEdits />
-        <div className="mt-12 border-t border-white/10 pt-8 flex flex-wrap items-center justify-between gap-5">
-          <p className="text-zinc-300">Have a story in mind? Let's bring it to life.</p>
+        <div className="edits-cta">
+          <div>
+            <p className="studio-label">NEXT SCENE</p>
+            <p className="edits-cta-text">Have a story in mind? Let's bring it to life.</p>
+          </div>
           <a href="mailto:aviam2425@gmail.com?subject=Video%20editing%20inquiry" className="btn-primary text-sm">Discuss an edit <ArrowUpRight size={16} /></a>
         </div>
       </main>

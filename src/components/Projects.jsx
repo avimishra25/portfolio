@@ -76,7 +76,7 @@ export default function Projects() {
     <section id="projects" className="section-shell featured-work">
       <div className="section-container">
         <div className="section-intro studio-section-heading">
-          <div><p className="studio-label mb-4">02 / SELECTED WORK</p><h2 className="section-heading">From idea.<br /><span className="text-gradient">To something real.</span></h2></div>
+          <div><h2 className="section-heading">From idea.<br /><span className="text-gradient">To something real.</span></h2></div>
           <p className="section-description">Two projects, a closer look.<br />The problem, the decisions, and what you can try.</p>
         </div>
         <div className="showcase-list">

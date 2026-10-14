@@ -1032,6 +1032,83 @@ body {
   }
 }
 
+/* Editing room page: clip cards in the same card language as the project showcase. */
+.edits-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #ffffff10;
+}
+
+.edits-header h2 {
+  font: 11px ui-monospace, monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--studio-accent);
+}
+
+.edits-header p {
+  font-size: 13px;
+  color: var(--studio-muted);
+}
+
+.edit-card {
+  border: 1px solid #ffffff16;
+  background: #121210;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.edit-card-body {
+  padding: 18px 20px 20px;
+  border-top: 1px solid #ffffff10;
+}
+
+.edit-card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+}
+
+.edit-card-meta span:first-child {
+  color: var(--studio-accent);
+}
+
+.edit-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -.03em;
+}
+
+.edits-cta {
+  margin-top: 48px;
+  padding: 26px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid #ffffff16;
+  border-left: 3px solid var(--studio-accent);
+  border-radius: 10px;
+  background: #fcd07408;
+}
+
+.edits-cta-text {
+  margin-top: 6px;
+  font-size: 18px;
+  color: #f4f4f5;
+}
+
 /* Contact: the pitch beside a contact.json panel. */
 .contact-layout {
   display: grid;
@@ -1212,6 +1289,8 @@ body {
   box-shadow: 12px 16px #060a08,0 25px 70px #0008;
   overflow: hidden;
   transform: rotate(2deg);
+  /* Lets the desk's text scale with the desk (cqi) rather than the window. */
+  container-type: inline-size;
 }
 
 .desk-grid {
@@ -1284,7 +1363,7 @@ body {
 
 .desk-film {
   position: absolute;
-  top: 45%;
+  top: 34%;
   left: -10%;
   width: 120%;
   background: #111a15;
@@ -1335,7 +1414,7 @@ body {
   position: absolute;
   width: 27%;
   right: 10%;
-  top: 57%;
+  top: 47%;
   z-index: 6;
   transform: rotate(-29deg);
   filter: drop-shadow(3px 8px 3px #0008);
@@ -1349,11 +1428,11 @@ body {
 
 .cut-offcut {
   position: absolute;
-  top: 74%;
-  left: 42%;
+  top: 69%;
+  left: 47%;
   z-index: 5;
-  width: 21%;
-  height: 11%;
+  width: 19%;
+  height: 10%;
   border: 6px solid #13211a;
   background: #879783;
   display: grid;
@@ -1373,7 +1452,7 @@ body {
   color: #f9dda2;
   font-family: Georgia,serif;
   font-style: italic;
-  font-size: clamp(14px,1.6vw,24px);
+  font-size: clamp(13px, 5.2cqi, 24px);
   line-height: 1.2;
   transform: rotate(-6deg);
   z-index: 5;
@@ -1511,6 +1590,7 @@ body {
   position: absolute;
   right: 36px;
   white-space: nowrap;
+  text-transform: uppercase;
   background: #15221b;
   border: 1px solid #597151;
   padding: 7px;
@@ -1568,9 +1648,6 @@ body {
   .hero-section>.relative {
     gap: 12px;
   }
-  .desk-note {
-    font-size: 22px;
-  }
 }
 
 @media (max-width:639px) {
@@ -1581,9 +1658,6 @@ body {
   }
   .desk-heading, .desk-bottom {
     font-size: 7px;
-  }
-  .desk-note {
-    font-size: 16px;
   }
   .desk-frames {
     gap: 7px;

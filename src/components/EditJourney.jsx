@@ -57,7 +57,7 @@ export function EditBreak({ chapter }) {
   const reduced = useReducedMotion();
   const index = chapters.findIndex(({ id }) => id === chapter);
   const number = chapterNumber(index);
-  const title = chapters[index].scene;
+  const title = chapters[index].label.toUpperCase();
   return <div className="edit-break" aria-hidden="true"><div className="edit-break-line" /><motion.div className="clapper" initial={false} whileInView={reduced ? {} : { rotate: [0, -3, 0] }} viewport={{ once: true, amount: 1 }} transition={{ duration: .7 }}><motion.div className="clapper-arm" initial={reduced ? false : { rotate: -18 }} whileInView={{ rotate: 0 }} viewport={{ once: true }} transition={{ duration: .4, delay: .1 }} /><span>SCENE {number} / {title}</span></motion.div><div className="edit-break-line" /></div>;
 }
 
@@ -70,7 +70,7 @@ export default function EditJourney() {
   useMotionValueEvent(scrollYProgress, 'change', () => setChapter(activeChapterIndex()));
   return <aside className="edit-journey" aria-label="Film reel chapter navigation">
     <div className="journey-reel"><Reel rotation={reduced ? 0 : rotation} small /></div>
-    <div className="journey-track"><div className="journey-holes" />{chapters.map(({ id, label, scene }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{scene}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-scissors" style={{ top: y }}><Scissors angle={reduced ? 0 : chapter % 2 ? -5 : 18} /></motion.div></div>
+    <div className="journey-track"><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-scissors" style={{ top: y }}><Scissors angle={reduced ? 0 : chapter % 2 ? -5 : 18} /></motion.div></div>
     <span className="journey-caption">THE FINAL CUT</span>
   </aside>;
 }

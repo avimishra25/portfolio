@@ -69,7 +69,7 @@ export default function Experience() {
     <section id="experience" className="section-shell">
       <div className="section-container">
         <div className="section-intro studio-section-heading">
-          <div><p className="studio-label mb-4">03 / EXPERIENCE</p><h2 className="section-heading">Real work.<br /><span className="text-gradient">In production.</span></h2></div>
+          <div><h2 className="section-heading">Real work.<br /><span className="text-gradient">In production.</span></h2></div>
           <p className="section-description">What I shipped during my internship.<br />Four areas, and the impact of each.</p>
         </div>
 
