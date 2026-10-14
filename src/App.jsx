@@ -35,7 +35,12 @@ export default function App() {
         <div className="section-container flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div>
             <p className="font-medium text-zinc-200">Built with curiosity. Edited with care.</p>
-            <p className="mt-2 text-xs">© {new Date().getFullYear()} Avi Mishra · Ahmedabad, India</p>
+            <dl className="footer-credits">
+              <div><dt>Written &amp; directed by</dt><dd>Avi Mishra</dd></div>
+              <div><dt>Built with</dt><dd>React · Vite · Framer Motion</dd></div>
+              <div><dt>Edited in</dt><dd>Premiere Pro · DaVinci Resolve</dd></div>
+            </dl>
+            <p className="mt-3 text-xs">© {new Date().getFullYear()} Avi Mishra · Ahmedabad, India</p>
           </div>
           <a href="#hero" className="contact-social inline-flex items-center gap-2 self-start sm:self-auto py-2 text-zinc-300 hover:text-amber-200">
             Back to top <ArrowUp size={16} />

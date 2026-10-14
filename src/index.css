@@ -1293,6 +1293,30 @@ body {
   color: #f4f4f5;
 }
 
+/* Footer credits: a short end-credits roll under the sign-off line. */
+.footer-credits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin-top: 12px;
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.footer-credits div {
+  display: flex;
+  gap: 8px;
+}
+
+.footer-credits dt {
+  color: #8f8c85;
+}
+
+.footer-credits dd {
+  color: var(--studio-accent);
+}
+
 /* Contact: the pitch beside a contact.json panel. */
 .contact-layout {
   display: grid;
