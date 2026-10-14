@@ -29,6 +29,3 @@ export function chapterProgress() {
   const fraction = to > from ? Math.min(1, Math.max(0, (window.scrollY - from) / (to - from))) : 0;
   return { index, fraction };
 }
-
-// Index of the chapter whose section has crossed the reading line.
-export const activeChapterIndex = () => chapterProgress().index;

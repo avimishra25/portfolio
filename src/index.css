@@ -191,12 +191,6 @@ body {
   .site-header>div:first-child {
     padding-inline: 20px;
   }
-  #menu-toggle {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-  }
   .hero-section {
     padding-top: 96px;
     padding-bottom: 40px;

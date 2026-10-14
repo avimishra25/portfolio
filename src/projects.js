@@ -22,8 +22,8 @@ export const projects = [
     demo: 'https://career-compass-ai-omega-smoky.vercel.app/',
     story: {
       label: 'INTELLIGENCE, WITH DIRECTION',
-      problem: 'A résumé lists your experience. It rarely tells you where to go next.',
-      decision: 'Connect résumé analysis, career matching, and a context-aware AI assistant in one workflow.',
+      problem: 'A resume lists your experience. It rarely tells you where to go next.',
+      decision: 'Connect resume analysis, career matching, and a context-aware AI assistant in one workflow.',
       result: 'Explore 12 career profiles, compare job descriptions, and see the skills to work on next.',
     },
     architecture: {
@@ -31,14 +31,14 @@ export const projects = [
       layers: [
         {
           track: 'FX', role: 'Integrations', clips: [
-            { name: 'Gemini', detail: 'Career chatbot with conversation history and résumé context.', start: 30, end: 49 },
+            { name: 'Gemini', detail: 'Career chatbot with conversation history and resume context.', start: 30, end: 49 },
             { name: 'Google OAuth', detail: 'Sign-in with Google, backed by JWT sessions.', start: 52, end: 71 },
-            { name: 'PDF reports', detail: 'Downloadable reports of a résumé analysis.', start: 74, end: 93 },
+            { name: 'PDF reports', detail: 'Downloadable reports of a resume analysis.', start: 74, end: 93 },
           ],
         },
         { track: 'V2', role: 'API', clips: [{ name: 'Express', detail: 'Accounts, JWT auth, and saved job-description history, deployed on Render.', start: 6, end: 100 }] },
-        { track: 'V1', role: 'UI', clips: [{ name: 'React', detail: 'Résumé upload, career matches, résumé comparison, and progress tracking, deployed on Vercel.', start: 0, end: 100 }] },
-        { track: 'A1', role: 'ML', clips: [{ name: 'Flask', detail: 'spaCy résumé analysis, TF-IDF job matching with skill gaps, and ATS readiness scoring, on Hugging Face Spaces.', start: 16, end: 86 }] },
+        { track: 'V1', role: 'UI', clips: [{ name: 'React', detail: 'Resume upload, career matches, resume comparison, and progress tracking, deployed on Vercel.', start: 0, end: 100 }] },
+        { track: 'A1', role: 'ML', clips: [{ name: 'Flask', detail: 'spaCy resume analysis, TF-IDF job matching with skill gaps, and ATS readiness scoring, on Hugging Face Spaces.', start: 16, end: 86 }] },
         { track: 'A2', role: 'Data', clips: [{ name: 'MongoDB', detail: 'Users, saved matching history, and progress over time.', start: 6, end: 100 }] },
       ],
     },
