@@ -8,6 +8,7 @@ import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
 import Navbar from './components/Navbar.jsx';
 import Extracurricular from './components/Extracurricular.jsx';
+import EditJourney, { EditBreak } from './components/EditJourney.jsx';
 
 export default function App() {
   return (
@@ -16,12 +17,18 @@ export default function App() {
       <a href="#main-content" className="skip-link" onClick={() => document.getElementById('main-content')?.focus({ preventScroll: true })}>Skip to content</a>
       <div className="pointer-events-none fixed inset-0 bg-grid opacity-20" />
       <Navbar />
+      <EditJourney />
       <main id="main-content" tabIndex={-1} className="relative">
         <Hero />
+        <EditBreak chapter="projects" />
         <Projects />
+        <EditBreak chapter="experience" />
         <Experience />
+        <EditBreak chapter="skills" />
         <Skills />
+        <EditBreak chapter="beyond" />
         <Extracurricular />
+        <EditBreak chapter="contact" />
         <Contact />
       </main>
       <footer className="relative border-t border-white/10 py-8 text-sm text-zinc-400">
@@ -30,7 +37,7 @@ export default function App() {
             <p className="font-medium text-zinc-200">Built with curiosity. Edited with care.</p>
             <p className="mt-2 text-xs">© {new Date().getFullYear()} Avi Mishra · Ahmedabad, India</p>
           </div>
-          <a href="#hero" className="contact-social inline-flex items-center gap-2 self-start sm:self-auto py-2 text-zinc-300 hover:text-blue-200">
+          <a href="#hero" className="contact-social inline-flex items-center gap-2 self-start sm:self-auto py-2 text-zinc-300 hover:text-amber-200">
             Back to top <ArrowUp size={16} />
           </a>
         </div>

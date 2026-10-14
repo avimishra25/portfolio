@@ -47,12 +47,12 @@ export default function SelectedEdits() {
                     type="button"
                     aria-label={`Play ${edit.title}`}
                     onClick={() => { setFailedId(null); setActiveId(edit.id); }}
-                    className="group relative block h-full w-full overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-blue-300"
+                    className="group relative block h-full w-full overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-amber-300"
                   >
                     <img src={`${base}.jpg`} alt="" width="640" height="360" loading="lazy" className="h-full w-full object-contain motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.025]" />
                     <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                      <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-black/50 text-white backdrop-blur-sm transition-colors group-hover:bg-blue-600 group-focus-visible:bg-blue-600">
+                      <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-black/50 text-white backdrop-blur-sm transition-colors group-hover:bg-amber-600 group-focus-visible:bg-amber-600">
                         <Play size={22} fill="currentColor" className="ml-1" />
                       </span>
                     </span>
@@ -61,12 +61,12 @@ export default function SelectedEdits() {
                 )}
               </div>
               <div className="p-5">
-                <p className="mb-1 text-xs text-blue-300">{edit.category}</p>
+                <p className="mb-1 text-xs text-amber-300">{edit.category}</p>
                 <h3 className="text-lg font-semibold tracking-tight">{edit.title}</h3>
                 {failedId === edit.id && (
                   <p role="status" className="mt-3 text-sm text-zinc-400">
                     This video couldn't load.{' '}
-                    <a href={`${base}.mp4`} className="inline-flex items-center gap-1 text-blue-200 underline">Open video <ArrowUpRight size={14} /></a>
+                    <a href={`${base}.mp4`} className="inline-flex items-center gap-1 text-amber-200 underline">Open video <ArrowUpRight size={14} /></a>
                   </p>
                 )}
               </div>

@@ -2,23 +2,35 @@
 
 > Software Engineer · Full-Stack & Applied ML · Freelance Video Editor
 
-A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It brings together software projects, engineering experience, and selected video edits in a responsive dark interface.
+A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It presents software projects and engineering experience first, framed with a video editor's eye: the name sits on an editing timeline, sections are cut like scenes, and a film-reel rail tracks your place on the page.
 
 **Live:** [portfolio-avimishra25s-projects.vercel.app](https://portfolio-avimishra25s-projects.vercel.app/)
 
+## Screenshots
+
+![Hero: the name on an editing timeline, with the editing desk](docs/screenshots/hero.jpg)
+
+| Projects | Experience |
+| --- | --- |
+| ![Featured project told as problem, decision, and live demo](docs/screenshots/projects.jpg) | ![Internship as release notes with impact metrics and a changelog](docs/screenshots/experience.jpg) |
+| **Tech stack** | **Editing room** |
+| ![Tech bins with production, shipped, and prototype levels](docs/screenshots/skills.jpg) | ![Freelance video editing and filmmaking credit](docs/screenshots/editing-room.jpg) |
+| **Contact** | **Mobile** |
+| ![Contact pitch beside a contact.json panel](docs/screenshots/contact.jpg) | ![Mobile hero](docs/screenshots/mobile-hero.jpg) |
+
 ## Highlights
 
-- **Video hero:** muted background footage with pause/play controls, a still-image fallback, and a softly framed portrait. Playback pauses when the hero leaves the viewport or the tab is hidden.
-- **Smaller mobile video:** phones load a roughly 2.2 MB portrait version; larger screens load a roughly 5 MB landscape version. The source is chosen on page entry to avoid downloading another version on resize.
-- **Selected software projects:** CareerCompass AI, DripStore, and Personal Portfolio previews, technical highlights, and source links.
-- **Experience:** internship contributions and counters that animate once to 17–20% performance improvement and 24 defects surfaced.
-- **Skills:** Frontend, Backend & Systems, and Applied ML, supported by a separate foundations row.
-- **Beyond the code:** freelance editing specialties, Premiere Pro / DaVinci Resolve / After Effects, and VGA editorial and filmmaking experience.
-- **Selected edits:** four thumbnail-led videos with native playback, sound, and fullscreen controls. Video files load only after a click, and only one gallery player is mounted at a time.
-- **Contact:** direct email, a dedicated editing inquiry link, and copy-email with a manual fallback when clipboard access is unavailable.
-- **Navigation:** desktop and compact menus, section highlighting, a keyboard skip link, and a back-to-top link.
+- **Timeline title hero:** the name is set in large condensed type on an editing timeline, with V1/A1 tracks, a ruler, and a timecode. On load, a playhead sweeps across and reveals it. The hero is sized so the name, tagline, buttons, and editing desk fit in the first screen on laptops.
+- **Editing desk:** an illustrated desk whose film reels wind as you scroll, with a "Make a cut" button for a small interactive moment.
+- **Selected work:** CareerCompass AI and DripStore, each told as the problem, the key decision, and what you can try in the live demo. Technical details and the full stack sit in an expandable "Inside the build" panel.
+- **Experience:** the internship as release notes, with role details, animated impact metrics (17–20% CMS performance improvement, 24 defects surfaced), and a numbered changelog.
+- **Tech stack:** tools grouped into tech bins and tagged **Production**, **Shipped**, or **Prototype** by how far each has gone.
+- **Editing room:** freelance editing services, toolkit, and the IFP 50-Hour Filmmaking Challenge nomination, linking to a separate page of selected edits.
+- **Selected edits page:** four thumbnail-led videos with native playback. Video files load only after a click, and only one player is mounted at a time.
+- **Contact:** email and copy-email (with a manual fallback), beside a `contact.json` panel with links, résumé, and live local time.
+- **Navigation:** a fixed film-reel rail with numbered chapters on wide screens, a compact menu on smaller ones, scene dividers between sections, a keyboard skip link, and a back-to-top link.
 
-Reduced-motion preferences disable the decorative hero video and show final counter values immediately. Focus indicators and accessible control labels support keyboard navigation. Gallery video captions remain pending accurate dialogue transcripts.
+Reduced-motion preferences skip the title sweep, reel rotation, and counter animations, showing final states immediately. Focus indicators and accessible control labels support keyboard navigation, and decorative timeline and desk elements are hidden from screen readers. Gallery video captions remain pending accurate dialogue transcripts.
 
 ## Stack
 
@@ -28,7 +40,8 @@ Reduced-motion preferences disable the decorative hero video and show final coun
 | Styling | Tailwind CSS 3 |
 | Animation | Framer Motion |
 | Icons | Lucide React |
-| Media | Native HTML video, local MP4 files and JPEG posters |
+| Fonts | Inter, Anton (name title) via Google Fonts |
+| Media | Native HTML video, local MP4 files and JPEG posters (editing room page) |
 | Hosting | Vercel |
 
 The previous `HeroCanvas.jsx` and Three.js dependencies remain in the repository but are not used by the current hero.
@@ -57,20 +70,22 @@ No API keys or environment variables are required for the current site. Contact 
 
 | Content | Location |
 | --- | --- |
-| Headline, portrait, resume link, hero video | `src/components/Hero.jsx` |
+| Name title, tagline, resume link | `src/components/Hero.jsx` |
+| Editing desk, film-reel rail, scene dividers | `src/components/EditJourney.jsx` |
+| Section order, labels, and scene names | `src/chapters.js` |
 | Projects and source/demo links | `src/components/Projects.jsx` |
 | Project preview layouts | `src/components/ProjectPreview.jsx` |
-| Internship details and counters | `src/components/Experience.jsx` |
-| Skills and foundations | `src/components/Skills.jsx` |
+| Internship details, impact metrics, and changelog | `src/components/Experience.jsx` |
+| Tech bins, usage levels, and foundations | `src/components/Skills.jsx` |
 | Editing services and filmmaking background | `src/components/Extracurricular.jsx` |
 | Gallery titles, categories, durations, and media IDs | `src/components/SelectedEdits.jsx` |
-| Email, clipboard behavior, and contact links | `src/components/Contact.jsx` |
-| Section links | `src/components/Navbar.jsx` |
+| Email, clipboard behavior, and the `contact.json` panel | `src/components/Contact.jsx` |
+| Header and compact menu | `src/components/Navbar.jsx` |
 | Footer and section order | `src/App.jsx` |
 | Shared styles | `src/index.css` |
 | Search descriptions, canonical URL, and sharing metadata | `index.html` |
 
-Email links also appear in the hero and Beyond the Code section. Update all occurrences when changing the contact address.
+Email links also appear in the hero and the Editing Room section. Update all occurrences when changing the contact address.
 
 ### Media assets
 
@@ -79,18 +94,17 @@ public/
 ├── favicon.svg
 └── assets/
     ├── Avi_Mishra_CV.pdf
-    ├── avi-cutout.png
     ├── careercompass-preview.jpg
+    ├── dripstore-preview.jpg
     ├── og-image.png
-    ├── hero-poster.jpg
-    ├── hero-video.mp4
-    ├── hero-video-mobile.mp4
     └── edits/
         ├── bike-night-ride.{jpg,mp4}
         ├── cinematic-storytelling.{jpg,mp4}
         ├── 7000-rpm.{jpg,mp4}
         └── vga-x-medium.{jpg,mp4}
 ```
+
+README screenshots live in `docs/screenshots/`. Refresh them after visual changes so this page matches the live site.
 
 Each gallery entry maps its `id` to `/assets/edits/<id>.jpg` and `/assets/edits/<id>.mp4`. To add an edit, supply both files and add its title, category, duration, and ID to the `edits` array. Keep the duration label in sync with the video.
 
@@ -116,7 +130,7 @@ Before publishing:
 2. Check phone, tablet, and desktop layouts for wrapping and horizontal overflow.
 3. Test keyboard navigation, the skip link, menu, and visible focus indicators.
 4. Check copy-email success and its manual fallback, email links, and resume download.
-5. Verify hero pause/resume, reduced motion, counter end values, and gallery playback.
+5. Verify the title sweep, reduced motion, counter end values, and gallery playback.
 6. Confirm gallery videos are not downloaded before a click and switching edits replaces the active player.
 7. Check the live deployment and sharing metadata after pushing.
 

@@ -11,15 +11,15 @@ function EditingRoom() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grid opacity-20" />
       <header className="relative border-b border-white/10">
         <div className="section-container flex flex-wrap items-center justify-between gap-4 py-6">
-          <a href="/#hero" className="font-semibold tracking-tight">Avi<span className="text-blue-300">.</span>Mishra</a>
-          <a href="/" className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-blue-200">
+          <a href="/#hero" className="font-semibold tracking-tight">Avi<span className="text-amber-300">.</span>Mishra</a>
+          <a href="/" className="inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-amber-200">
             <ArrowLeft size={16} /> Back to portfolio
           </a>
         </div>
       </header>
       <main id="main-content" tabIndex={-1} className="relative section-container py-16 md:py-24">
         <span className="chip mb-5"><Clapperboard size={14} /> Film & freelance</span>
-        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">In the <span className="text-blue-300">editing room.</span></h1>
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">In the <span className="text-amber-300">editing room.</span></h1>
         <p className="section-description">A collection of cinematic stories, night rides, and moments shaped in the edit.</p>
         <SelectedEdits />
         <div className="mt-12 border-t border-white/10 pt-8 flex flex-wrap items-center justify-between gap-5">

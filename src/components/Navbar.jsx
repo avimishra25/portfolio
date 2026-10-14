@@ -1,15 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { chapters, activeChapterIndex } from '../chapters.js';
 
-const links = [
-  { href: '#hero', label: 'Home' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#beyond', label: 'Beyond Code' },
-  { href: '#contact', label: 'Contact' },
-];
+const links = chapters.map(({ id, label }) => ({ href: `#${id}`, label }));
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -21,7 +15,11 @@ export default function Navbar() {
     if (!pendingAnchor.current) return;
     const href = pendingAnchor.current;
     pendingAnchor.current = null;
-    document.querySelector(href)?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth', block: 'start' });
+    const section = document.querySelector(href);
+    if (!section) return;
+    section.setAttribute('tabindex', '-1');
+    section.focus({ preventScroll: true });
+    section.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth', block: 'start' });
   };
 
   useEffect(() => {
@@ -29,22 +27,19 @@ export default function Navbar() {
     const update = () => {
       frame = 0;
       setScrolled(window.scrollY > 20);
-      const marker = Math.max(120, window.innerHeight * 0.3);
-      let current = '#hero';
-      for (const link of links) {
-        if (document.querySelector(link.href)?.getBoundingClientRect().top <= marker) current = link.href;
-      }
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) current = '#contact';
-      setActive(current);
+      setActive(links[activeChapterIndex()].href);
     };
     const onScroll = () => { if (!frame) frame = window.requestAnimationFrame(update); };
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    const observer = new ResizeObserver(onScroll);
+    observer.observe(document.body);
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       window.cancelAnimationFrame(frame);
+      observer.disconnect();
     };
   }, []);
 
@@ -70,33 +65,23 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-2 group">
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500 text-white font-black">
+          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500 text-white font-black">
             A
-            <span className="absolute inset-0 rounded-xl bg-blue-400/40 blur-lg group-hover:blur-xl transition-all -z-10" />
+            <span className="absolute inset-0 rounded-xl bg-amber-400/40 blur-lg group-hover:blur-xl transition-all -z-10" />
           </span>
           <span className="font-semibold tracking-tight">
-            Avi<span className="text-blue-300">.</span>Mishra
+            Avi<span className="text-amber-300">.</span>Mishra
           </span>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-1">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              aria-current={active === l.href ? 'location' : undefined}
-              className={`px-4 py-2 text-sm rounded-lg transition-colors ${active === l.href ? 'text-blue-200 bg-blue-400/10' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
-            >
-              {l.label}
-            </a>
-          ))}
-          <a href="#contact" className="btn-primary ml-3 !py-2 !px-4 text-sm">
-            <Sparkles size={16} /> Let's Talk
-          </a>
-        </nav>
+        <span className="studio-label hidden sm:block">ENGINEERING / VISUAL STORYTELLING</span>
+        <div className="hidden lg:flex items-center gap-3">
+          <a href="/assets/Avi_Mishra_CV.pdf" target="_blank" rel="noreferrer" className="btn-ghost !py-2 text-sm">Résumé ↗</a>
+          <a href="#contact" className="btn-primary !py-2 text-sm">Let’s talk</a>
+        </div>
 
         <button
-          className="lg:hidden p-2 rounded-lg border border-white/10"
+          className="xl:hidden p-2 rounded-lg border border-white/10"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           id="menu-toggle"
@@ -114,7 +99,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden overflow-hidden bg-base/95 backdrop-blur-xl border-t border-white/5"
+            className="xl:hidden overflow-hidden bg-base/95 backdrop-blur-xl border-t border-white/5"
           >
             <div className="px-6 py-4 flex flex-col gap-2">
               {links.map((l) => (
@@ -128,7 +113,7 @@ export default function Navbar() {
                     setOpen(false);
                   }}
                   aria-current={active === l.href ? 'location' : undefined}
-                  className={`py-2 ${active === l.href ? 'text-blue-300' : 'text-zinc-300 hover:text-blue-300'}`}
+                  className={`py-2 ${active === l.href ? 'text-amber-300' : 'text-zinc-300 hover:text-amber-300'}`}
                 >
                   {l.label}
                 </a>

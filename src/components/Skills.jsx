@@ -1,52 +1,85 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Layout, Server, BrainCircuit, Wrench } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 
-const categories = [
+// Proficiency is measured by how far each tool has shipped: prototype, shipped, or production.
+const levels = {
+  production: { label: 'Production', length: 3, description: 'Used in production or across my live projects' },
+  shipped: { label: 'Shipped', length: 2, description: 'Shipped in a live project or at work' },
+  prototype: { label: 'Prototype', length: 1, description: 'Built with in coursework or prototypes' },
+};
+
+const bins = [
   {
-    label: 'Frontend', icon: Layout, number: '01',
+    label: 'Frontend',
     description: 'Responsive interfaces that turn complex workflows into clear, usable experiences.',
-    skills: ['React.js', 'JavaScript (ES6+)', 'HTML/CSS', 'Tailwind CSS'],
+    tools: [['React.js', 'production'], ['JavaScript (ES6+)', 'production'], ['HTML/CSS', 'production'], ['Tailwind CSS', 'production']],
   },
   {
-    label: 'Backend & Systems', icon: Server, number: '02',
+    label: 'Backend & Systems',
     description: 'APIs, data models, and cloud services that connect the product behind the interface.',
-    skills: ['Node.js', 'Express.js', 'MongoDB', 'SQL / MySQL', 'Firebase Firestore', 'AWS S3 / EC2', 'AWS DynamoDB / Aurora'],
+    tools: [['Node.js', 'production'], ['Express.js', 'production'], ['MongoDB', 'production'], ['Firebase Firestore', 'shipped'], ['SQL / MySQL', 'prototype'], ['AWS S3 / EC2', 'prototype'], ['AWS DynamoDB / Aurora', 'prototype']],
   },
   {
-    label: 'Applied ML', icon: BrainCircuit, number: '03',
+    label: 'Applied ML',
     description: 'Text analysis, matching, and predictive models delivered through practical web tools.',
-    skills: ['Python', 'Flask', 'Scikit-learn', 'spaCy', 'TF-IDF', 'OpenAI API'],
+    tools: [['Python', 'shipped'], ['Flask', 'shipped'], ['Scikit-learn', 'shipped'], ['spaCy', 'shipped'], ['TF-IDF', 'shipped'], ['OpenAI API', 'shipped']],
   },
 ];
 
+function UsageMeter({ level }) {
+  return (
+    <span className={`usage-meter usage-meter-${level}`} aria-hidden="true">
+      {[1, 2, 3].map(step => <i key={step} className={step <= levels[level].length ? 'filled' : ''} />)}
+    </span>
+  );
+}
+
 export default function Skills() {
+  const reduceMotion = useReducedMotion();
   return (
     <section id="skills" className="section-shell">
       <div className="section-container">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }} className="section-intro">
-          <span className="chip mb-4"><Wrench size={12} /> The toolkit</span>
-          <h2 className="section-heading">From interface <span className="text-blue-300">to intelligence.</span></h2>
-          <p className="section-description">Three connected disciplines. One focus: building useful software from end to end.</p>
-        </motion.div>
-        <div className="grid lg:grid-cols-3 gap-5">
-          {categories.map(({ label, icon: Icon, number, description, skills }, i) => (
-            <motion.article key={label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.5, delay: i * 0.08 }} className="surface-panel p-6 md:p-7">
-              <div className="mb-7 flex justify-between items-center">
-                <span className="rounded-xl border border-blue-300/15 bg-blue-400/5 p-3 text-blue-300"><Icon size={20} /></span>
-                <span aria-hidden="true" className="text-xs font-mono text-zinc-400">{number}</span>
+        <div className="section-intro studio-section-heading">
+          <div><p className="studio-label mb-4">04 / TECH STACK</p><h2 className="section-heading">The tech bins.<br /><span className="text-gradient">Sorted by use.</span></h2></div>
+          <p className="section-description">Every tool, tagged by how far it has shipped.<br />From prototype to production.</p>
+        </div>
+
+        <ul className="usage-key" aria-label="Proficiency key">
+          {Object.entries(levels).map(([key, level]) => (
+            <li key={key}><UsageMeter level={key} /><span><b>{level.label}</b>{level.description}</span></li>
+          ))}
+        </ul>
+
+        <div className="tech-bins">
+          {bins.map(({ label, description, tools }, index) => (
+            <motion.article
+              key={label}
+              className="tech-bin"
+              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+            >
+              <div className="tech-bin-header"><span>BIN {String(index + 1).padStart(2, '0')}</span><span>{tools.length} tools</span></div>
+              <div className="tech-bin-body">
+                <h3>{label}</h3>
+                <p>{description}</p>
+                <ul>
+                  {tools.map(([name, level]) => (
+                    <li key={name} className="bin-tool">
+                      <span>{name}</span>
+                      <span className="bin-tool-level"><UsageMeter level={level} />{levels[level].label}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold tracking-tight">{label}</h3>
-              <p className="mt-3 mb-6 text-sm text-zinc-400 leading-relaxed lg:min-h-[4.5rem]">{description}</p>
-              <ul className="flex flex-wrap gap-2">
-                {skills.map(skill => <li key={skill} className="rounded-lg border border-white/10 bg-white/[0.025] px-3 py-1.5 text-xs text-zinc-300">{skill}</li>)}
-              </ul>
             </motion.article>
           ))}
         </div>
-        <div className="mt-6 border-t border-white/10 pt-6 grid md:grid-cols-[180px_1fr] gap-3">
-          <h3 className="text-sm font-medium text-zinc-200">The foundations</h3>
-          <p className="text-sm leading-relaxed text-zinc-400">Java · C/C++ · DSA (100+ LeetCode) · OOP · Operating systems · Networks · Git · Postman · n8n</p>
+
+        <div className="core-skills">
+          <p className="meta-label">Core / Foundations</p>
+          <p>Java · C/C++ · DSA (100+ LeetCode) · OOP · Operating systems · Networks · Git · Postman · n8n</p>
         </div>
       </div>
     </section>
