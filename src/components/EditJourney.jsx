@@ -70,7 +70,7 @@ export default function EditJourney() {
   useMotionValueEvent(scrollYProgress, 'change', () => setChapter(activeChapterIndex()));
   return <aside className="edit-journey" aria-label="Film reel chapter navigation">
     <div className="journey-reel"><Reel rotation={reduced ? 0 : rotation} small /></div>
-    <div className="journey-track"><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-scissors" style={{ top: y }}><Scissors angle={reduced ? 0 : chapter % 2 ? -5 : 18} /></motion.div></div>
+    <div className="journey-track"><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-playhead" style={{ top: y }} aria-hidden="true" /></div>
     <span className="journey-caption">THE FINAL CUT</span>
   </aside>;
 }

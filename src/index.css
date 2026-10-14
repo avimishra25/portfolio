@@ -1617,15 +1617,29 @@ body {
   opacity: 1;
 }
 
-.journey-scissors {
+/* The same red playhead as the hero title, scrubbing down the chapter strip. */
+.journey-playhead {
   position: absolute;
-  left: -21px;
-  width: 70px;
-  height: 70px;
-  transform: translateY(-50%) rotate(90deg);
+  left: -9px;
+  right: -9px;
+  height: 2px;
+  transform: translateY(-50%);
+  background: #f87171;
+  box-shadow: 0 0 10px #f87171aa;
   pointer-events: none;
   z-index: 4;
-  filter: drop-shadow(0 3px 3px #000);
+}
+
+.journey-playhead::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  width: 11px;
+  height: 12px;
+  transform: translateY(-50%);
+  background: #f87171;
+  clip-path: polygon(0 0, 55% 0, 100% 50%, 55% 100%, 0 100%);
 }
 
 .journey-caption {
