@@ -1753,6 +1753,23 @@ body {
   border-inline: 1px solid #819278;
 }
 
+.journey-track {
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.journey-track.scrubbing,
+.journey-track.scrubbing a {
+  cursor: grabbing;
+}
+
+/* While scrubbing, the playhead thickens like a grabbed handle. */
+.journey-track.scrubbing .journey-playhead {
+  box-shadow: 0 0 0 1px #f87171, 0 0 16px #f87171cc;
+}
+
 .journey-holes {
   pointer-events: none;
   position: absolute;
