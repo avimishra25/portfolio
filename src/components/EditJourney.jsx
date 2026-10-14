@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useReducedMotion, useMotionValueEvent } from 'framer-motion';
-import { chapters, chapterNumber, activeChapterIndex } from '../chapters.js';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useReducedMotion, useMotionValueEvent } from 'framer-motion';
+import { chapters, chapterNumber, chapterProgress } from '../chapters.js';
 import { featured, portfolio } from '../projects.js';
 
 // The desk's film strip carries the software work; each cut moves to the next project.
@@ -90,13 +90,33 @@ export function EditBreak({ chapter }) {
 export default function EditJourney() {
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const rotation = useTransform(scrollYProgress, [0, 1], [0, 1080]);
   const [chapter, setChapter] = useState(0);
-  useMotionValueEvent(scrollYProgress, 'change', () => setChapter(activeChapterIndex()));
+  const trackRef = useRef(null);
+  const playheadY = useMotionValue(0);
+  const smoothPlayheadY = useSpring(playheadY, { stiffness: 260, damping: 32 });
+
+  // Pin the playhead to the current chapter's frame, sliding toward the next frame as the
+  // section scrolls by, so it always agrees with the highlighted chapter.
+  const update = () => {
+    const { index, fraction } = chapterProgress();
+    setChapter(index);
+    const frames = trackRef.current?.querySelectorAll(':scope > a');
+    if (!frames?.length) return;
+    const center = (frame) => frame.offsetTop + frame.offsetHeight / 2;
+    const from = center(frames[index]);
+    const to = frames[index + 1] ? center(frames[index + 1]) : from;
+    playheadY.set(from + (to - from) * fraction);
+  };
+  useMotionValueEvent(scrollYProgress, 'change', update);
+  useEffect(() => {
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
   return <aside className="edit-journey" aria-label="Film reel chapter navigation">
     <div className="journey-reel"><Reel rotation={reduced ? 0 : rotation} small /></div>
-    <div className="journey-track"><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-playhead" style={{ top: y }} aria-hidden="true" /></div>
+    <div className="journey-track" ref={trackRef}><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-playhead" style={{ top: reduced ? playheadY : smoothPlayheadY }} aria-hidden="true" /></div>
     <span className="journey-caption">THE FINAL CUT</span>
   </aside>;
 }
