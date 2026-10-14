@@ -1,6 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, useMotionValueEvent } from 'framer-motion';
 import { chapters, chapterNumber, activeChapterIndex } from '../chapters.js';
+import { featured, portfolio } from '../projects.js';
+
+// The desk's film strip carries the software work; each cut moves to the next project.
+const deskProjects = [...featured, portfolio];
+// Three copies keep frames on both sides of the active one; the middle copy is the one shown.
+const deskFrames = [...deskProjects, ...deskProjects, ...deskProjects];
 
 function Reel({ rotation, small = false }) {
   return <motion.svg className={small ? 'film-reel film-reel-small' : 'film-reel'} style={{ rotate: rotation }} viewBox="0 0 240 240" aria-hidden="true">
@@ -30,25 +36,45 @@ export function EditingDesk() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const rotation = useTransform(scrollYProgress, [0, 1], [-90, 480]);
   const reverse = useTransform(scrollYProgress, [0, 1], [90, -480]);
-  const filmX = useTransform(scrollYProgress, [0, 1], [60, -220]);
+  const drift = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const framesRef = useRef(null);
+  const frameOffset = useSpring(0, { stiffness: 120, damping: 22 });
+  const filmX = useTransform([drift, frameOffset], ([scroll, offset]) => offset + (reduced ? 0 : scroll));
   const smoothRotation = useSpring(rotation, { stiffness: 70, damping: 24 });
+  const active = cut % deskProjects.length;
+
+  // Slide the strip so the active project's frame sits left of the scissors.
+  useEffect(() => {
+    const frames = framesRef.current;
+    if (!frames) return;
+    const place = () => {
+      const [first, second] = frames.children;
+      const step = second.offsetLeft - first.offsetLeft;
+      const target = frames.parentElement.offsetWidth * 0.36 - first.offsetWidth / 2 - (deskProjects.length + active) * step;
+      if (reduced) frameOffset.jump(target); else frameOffset.set(target);
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(frames.parentElement);
+    return () => observer.disconnect();
+  }, [active, reduced, frameOffset]);
   return <div className="editing-desk" ref={ref}>
     <div className="desk-grid" aria-hidden="true" />
-    <div className="desk-heading"><span>AVI’S EDITING TABLE</span><span>35 MM / VOL. 01</span></div>
+    <div className="desk-heading"><span>AVI’S EDITING TABLE</span><span>NOW CUTTING / {deskProjects[active].short}</span></div>
     <div className="desk-reel-one"><Reel rotation={reduced ? 0 : smoothRotation} /></div>
     <div className="desk-reel-two"><Reel rotation={reduced ? 0 : reverse} small /></div>
     <svg className="loose-film" viewBox="0 0 560 500" aria-hidden="true"><path d="M170 160 C400 15 580 160 425 230 S205 285 405 400" fill="none" stroke="#0c1e1b" strokeWidth="33" /><path d="M170 160 C400 15 580 160 425 230 S205 285 405 400" fill="none" stroke="#e9c773" strokeWidth="24" strokeDasharray="2 12" /></svg>
     <motion.div className="desk-film" animate={reduced ? {} : { rotate: cut % 2 ? -3 : -6 }}>
       <div className="film-perfs" />
-      <motion.div className="desk-frames" style={{ x: reduced ? 0 : filmX }}>
-        {['bike-night-ride', 'cinematic-storytelling', '7000-rpm', 'vga-x-medium'].map((name, index) => <div className="film-frame" key={name}><img src={`/assets/edits/${name}.jpg`} alt="" /><span>AVI / 00{index + 1}</span></div>)}
+      <motion.div className="desk-frames" ref={framesRef} style={{ x: filmX }}>
+        {deskFrames.map((project, index) => <div className={`film-frame${index === deskProjects.length + active ? ' active' : ''}`} key={`${project.title}-${index}`}><img src={project.preview} alt="" /><span>{String(index % deskProjects.length + 1).padStart(2, '0')} / {project.short}</span></div>)}
       </motion.div><div className="film-perfs" />
     </motion.div>
     <div className="desk-cut-tool"><Scissors angle={reduced ? 0 : cut % 2 ? -7 : 18} /></div>
     <motion.div className="cut-offcut" key={cut} initial={false} animate={reduced || !cut ? { y: 0, rotate: 8, opacity: 1 } : { y: [0, 65, 0], rotate: [8, 28, 8], opacity: [1, 0, 1] }} transition={{ duration: .65 }} aria-hidden="true"><span>TAKE {String(cut + 1).padStart(2, '0')}</span></motion.div>
     <div className="desk-note" aria-hidden="true">Every frame<br />has a purpose.</div>
     <button type="button" className="make-cut" onClick={() => setCut(value => value + 1)}>Make a cut <span aria-hidden="true">✂</span></button>
-    <span className="sr-only" role="status">{cut ? `Cut ${cut} complete. Take ${cut + 1} ready.` : ''}</span>
+    <span className="sr-only" role="status">{cut ? `Cut to ${deskProjects[active].title}.` : ''}</span>
     <div className="desk-bottom" aria-hidden="true"><span>SCROLL TO WIND THE REEL</span><span aria-hidden="true">↓</span></div>
   </div>;
 }

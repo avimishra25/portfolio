@@ -21,8 +21,9 @@ A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It
 ## Highlights
 
 - **Timeline title hero:** the name is set in large condensed type on an editing timeline, with V1/A1 tracks, a ruler, and a timecode. On load, a playhead sweeps across and reveals it. The hero is sized so the name, tagline, buttons, and editing desk fit in the first screen on laptops.
-- **Editing desk:** an illustrated desk whose film reels wind as you scroll, with a "Make a cut" button for a small interactive moment.
+- **Editing desk:** an illustrated desk whose film strip carries the projects (CareerCompass AI, DripStore, and this portfolio). "Make a cut" slides the strip to the next project and lights its frame, while the reels wind as you scroll.
 - **Selected work:** CareerCompass AI and DripStore, each told as the problem, the key decision, and what you can try in the live demo. Technical details and the full stack sit in an expandable "Inside the build" panel.
+- **Architecture timelines:** each featured project's stack laid out as editing tracks: FX for integrations (Gemini, Google OAuth, Razorpay, Cloudinary), V2 for the API, V1 for the UI, and audio tracks for the ML service and database, with the deployment target as the export. Hovering, focusing, or tapping a clip moves a playhead to it and explains that layer.
 - **Experience:** the internship as release notes, with role details, animated impact metrics (17–20% CMS performance improvement, 24 defects surfaced), and a numbered changelog.
 - **Tech stack:** tools grouped into tech bins and tagged **Production**, **Shipped**, or **Prototype** by how far each has gone.
 - **Editing room:** freelance editing services, toolkit, and the IFP 50-Hour Filmmaking Challenge nomination, linking to a separate page of selected edits.
@@ -73,7 +74,9 @@ No API keys or environment variables are required for the current site. Contact 
 | Name title, tagline, resume link | `src/components/Hero.jsx` |
 | Editing desk, film-reel rail, scene dividers | `src/components/EditJourney.jsx` |
 | Section order and labels (menu, reel rail, scene dividers) | `src/chapters.js` |
-| Projects and source/demo links | `src/components/Projects.jsx` |
+| Project content, stories, architecture layers, and links | `src/projects.js` |
+| Projects section layout | `src/components/Projects.jsx` |
+| Architecture timeline | `src/components/ArchitectureTimeline.jsx` |
 | Project preview layouts | `src/components/ProjectPreview.jsx` |
 | Internship details, impact metrics, and changelog | `src/components/Experience.jsx` |
 | Tech bins, usage levels, and foundations | `src/components/Skills.jsx` |

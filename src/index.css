@@ -612,22 +612,192 @@ body {
   }
 }
 
-.clip-track {
-  margin-top: 16px;
+/* Architecture timeline: each project's stack as editing tracks with a playhead. */
+.arch {
+  --arch-label: 132px;
+  padding: 24px 28px 22px;
+  border-top: 1px solid #ffffff10;
+}
+
+.arch-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 20px;
+  margin-bottom: 14px;
+}
+
+.arch-output {
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+}
+
+.arch-output b {
+  font-weight: 400;
+  color: var(--studio-accent);
+}
+
+.arch-grid {
+  position: relative;
+  display: grid;
+  gap: 5px;
+}
+
+.arch-row {
+  display: grid;
+  grid-template-columns: var(--arch-label) 1fr;
+  align-items: center;
+}
+
+.arch-ruler {
+  height: 10px;
+  border-bottom: 1px solid #ffffff1a;
+  background:
+    repeating-linear-gradient(90deg, #ffffff40 0 1px, transparent 1px 10%) bottom / 100% 10px no-repeat,
+    repeating-linear-gradient(90deg, #ffffff22 0 1px, transparent 1px 2.5%) bottom / 100% 5px no-repeat;
+}
+
+.arch-label {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font: 10px ui-monospace,monospace;
+  gap: 10px;
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+}
+
+.arch-label b {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 22px;
+  border: 1px solid #ffffff1a;
+  border-radius: 3px;
+  font-weight: 400;
+  color: #d4d0c8;
+}
+
+.arch-lane {
+  position: relative;
+  height: 30px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, #ffffff06 0 1px, transparent 1px 2.5%), #ffffff05;
+}
+
+.arch-clip {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  min-width: 0;
+  padding: 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  border-radius: 3px;
+  font: 600 11px ui-monospace, monospace;
+  letter-spacing: .04em;
+  color: #17130b;
+  cursor: pointer;
+  transition: box-shadow .18s ease, filter .18s ease;
+}
+
+.arch-clip-v1 { background: var(--studio-accent); }
+.arch-clip-v2 { background: #dcae5f; }
+.arch-clip-a1, .arch-clip-a2 { background: var(--studio-green); color: #10170f; }
+.arch-clip-a2 { background: #8fa889; }
+
+.arch-clip-fx {
+  border: 1px solid #f8717199;
+  background: #f871711f;
+  color: #fecaca;
+}
+
+.arch-clip:hover {
+  filter: brightness(1.08);
+}
+
+.arch-clip.active {
+  box-shadow: 0 0 0 2px #f4f1ea;
+}
+
+.arch-clip:focus-visible {
+  outline: 2px solid #f4f1ea;
+  outline-offset: 2px;
+}
+
+.arch-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--arch-label);
+  right: 0;
+  pointer-events: none;
+}
+
+.arch-playhead {
+  position: absolute;
+  top: -4px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+  background: #f87171;
+  box-shadow: 0 0 10px #f87171aa;
+  transition: left .35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.arch-playhead::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 12px;
+  height: 10px;
+  background: #f87171;
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+}
+
+.arch-caption {
+  margin-top: 16px;
+  min-height: 3.4em;
+  font-size: 14px;
+  line-height: 1.7;
   color: #aaa69e;
 }
 
-.clip-track>div {
-  flex: 1;
-  border-left: 3px solid var(--studio-accent);
-  border-radius: 3px;
-  padding: 14px;
-  color: #e5cfa4;
-  background: repeating-linear-gradient(90deg,#fcd0740a 0,#fcd0740a 40px,#fcd07416 40px,#fcd07416 41px);
+.arch-caption span {
+  margin-right: 6px;
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--studio-accent);
+}
+
+.arch-caption b {
+  font-weight: 500;
+  color: #f4f4f5;
+}
+
+@media (max-width: 639px) {
+  .arch {
+    --arch-label: 40px;
+    padding: 20px 16px 18px;
+  }
+  .arch-label span {
+    display: none;
+  }
+  .arch-clip {
+    padding: 0 6px;
+    font-size: 9px;
+  }
+  .arch-caption {
+    min-height: 5.1em;
+    font-size: 13px;
+  }
 }
 
 .showcase-copy {
@@ -1402,6 +1572,7 @@ body {
   width: 120px;
   position: relative;
   border: 1px solid #91875e;
+  transition: border-color .25s ease, box-shadow .25s ease;
 }
 
 .film-frame img {
@@ -1409,14 +1580,34 @@ body {
   height: 68px;
   -o-object-fit: cover;
   object-fit: cover;
-  filter: sepia(.2);
+  object-position: top;
+  filter: sepia(.35) brightness(.7);
+  transition: filter .25s ease;
 }
 
 .film-frame span {
   display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: #d9bf83;
   padding: 3px 6px;
   font: 7px ui-monospace,monospace;
+  text-transform: uppercase;
+}
+
+/* The project currently "on the cut" is lit; the rest of the strip sits back. */
+.film-frame.active {
+  border-color: var(--studio-accent);
+  box-shadow: 0 0 0 1px var(--studio-accent), 0 0 14px #fcd07455;
+}
+
+.film-frame.active img {
+  filter: none;
+}
+
+.film-frame.active span {
+  color: var(--studio-accent);
 }
 
 .desk-cut-tool {
