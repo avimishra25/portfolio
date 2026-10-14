@@ -50,13 +50,38 @@
     <meta name="twitter:image" content="https://portfolio-avimishra25s-projects.vercel.app/assets/og-image.png?v=20261014-2" />
     <meta name="twitter:image:alt" content="Avi Mishra — Software Engineer and Video Editor portfolio" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Structured data: lets search engines describe Avi Mishra as a person and link the GitHub and LinkedIn profiles -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://portfolio-avimishra25s-projects.vercel.app/#person",
+            "name": "Avi Mishra",
+            "url": "https://portfolio-avimishra25s-projects.vercel.app/",
+            "image": "https://portfolio-avimishra25s-projects.vercel.app/assets/og-image.png",
+            "jobTitle": "Software Engineer",
+            "description": "Full-stack software engineer building web apps and applied AI tools, and a freelance video editor.",
+            "email": "mailto:aviam2425@gmail.com",
+            "address": { "@type": "PostalAddress", "addressLocality": "Ahmedabad", "addressCountry": "IN" },
+            "alumniOf": { "@type": "CollegeOrUniversity", "name": "Pandit Deendayal Energy University" },
+            "knowsAbout": ["React", "Node.js", "Express", "MongoDB", "Python", "Flask", "Machine learning", "Video editing"],
+            "sameAs": ["https://github.com/avimishra25", "https://www.linkedin.com/in/avi-mishra2425"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://portfolio-avimishra25s-projects.vercel.app/#website",
+            "url": "https://portfolio-avimishra25s-projects.vercel.app/",
+            "name": "Avi Mishra",
+            "author": { "@id": "https://portfolio-avimishra25s-projects.vercel.app/#person" }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Fonts: self-hosted; Anton is preloaded so the name title renders in it from the first paint -->
+    <link rel="preload" href="/fonts/anton-latin-400.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body class="bg-base text-zinc-100 antialiased">
     <div id="root"></div>

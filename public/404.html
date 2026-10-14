@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09090b" />
+    <meta name="robots" content="noindex" />
+    <title>Scene not found — Avi Mishra</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/anton-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      /* Standalone: served by Vercel for any unknown path, so it carries its own styles. */
+      @font-face {
+        font-family: 'Anton';
+        font-display: block;
+        src: url('/fonts/anton-latin-400.woff2') format('woff2');
+      }
+      :root { --accent: #fcd074; --green: #a9bfa1; --muted: #a7a39b; --red: #f87171; }
+      * { box-sizing: border-box; margin: 0; }
+      html, body { min-height: 100%; background: #09090b; color: #f4f4f5; }
+      body {
+        font-family: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        background:
+          radial-gradient(40% 50% at 75% 45%, #fcd07412, transparent 70%),
+          linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 40px 40px,
+          linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 40px 40px,
+          #09090b;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      a { color: inherit; }
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+      header { padding: 20px 24px; border-bottom: 1px solid #ffffff12; }
+      .logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none; letter-spacing: -.01em; }
+      .logo b { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: #f59e0b; color: #fff; font-weight: 900; }
+      .logo i { font-style: normal; color: var(--accent); }
+      main { flex: 1; width: min(1100px, 100%); margin: 0 auto; padding: clamp(48px, 10vh, 120px) 24px 64px; }
+      .topline { display: flex; justify-content: space-between; gap: 16px; font: 11px ui-monospace, Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+      .topline > span:first-child { display: inline-flex; align-items: center; gap: 9px; }
+      .topline i { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px #f8717180; }
+      .topline > span:last-child { color: var(--muted); }
+      .topline b { font-weight: 400; color: #f4f4f5; }
+      .stage { position: relative; margin-top: 14px; }
+      h1 { font-family: Anton, 'Arial Narrow', sans-serif; font-weight: 400; font-size: clamp(7rem, 30vw, 18rem); line-height: .86; letter-spacing: .01em; color: #f4f1ea; }
+      .ruler { height: 10px; margin: 16px 0 6px; border-bottom: 1px solid #ffffff1a;
+        background: repeating-linear-gradient(90deg, #ffffff40 0 1px, transparent 1px 60px) bottom / 100% 10px no-repeat,
+                    repeating-linear-gradient(90deg, #ffffff22 0 1px, transparent 1px 12px) bottom / 100% 5px no-repeat; }
+      .track { display: flex; gap: 4px; height: 28px; margin-top: 5px; }
+      .label { flex: 0 0 34px; display: grid; place-items: center; border: 1px solid #ffffff1a; border-radius: 3px; font: 10px ui-monospace, Consolas, monospace; color: var(--muted); }
+      .clip { display: flex; align-items: center; padding: 0 10px; border-radius: 3px; font: 600 10px ui-monospace, Consolas, monospace; letter-spacing: .06em; color: #17130b; white-space: nowrap; overflow: hidden; }
+      .clip.main { flex: 0 0 30%; background: var(--accent); }
+      .clip.gap { flex: 1; border: 1px dashed #f8717199; background: #f8717114; color: #fecaca; }
+      .clip.audio { flex: 1; background: var(--green); color: #10170f; }
+      .playhead { position: absolute; top: -6px; bottom: -4px; left: 66%; width: 2px; background: var(--red); box-shadow: 0 0 12px #f8717199; }
+      .playhead::before { content: ""; position: absolute; top: 0; left: -6px; width: 14px; height: 12px; background: var(--red); clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%); }
+      h2 { margin-top: 40px; font-size: clamp(2rem, 4.4vw, 3.4rem); font-weight: 600; letter-spacing: -.05em; line-height: 1.05; }
+      h2 span { background: linear-gradient(110deg, #ffe2a4, #dca856); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      p { margin-top: 16px; max-width: 34rem; color: #a1a1aa; line-height: 1.7; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 6px; font-weight: 500; text-decoration: none; transition: background-color .18s ease, border-color .18s ease; }
+      .btn.primary { background: var(--accent); color: #17130b; }
+      .btn.primary:hover { background: #ffe2a4; }
+      .btn.ghost { border: 1px solid #ffffff1a; color: #e4e4e7; }
+      .btn.ghost:hover { border-color: #fbbf2480; color: #fde68a; }
+      @media (max-width: 639px) {
+        .topline { font-size: 9px; letter-spacing: .1em; }
+        .clip { font-size: 8px; padding: 0 7px; }
+        .clip.main { flex-basis: 38%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="logo" href="/"><b>A</b><span>Avi<i>.</i>Mishra</span></a>
+    </header>
+    <main>
+      <div class="topline" aria-hidden="true"><span><i></i>Scene 404 / Not found</span><span>TC <b>00:00:04:04</b></span></div>
+      <div class="stage">
+        <h1>404</h1>
+        <div aria-hidden="true">
+          <div class="ruler"></div>
+          <div class="track"><span class="label">V1</span><span class="clip main">intro.mp4</span><span class="clip gap">missing_clip.mp4 — offline</span></div>
+          <div class="track"><span class="label">A1</span><span class="clip audio">room_tone.wav</span></div>
+        </div>
+        <span class="playhead" aria-hidden="true"></span>
+      </div>
+      <h2>Scene not found.<br /><span>It didn’t make the final cut.</span></h2>
+      <p>This page isn’t on the timeline. It may have been moved, renamed, or never shot. Head back to the start, or catch the work in the editing room.</p>
+      <div class="actions">
+        <a class="btn primary" href="/">Back to the start</a>
+        <a class="btn ghost" href="/#projects">See the projects</a>
+        <a class="btn ghost" href="/editing-room.html">Editing room</a>
+      </div>
+    </main>
+  </body>
+</html>

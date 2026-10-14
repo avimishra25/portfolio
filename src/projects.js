@@ -1,4 +1,5 @@
 // Project content shared by the Projects section and the hero's editing desk.
+// `deskFrame` is a small 2x thumbnail for the desk's film strip (frames show at 120x68).
 //
 // `architecture` drives each project's timeline: tracks are listed top to bottom as an
 // editor would stack them (effects, video, audio). Clip `start`/`end` are percentages of
@@ -7,7 +8,7 @@ export const projects = [
   {
     title: 'CareerCompass AI',
     short: 'CareerCompass',
-    preview: '/assets/careercompass-preview.jpg',
+    deskFrame: '/assets/desk/careercompass.webp',
     category: 'Applied AI · Full stack',
     description:
       'Career intelligence platform with resume analysis, matching across 12 career profiles, and custom job-description matching. React, Express, and Flask services deployed on Vercel, Render, and Hugging Face Spaces.',
@@ -46,7 +47,7 @@ export const projects = [
   {
     title: 'DripStore',
     short: 'DripStore',
-    preview: '/assets/dripstore-preview.jpg',
+    deskFrame: '/assets/desk/dripstore.webp',
     category: 'E-commerce · Full stack',
     description:
       'Sneaker and streetwear storefront with guest carts, customer accounts, and product/order administration. Deployed on Render as a single Docker service with credential-free customer and admin demos.',
@@ -83,7 +84,7 @@ export const projects = [
   {
     title: 'Personal Portfolio',
     short: 'This portfolio',
-    preview: '/assets/og-image.png',
+    deskFrame: '/assets/desk/portfolio.webp',
     category: 'Design & Development',
     description:
       'A personal showcase bringing software engineering and visual storytelling together. Designed and built with React, Tailwind CSS, and Framer Motion, with a responsive dark interface and an interactive editing-desk hero.',

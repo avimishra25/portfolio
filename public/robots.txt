@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-avimishra25s-projects.vercel.app/sitemap.xml

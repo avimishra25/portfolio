@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Analytics } from '@vercel/analytics/react';
+import '@fontsource-variable/inter';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import SelectedEdits from './components/SelectedEdits.jsx';
 import './index.css';
@@ -43,5 +45,5 @@ function EditingRoom() {
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode><EditingRoom /></React.StrictMode>
+  <React.StrictMode><EditingRoom /><Analytics /></React.StrictMode>
 );

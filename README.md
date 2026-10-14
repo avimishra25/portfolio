@@ -41,11 +41,10 @@ Reduced-motion preferences skip the title sweep, reel rotation, and counter anim
 | Styling | Tailwind CSS 3 |
 | Animation | Framer Motion |
 | Icons | Lucide React |
-| Fonts | Inter, Anton (name title) via Google Fonts |
+| Fonts | Inter (bundled via `@fontsource-variable/inter`) and Anton for the name title (self-hosted in `public/fonts`, preloaded) |
 | Media | Native HTML video, local MP4 files and JPEG posters (editing room page) |
-| Hosting | Vercel |
+| Hosting | Vercel, with Vercel Web Analytics |
 
-The previous `HeroCanvas.jsx` and Three.js dependencies remain in the repository but are not used by the current hero.
 
 ## Local development
 
@@ -73,7 +72,7 @@ No API keys or environment variables are required for the current site. Contact 
 | --- | --- |
 | Name title, tagline, resume link | `src/components/Hero.jsx` |
 | Editing desk, film-reel rail, scene dividers | `src/components/EditJourney.jsx` |
-| Section order and labels (menu, reel rail, scene dividers) | `src/chapters.js` |
+| Section order and labels (reel rail, scene dividers) | `src/chapters.js` |
 | Project content, stories, architecture layers, and links | `src/projects.js` |
 | Projects section layout | `src/components/Projects.jsx` |
 | Architecture timeline | `src/components/ArchitectureTimeline.jsx` |
@@ -87,7 +86,9 @@ No API keys or environment variables are required for the current site. Contact 
 | Header, resume link, and contact button | `src/components/Navbar.jsx` |
 | Footer and section order | `src/App.jsx` |
 | Shared styles | `src/index.css` |
-| Search descriptions, canonical URL, and sharing metadata | `index.html` |
+| Search descriptions, canonical URL, sharing metadata, and structured data (JSON-LD) | `index.html` |
+| Crawler rules and sitemap | `public/robots.txt`, `public/sitemap.xml` |
+| "Scene not found" page for unknown URLs | `public/404.html` |
 
 Email links also appear in the hero and the Editing Room section. Update all occurrences when changing the contact address.
 
@@ -95,12 +96,21 @@ Email links also appear in the hero and the Editing Room section. Update all occ
 
 ```text
 public/
+├── 404.html
+├── apple-touch-icon.png
 ├── favicon.svg
+├── robots.txt
+├── sitemap.xml
+├── fonts/
+│   ├── anton-latin-400.woff2
+│   └── Anton-OFL.txt
 └── assets/
     ├── Avi_Mishra_CV.pdf
-    ├── careercompass-preview.jpg
-    ├── dripstore-preview.jpg
+    ├── careercompass-preview.{jpg,webp}
+    ├── dripstore-preview.{jpg,webp}
     ├── og-image.png
+    ├── desk/
+    │   └── careercompass.webp, dripstore.webp, portfolio.webp
     └── edits/
         ├── bike-night-ride.{jpg,mp4}
         ├── cinematic-storytelling.{jpg,mp4}
@@ -108,7 +118,7 @@ public/
         └── vga-x-medium.{jpg,mp4}
 ```
 
-README screenshots live in `docs/screenshots/`. Refresh them after visual changes so this page matches the live site.
+The site serves the WebP previews; the JPEGs are kept as sources. `assets/desk/` holds 240×136 thumbnails for the editing desk's film strip. README screenshots live in `docs/screenshots/`. Refresh them after visual changes so this page matches the live site.
 
 Each gallery entry maps its `id` to `/assets/edits/<id>.jpg` and `/assets/edits/<id>.mp4`. To add an edit, supply both files and add its title, category, duration, and ID to the `edits` array. Keep the duration label in sync with the video.
 
@@ -121,6 +131,8 @@ The connected Vercel project deploys pushes to `main`.
 - Build command: `npm run build`
 - Output directory: `dist`
 - Framework: Vite
+- Analytics: the `<Analytics />` component is wired in; enable **Web Analytics** for the project in the Vercel dashboard so `/_vercel/insights/script.js` is served
+- Unknown URLs get `404.html`
 
 When changing the public domain, update the canonical, Open Graph, and Twitter URLs in `index.html`. After replacing the sharing image, update its version query to help refresh cached previews.
 

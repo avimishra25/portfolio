@@ -67,7 +67,7 @@ export function EditingDesk() {
     <motion.div className="desk-film" animate={reduced ? {} : { rotate: cut % 2 ? -3 : -6 }}>
       <div className="film-perfs" />
       <motion.div className="desk-frames" ref={framesRef} style={{ x: filmX }}>
-        {deskFrames.map((project, index) => <div className={`film-frame${index === deskProjects.length + active ? ' active' : ''}`} key={`${project.title}-${index}`}><img src={project.preview} alt="" /><span>{String(index % deskProjects.length + 1).padStart(2, '0')} / {project.short}</span></div>)}
+        {deskFrames.map((project, index) => <div className={`film-frame${index === deskProjects.length + active ? ' active' : ''}`} key={`${project.title}-${index}`}><img src={project.deskFrame} alt="" width="120" height="68" decoding="async" /><span>{String(index % deskProjects.length + 1).padStart(2, '0')} / {project.short}</span></div>)}
       </motion.div><div className="film-perfs" />
     </motion.div>
     <div className="desk-cut-tool"><Scissors angle={reduced ? 0 : cut % 2 ? -7 : 18} /></div>
@@ -199,7 +199,7 @@ export default function EditJourney() {
       onDragStart={(event) => event.preventDefault()}
     >
       <div className="journey-holes" />
-      {chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} draggable={false} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}
+      {chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} draggable={false} className={index === chapter ? 'current' : ''} aria-label={`${chapterNumber(index)} ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}
       <motion.div className="journey-playhead" style={{ [horizontal ? 'left' : 'top']: reduced || scrubbing ? playhead : smoothPlayhead }} aria-hidden="true" />
     </div>
     <span className="journey-caption">{horizontal ? `${chapterNumber(chapter)} · ${chapters[chapter].label.toUpperCase()}` : 'THE FINAL CUT'}</span>

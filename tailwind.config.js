@@ -8,7 +8,7 @@ export default {
         panel: '#0f0f13',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         glow: '0 0 40px rgba(59, 130, 246, 0.25)',

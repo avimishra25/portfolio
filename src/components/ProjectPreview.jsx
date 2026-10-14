@@ -12,14 +12,14 @@ export default function ProjectPreview({ title }) {
         <span className="w-8" />
       </div>
       <img
-        src={isPortfolio ? '/assets/og-image.png' : isDripStore ? '/assets/dripstore-preview.jpg' : '/assets/careercompass-preview.jpg'}
+        src={isPortfolio ? '/assets/og-image.png' : isDripStore ? '/assets/dripstore-preview.webp' : '/assets/careercompass-preview.webp'}
         alt={isPortfolio
           ? 'Avi Mishra personal portfolio — Software Engineer and Video Editor'
           : isDripStore
           ? 'Live DripStore demo with playground controls, Wear the Culture headline, and a red-and-ivory high-top sneaker'
           : 'CareerCompass AI landing page with resume analysis and career matching tools'}
-        width={isPortfolio ? 1730 : isDripStore ? 1248 : 1275}
-        height={isPortfolio ? 909 : isDripStore ? 702 : 717}
+        width={isPortfolio ? 1200 : isDripStore ? 1248 : 1275}
+        height={isPortfolio ? 630 : isDripStore ? 702 : 717}
         loading="lazy"
         className={isPortfolio || isDripStore
           ? 'block w-full aspect-[16/9] object-contain bg-[#090909]'
