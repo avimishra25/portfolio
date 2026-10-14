@@ -87,14 +87,18 @@ export function EditBreak({ chapter }) {
   return <div className="edit-break" aria-hidden="true"><div className="edit-break-line" /><motion.div className="clapper" initial={false} whileInView={reduced ? {} : { rotate: [0, -3, 0] }} viewport={{ once: true, amount: 1 }} transition={{ duration: .7 }}><motion.div className="clapper-arm" initial={reduced ? false : { rotate: -18 }} whileInView={{ rotate: 0 }} viewport={{ once: true }} transition={{ duration: .4, delay: .1 }} /><span>SCENE {number} / {title}</span></motion.div><div className="edit-break-line" /></div>;
 }
 
+const HORIZONTAL_RAIL = '(max-width: 1279px)';
+
 export default function EditJourney() {
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const rotation = useTransform(scrollYProgress, [0, 1], [0, 1080]);
   const [chapter, setChapter] = useState(0);
   const trackRef = useRef(null);
-  const playheadY = useMotionValue(0);
-  const smoothPlayheadY = useSpring(playheadY, { stiffness: 260, damping: 32 });
+  const playhead = useMotionValue(0);
+  const smoothPlayhead = useSpring(playhead, { stiffness: 260, damping: 32 });
+  // Below 1280px the rail runs horizontally along the bottom of the screen (see index.css).
+  const [horizontal, setHorizontal] = useState(() => window.matchMedia(HORIZONTAL_RAIL).matches);
 
   // Pin the playhead to the current chapter's frame, sliding toward the next frame as the
   // section scrolls by, so it always agrees with the highlighted chapter.
@@ -103,20 +107,29 @@ export default function EditJourney() {
     setChapter(index);
     const frames = trackRef.current?.querySelectorAll(':scope > a');
     if (!frames?.length) return;
-    const center = (frame) => frame.offsetTop + frame.offsetHeight / 2;
+    const center = horizontal
+      ? (frame) => frame.offsetLeft + frame.offsetWidth / 2
+      : (frame) => frame.offsetTop + frame.offsetHeight / 2;
     const from = center(frames[index]);
     const to = frames[index + 1] ? center(frames[index + 1]) : from;
-    playheadY.set(from + (to - from) * fraction);
+    playhead.set(from + (to - from) * fraction);
   };
   useMotionValueEvent(scrollYProgress, 'change', update);
   useEffect(() => {
+    const query = window.matchMedia(HORIZONTAL_RAIL);
+    const onChange = (event) => setHorizontal(event.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+  useEffect(() => {
     update();
+    smoothPlayhead.jump(playhead.get()); // no slide across axes when the layout flips
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
-  }, []);
+  }, [horizontal]);
   return <aside className="edit-journey" aria-label="Film reel chapter navigation">
     <div className="journey-reel"><Reel rotation={reduced ? 0 : rotation} small /></div>
-    <div className="journey-track" ref={trackRef}><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-playhead" style={{ top: reduced ? playheadY : smoothPlayheadY }} aria-hidden="true" /></div>
-    <span className="journey-caption">THE FINAL CUT</span>
+    <div className="journey-track" ref={trackRef}><div className="journey-holes" />{chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={index === chapter ? 'current' : ''} aria-label={`Go to ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}<motion.div className="journey-playhead" style={{ [horizontal ? 'left' : 'top']: reduced ? playhead : smoothPlayhead }} aria-hidden="true" /></div>
+    <span className="journey-caption">{horizontal ? `${chapterNumber(chapter)} · ${chapters[chapter].label.toUpperCase()}` : 'THE FINAL CUT'}</span>
   </aside>;
 }

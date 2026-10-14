@@ -29,7 +29,7 @@ A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It
 - **Editing room:** freelance editing services, toolkit, and the IFP 50-Hour Filmmaking Challenge nomination, linking to a separate page of selected edits.
 - **Selected edits page:** four thumbnail-led videos with native playback. Video files load only after a click, and only one player is mounted at a time.
 - **Contact:** email and copy-email (with a manual fallback), beside a `contact.json` panel with links, résumé, and live local time.
-- **Navigation:** a fixed film-reel rail with numbered chapters on wide screens, a compact menu on smaller ones, scene dividers between sections, a keyboard skip link, and a back-to-top link.
+- **Navigation:** a film-reel chapter rail with a playhead that tracks the current section, running down the right edge on wide screens and along the bottom on phones and tablets, plus a compact menu on smaller screens, scene dividers between sections, a keyboard skip link, and a back-to-top link.
 
 Reduced-motion preferences skip the title sweep, reel rotation, and counter animations, showing final states immediately. Focus indicators and accessible control labels support keyboard navigation, and decorative timeline and desk elements are hidden from screen readers. Gallery video captions remain pending accurate dialogue transcripts.
 

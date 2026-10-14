@@ -1854,8 +1854,94 @@ body {
   }
 }
 
+/* Phones and tablets: the same reel rail, laid horizontally along the bottom of the screen. */
 @media (max-width:1279px) {
   .edit-journey {
+    top: auto;
+    left: 50%;
+    right: auto;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    width: min(560px, calc(100% - 24px));
+    height: 54px;
+    transform: translateX(-50%);
+    z-index: 45;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0 12px 0 8px;
+    border: 1px solid #ffffff1a;
+    border-radius: 12px;
+    background: #0b0f0de6;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px #000a;
+  }
+  .journey-reel {
+    width: 36px;
+    height: 36px;
+  }
+  .journey-track {
+    flex: 1;
+    width: auto;
+    height: 34px;
+    margin: 0;
+    padding: 0 4px;
+    flex-direction: row;
+    align-items: center;
+    border-inline: 0;
+    border-block: 1px solid #819278;
+  }
+  .journey-holes {
+    top: 3px;
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    border-inline: 0;
+    border-block: 4px dashed #abc1a3;
+  }
+  .journey-track>a {
+    min-height: 0;
+    min-width: 40px;
+    height: 100%;
+  }
+  .journey-track a b {
+    padding: 3px 6px;
+  }
+  /* Hover labels would sit off-screen; the frame numbers and the caption carry the chapter. */
+  .journey-track a span {
+    display: none;
+  }
+  .journey-playhead {
+    top: -6px;
+    bottom: -6px;
+    left: 0;
+    right: auto;
+    width: 2px;
+    height: auto;
+    transform: translateX(-50%);
+  }
+  .journey-playhead::before {
+    top: -3px;
+    left: 50%;
+    width: 12px;
+    height: 11px;
+    transform: translateX(-50%);
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 50% 100%, 0 45%);
+  }
+  .journey-caption {
+    min-width: 76px;
+    text-align: right;
+  }
+  /* Keep the page's last lines and the hero scroll cue clear of the bar. */
+  body {
+    padding-bottom: 76px;
+  }
+  .hero-section>a[href="#projects"] {
+    bottom: 84px;
+  }
+}
+
+@media (max-width:479px) {
+  .journey-caption {
     display: none;
   }
 }
