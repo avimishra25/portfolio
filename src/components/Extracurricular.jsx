@@ -1,12 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Award, Clapperboard, ArrowUpRight } from 'lucide-react';
 
 export default function Extracurricular() {
+  const reduceMotion = useReducedMotion();
   return (
     <section id="beyond" className="section-shell">
       <div className="section-container">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }}>
+        <motion.div initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }}>
           <div className="section-intro">
             <h2 className="section-heading">A different kind <span className="text-amber-300">of storytelling.</span></h2>
           </div>
