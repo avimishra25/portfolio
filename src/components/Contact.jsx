@@ -64,13 +64,18 @@ function ContactForm({ reduceMotion }) {
   };
 
   const feedback = status === 'sent' || status === 'error';
+  const tabStatus = { idle: 'draft', sending: 'sending…', sent: 'sent', error: 'not sent' }[status];
   return (
-    <form className="contact-form" onSubmit={onSubmit}>
-      <p className="meta-label">Or send a message</p>
-      {/* Honeypot: hidden from people, filled in by bots; Formspree drops those submissions. */}
-      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
-      <input type="hidden" name="_subject" value="New message from your portfolio" />
-      <div className="contact-form-row">
+    // A second "file" beside contact.json: the message being written.
+    <form className="contact-file contact-form" onSubmit={onSubmit} aria-labelledby="contact-form-title">
+      <div className="contact-file-tab">
+        <span id="contact-form-title">new_message.txt <span className="sr-only">— send a message</span></span>
+        <span className={`contact-form-state is-${status}`}><i className="record-dot" aria-hidden="true" />{tabStatus}</span>
+      </div>
+      <div className="contact-form-body">
+        {/* Honeypot: hidden from people, filled in by bots; Formspree drops those submissions. */}
+        <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+        <input type="hidden" name="_subject" value="New message from your portfolio" />
         <label>
           <span>Name</span>
           <input name="name" type="text" required autoComplete="name" className={inputClass} />
@@ -79,29 +84,31 @@ function ContactForm({ reduceMotion }) {
           <span>Email</span>
           <input name="email" type="email" required autoComplete="email" className={inputClass} />
         </label>
-      </div>
-      <label>
-        <span>Message</span>
-        <textarea name="message" required rows={4} className={`${inputClass} resize-y`} />
-      </label>
-      <button type="submit" className="btn-primary text-sm" disabled={status === 'sending'} aria-busy={status === 'sending'}>
-        {status === 'sending'
-          ? <><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Sending…</>
-          : <>Send message <Send size={15} aria-hidden="true" /></>}
-      </button>
-      <div aria-live="polite">
-        {feedback && (
-          <motion.p
-            key={status}
-            role={status === 'error' ? 'alert' : 'status'}
-            className={`contact-form-feedback ${status === 'error' ? 'is-error' : 'is-sent'}`}
-            initial={reduceMotion ? false : { opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            {status === 'sent' ? "Message sent! I'll get back to you soon." : errorText}
-          </motion.p>
-        )}
+        <label className="contact-form-message">
+          <span>Message</span>
+          <textarea name="message" required rows={4} className={`${inputClass} resize-y`} />
+        </label>
+        <div className="contact-form-footer">
+          <div aria-live="polite">
+            {feedback && (
+              <motion.p
+                key={status}
+                role={status === 'error' ? 'alert' : 'status'}
+                className={`contact-form-feedback ${status === 'error' ? 'is-error' : 'is-sent'}`}
+                initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+              >
+                {status === 'sent' ? "Message sent! I'll get back to you soon." : errorText}
+              </motion.p>
+            )}
+          </div>
+          <button type="submit" className="btn-primary text-sm" disabled={status === 'sending'} aria-busy={status === 'sending'}>
+            {status === 'sending'
+              ? <><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Sending…</>
+              : <>Send message <Send size={15} aria-hidden="true" /></>}
+          </button>
+        </div>
       </div>
     </form>
   );
@@ -158,7 +165,6 @@ export default function Contact() {
             {copyStatus === 'manual' && (
               <input aria-label="Email address to copy" readOnly value={email} onFocus={event => event.target.select()} ref={node => { if (node) { node.focus(); node.select(); } }} className="mt-2 w-full max-w-sm rounded-lg border border-white/20 bg-black/30 p-3 text-sm text-zinc-100" />
             )}
-            <ContactForm reduceMotion={reduceMotion} />
           </div>
 
           <div className="contact-file">
@@ -180,6 +186,8 @@ export default function Contact() {
               <span aria-hidden="true" className="json-brace">{'}'}</span>
             </div>
           </div>
+
+          <ContactForm reduceMotion={reduceMotion} />
         </motion.div>
       </div>
     </section>
