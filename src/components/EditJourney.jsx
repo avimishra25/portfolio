@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useReducedMotion, useMotionValueEvent } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue, useReducedMotion, useMotionValueEvent } from 'framer-motion';
 import { chapters, chapterNumber, chapterProgress, scrollForChapter } from '../chapters.js';
 import { featured, portfolio } from '../projects.js';
 
@@ -89,6 +89,10 @@ export function EditBreak({ chapter }) {
 
 const HORIZONTAL_RAIL = '(max-width: 1279px)';
 
+// The one-time "drag to scrub" hint: shown shortly after load, then gone for the rest of the visit.
+const HINT_DELAY = 1200;
+const HINT_DURATION = 3000;
+
 export default function EditJourney() {
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
@@ -100,6 +104,8 @@ export default function EditJourney() {
   // Below 1280px the rail runs horizontally along the bottom of the screen (see index.css).
   const [horizontal, setHorizontal] = useState(() => window.matchMedia(HORIZONTAL_RAIL).matches);
   const [scrubbing, setScrubbing] = useState(false);
+  const [hintVisible, setHintVisible] = useState(false);
+  const hintDone = useRef(false);
   const drag = useRef(null);
   const suppressClick = useRef(false);
 
@@ -136,7 +142,18 @@ export default function EditJourney() {
     }
     window.scrollTo({ top: scrollForChapter(index, fraction), behavior: 'instant' });
   };
+  const dismissHint = () => {
+    hintDone.current = true;
+    setHintVisible(false);
+  };
+  useEffect(() => {
+    const show = setTimeout(() => { if (!hintDone.current) setHintVisible(true); }, HINT_DELAY);
+    const hide = setTimeout(dismissHint, HINT_DELAY + HINT_DURATION);
+    return () => { clearTimeout(show); clearTimeout(hide); };
+  }, []);
+
   const onPointerDown = (event) => {
+    dismissHint(); // they've found the rail; no need to point it out
     if (event.button !== 0) return;
     drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
   };
@@ -188,7 +205,7 @@ export default function EditJourney() {
   return <aside className="edit-journey" aria-label="Film reel chapter navigation">
     <div className="journey-reel"><Reel rotation={reduced ? 0 : rotation} small /></div>
     <div
-      className={`journey-track${scrubbing ? ' scrubbing' : ''}`}
+      className={`journey-track${scrubbing ? ' scrubbing' : ''}${hintVisible && !reduced ? ' hinting' : ''}`}
       ref={trackRef}
       title="Drag to scrub through the page"
       onPointerDown={onPointerDown}
@@ -201,6 +218,22 @@ export default function EditJourney() {
       <div className="journey-holes" />
       {chapters.map(({ id, label }, index) => <a key={id} href={`#${id}`} draggable={false} className={index === chapter ? 'current' : ''} aria-label={`${chapterNumber(index)} ${label}`} aria-current={index === chapter ? 'location' : undefined}><span>{label}</span><b>{chapterNumber(index)}</b></a>)}
       <motion.div className="journey-playhead" style={{ [horizontal ? 'left' : 'top']: reduced || scrubbing ? playhead : smoothPlayhead }} aria-hidden="true" />
+      <AnimatePresence>
+        {hintVisible && (
+          <motion.span
+            key="hint"
+            className="journey-hint"
+            style={{ [horizontal ? 'left' : 'top']: reduced ? playhead : smoothPlayhead }}
+            initial={reduced ? false : { opacity: 0, [horizontal ? 'y' : 'x']: 6 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, transition: { duration: 0.5 } }}
+            transition={{ duration: 0.35 }}
+            aria-hidden="true"
+          >
+            <b>{horizontal ? '↔' : '↕'}</b> Drag to scrub
+          </motion.span>
+        )}
+      </AnimatePresence>
     </div>
     <span className="journey-caption">{horizontal ? `${chapterNumber(chapter)} · ${chapters[chapter].label.toUpperCase()}` : 'THE FINAL CUT'}</span>
   </aside>;
