@@ -4,7 +4,7 @@ export const chapters = [
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Tech Stack' },
-  { id: 'beyond', label: 'Editing Room' },
+  { id: 'beyond', label: 'Beyond the Code' },
   { id: 'contact', label: 'Contact' },
 ];
 

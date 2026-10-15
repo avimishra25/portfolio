@@ -90,7 +90,7 @@ No API keys or environment variables are required for the current site. Contact 
 | Crawler rules and sitemap | `public/robots.txt`, `public/sitemap.xml` |
 | "Scene not found" page for unknown URLs | `public/404.html` |
 
-Email links also appear in the hero and the Editing Room section. Update all occurrences when changing the contact address.
+Email links also appear in the hero and the Beyond the Code section. Update all occurrences when changing the contact address.
 
 ### Media assets
 
