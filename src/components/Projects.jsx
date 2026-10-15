@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, ArrowUp } from 'lucide-react';
 import ProjectPreview from './ProjectPreview.jsx';
 import ArchitectureTimeline from './ArchitectureTimeline.jsx';
 import { featured, portfolio } from '../projects.js';
@@ -38,7 +38,25 @@ export default function Projects() {
             </motion.article>
           ))}
         </div>
-        <div className="portfolio-colophon"><div><p className="studio-label">ALSO IN THE COLLECTION</p><h3>This portfolio.</h3><p>Software and visual storytelling, sharing one timeline. Built with React, Tailwind CSS, and Framer Motion.</p></div><a className="btn-ghost text-sm" href={portfolio.github} target="_blank" rel="noreferrer"><Github size={16} /> Explore the source</a></div>
+        <motion.article className="project-showcase portfolio-showcase" initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }}>
+          <div className="showcase-topline"><span>FEATURE {String(featured.length + 1).padStart(2, '0')}</span><span>{portfolio.category}</span></div>
+          <div className="showcase-layout">
+            <div className="showcase-visual">
+              <a href="#hero" aria-label="This portfolio: back to the top" className="showcase-image-link"><ProjectPreview title={portfolio.title} /><span className="preview-open">You are here <ArrowUp size={14} /></span></a>
+            </div>
+            <div className="showcase-copy">
+              <p className="studio-label">{portfolio.pitch.label}</p>
+              <h3>{portfolio.title}</h3>
+              <p className="showcase-problem">{portfolio.pitch.line}</p>
+              <p className="showcase-detail">{portfolio.description}</p>
+              <div className="flex flex-wrap gap-2 mt-5">{portfolio.tags.map(tag => <span key={tag} className="project-tag">{tag}</span>)}</div>
+              <div className="flex flex-wrap gap-3 mt-7">
+                <a href={portfolio.demo} className="btn-primary text-sm" aria-label={`View ${portfolio.title} live site`}>Live site <ExternalLink size={15} /></a>
+                <a href={portfolio.github} target="_blank" rel="noreferrer" className="btn-ghost text-sm" aria-label={`View ${portfolio.title} source code on GitHub`}><Github size={16} /> Code</a>
+              </div>
+            </div>
+          </div>
+        </motion.article>
       </div>
     </section>
   );

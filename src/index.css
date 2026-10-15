@@ -875,30 +875,16 @@ body {
   margin-top: 7px;
 }
 
-.portfolio-colophon {
-  margin-top: 32px;
-  padding: 28px 0;
-  display: flex;
-  gap: 28px;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ffffff16;
+/* The portfolio's own card: same showcase shell, with a description in place of the story. */
+.portfolio-showcase {
+  margin-top: 48px;
 }
 
-.portfolio-colophon h3 {
-  font-size: 23px;
-  margin-top: 8px;
-}
-
-.portfolio-colophon p:last-child {
-  color: #a7a39b;
-  font-size: 13px;
-  margin-top: 8px;
-  max-width: 600px;
-}
-
-.portfolio-colophon>a {
-  flex-shrink: 0;
+.showcase-detail {
+  margin-top: 14px;
+  color: #aaa69e;
+  font-size: 14px;
+  line-height: 1.75;
 }
 
 /* Experience as release notes: role details, impact, and a changelog. */
@@ -1451,7 +1437,7 @@ body {
   .hero-tagline {
     font-size: clamp(2.25rem,9.5vw,3.5rem);
   }
-  .studio-section-heading, .portfolio-colophon {
+  .studio-section-heading {
     display: block;
   }
   .studio-section-heading>p {
@@ -1476,9 +1462,6 @@ body {
   }
   .build-notes-content {
     padding: 0 20px 24px;
-  }
-  .portfolio-colophon>a {
-    margin-top: 22px;
   }
   .preview-toolbar {
     font-size: 8px;

@@ -95,6 +95,11 @@ export const projects = [
       'Reduced-motion support, keyboard navigation, and accessible control labels',
     ],
     tags: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
+    // A lighter card than the featured stories: no architecture timeline.
+    pitch: {
+      label: 'SOFTWARE MEETS STORYTELLING',
+      line: 'Software and visual storytelling, sharing one timeline.',
+    },
     github: 'https://github.com/avimishra25/portfolio',
     demo: 'https://portfolio-avimishra25s-projects.vercel.app/',
   },
