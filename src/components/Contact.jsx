@@ -76,11 +76,11 @@ function ContactForm({ reduceMotion }) {
         {/* Honeypot: hidden from people, filled in by bots; Formspree drops those submissions. */}
         <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <input type="hidden" name="_subject" value="New message from your portfolio" />
-        <label>
+        <label className="contact-form-name">
           <span>Name</span>
           <input name="name" type="text" required autoComplete="name" className={inputClass} />
         </label>
-        <label>
+        <label className="contact-form-email">
           <span>Email</span>
           <input name="email" type="email" required autoComplete="email" className={inputClass} />
         </label>
@@ -152,7 +152,7 @@ export default function Contact() {
               A thoughtful interface, a smarter tool, or a system ready to grow.
               If that sounds like your next project, I'd love to hear about it.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <a href={`mailto:${email}`} className="btn-primary">Email me <ArrowUpRight size={18} /></a>
               <button type="button" onClick={copyEmail} className="btn-ghost text-sm min-h-11">
                 {copyStatus === 'copied' ? <Check size={16} /> : <Copy size={16} />}
