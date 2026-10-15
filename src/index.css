@@ -561,6 +561,151 @@ body {
   background: #121210;
   border-radius: 10px;
   overflow: hidden;
+  scroll-margin-top: 96px;
+}
+
+/* Contact sheet: all projects as frames on one strip, linking to their cards. */
+.contact-sheet {
+  margin-bottom: 44px;
+}
+
+.contact-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+}
+
+.contact-sheet-head span:first-child {
+  color: var(--studio-accent);
+}
+
+.contact-sheet-strip {
+  padding: 10px 0;
+  border: 1px solid #ffffff14;
+  border-radius: 8px;
+  background: #0d120f;
+}
+
+.contact-sheet-strip .film-perfs {
+  opacity: .3;
+}
+
+.contact-sheet-frames {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 16px 20px;
+}
+
+.sheet-frame {
+  display: block;
+  border-radius: 4px;
+}
+
+.sheet-shot {
+  position: relative;
+  display: block;
+}
+
+.sheet-image {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid #91875e55;
+  border-radius: 3px;
+  background: #09090b;
+}
+
+.sheet-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: grayscale(.4) brightness(.78);
+  transition: filter .3s ease;
+}
+
+/* The grease-pencil circle an editor draws around a pick. */
+.sheet-mark {
+  position: absolute;
+  top: -12%;
+  left: -6%;
+  width: 112%;
+  height: 124%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.sheet-mark path {
+  fill: none;
+  stroke: var(--studio-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  /* Non-scaling strokes measure dashes in screen pixels, so use a dash longer than any frame's outline. */
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 2400;
+  stroke-dashoffset: 2400;
+  transition: stroke-dashoffset .5s ease;
+}
+
+.sheet-frame:hover .sheet-image img,
+.sheet-frame:focus-visible .sheet-image img {
+  filter: none;
+}
+
+.sheet-frame:hover .sheet-mark path,
+.sheet-frame:focus-visible .sheet-mark path {
+  stroke-dashoffset: 0;
+}
+
+.sheet-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 10px;
+  min-width: 0;
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #d4d0c8;
+}
+
+.sheet-caption b {
+  font-weight: 400;
+  color: var(--studio-accent);
+}
+
+.sheet-caption em {
+  margin-left: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-style: normal;
+  color: var(--studio-muted);
+}
+
+@media (max-width: 639px) {
+  /* On phones the strip scrolls sideways, a frame at a time. */
+  .contact-sheet-frames {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 16px;
+    gap: 14px;
+  }
+  .contact-sheet-frames li {
+    scroll-snap-align: start;
+  }
+  .sheet-caption em {
+    display: none;
+  }
 }
 
 .showcase-topline {

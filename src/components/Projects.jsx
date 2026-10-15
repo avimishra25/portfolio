@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Github, ExternalLink, ArrowUp } from 'lucide-react';
 import ProjectPreview from './ProjectPreview.jsx';
 import ArchitectureTimeline from './ArchitectureTimeline.jsx';
+import ContactSheet from './ContactSheet.jsx';
 import { featured, portfolio } from '../projects.js';
 
 export default function Projects() {
@@ -12,11 +13,12 @@ export default function Projects() {
       <div className="section-container">
         <div className="section-intro studio-section-heading">
           <div><h2 className="section-heading">From idea.<br /><span className="text-gradient">To something real.</span></h2></div>
-          <p className="section-description">Two projects, a closer look.<br />The problem, the decisions, and what you can try.</p>
+          <p className="section-description">Three projects, a closer look.<br />The problem, the decisions, and what you can try.</p>
         </div>
+        <ContactSheet projects={[...featured, portfolio]} />
         <div className="showcase-list">
           {featured.map((project, index) => (
-            <motion.article key={project.title} className="project-showcase" initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }}>
+            <motion.article key={project.title} id={project.anchor} className="project-showcase" initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }}>
               <div className="showcase-topline"><span>FEATURE {String(index + 1).padStart(2, '0')}</span><span>{project.category}</span></div>
               <div className="showcase-layout">
                 <div className="showcase-visual">
@@ -38,7 +40,7 @@ export default function Projects() {
             </motion.article>
           ))}
         </div>
-        <motion.article className="project-showcase portfolio-showcase" initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }}>
+        <motion.article id={portfolio.anchor} className="project-showcase portfolio-showcase" initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }}>
           <div className="showcase-topline"><span>FEATURE {String(featured.length + 1).padStart(2, '0')}</span><span>{portfolio.category}</span></div>
           <div className="showcase-layout">
             <div className="showcase-visual">

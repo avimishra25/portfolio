@@ -8,6 +8,8 @@ export const projects = [
   {
     title: 'CareerCompass AI',
     short: 'CareerCompass',
+    anchor: 'careercompass',
+    sheetImage: '/assets/careercompass-preview.webp',
     deskFrame: '/assets/desk/careercompass.webp',
     category: 'Applied AI · Full stack',
     description:
@@ -47,6 +49,8 @@ export const projects = [
   {
     title: 'DripStore',
     short: 'DripStore',
+    anchor: 'dripstore',
+    sheetImage: '/assets/dripstore-preview.webp',
     deskFrame: '/assets/desk/dripstore.webp',
     category: 'E-commerce · Full stack',
     description:
@@ -84,6 +88,8 @@ export const projects = [
   {
     title: 'Personal Portfolio',
     short: 'This portfolio',
+    anchor: 'this-portfolio',
+    sheetImage: '/assets/og-image.png',
     deskFrame: '/assets/desk/portfolio.webp',
     category: 'Design & Development',
     description:
