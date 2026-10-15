@@ -145,7 +145,7 @@ Before publishing:
 1. Run `npm run build` and `git diff --check`.
 2. Check phone, tablet, and desktop layouts for wrapping and horizontal overflow.
 3. Test keyboard navigation, the skip link, menu, and visible focus indicators.
-4. Check copy-email success and its manual fallback, email links, and resume download.
+4. Check copy-email success and its manual fallback, email links, and resume links (each opens the PDF in a new tab).
 5. Verify the title sweep, reduced motion, counter end values, and gallery playback.
 6. Confirm gallery videos are not downloaded before a click and switching edits replaces the active player.
 7. Check the live deployment and sharing metadata after pushing.

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, FileText, Github, Linkedin, Mail } from 'lucide-react';
 
 import { EditingDesk } from './EditJourney.jsx';
 
@@ -120,10 +120,11 @@ export default function Hero() {
             </a>
             <a
               href="/assets/Avi_Mishra_CV.pdf"
-              download
+              target="_blank"
+              rel="noreferrer"
               className="btn-ghost !border-white/25 !bg-white/[0.06]"
             >
-              <Download size={16} /> Download Resume
+              <FileText size={16} /> View Resume <ArrowUpRight size={16} />
             </a>
           </motion.div>
 
