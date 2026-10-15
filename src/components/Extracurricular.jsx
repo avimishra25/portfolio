@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Film, Award, Clapperboard, ArrowUpRight } from 'lucide-react';
+import { Award, Clapperboard, ArrowUpRight } from 'lucide-react';
 
 export default function Extracurricular() {
   return (
@@ -8,7 +8,6 @@ export default function Extracurricular() {
       <div className="section-container">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }}>
           <div className="section-intro">
-            <span className="chip mb-4"><Film size={12} /> Beyond the code</span>
             <h2 className="section-heading">A different kind <span className="text-amber-300">of storytelling.</span></h2>
           </div>
           <div className="surface-panel overflow-hidden grid md:grid-cols-[1fr_2fr]">
