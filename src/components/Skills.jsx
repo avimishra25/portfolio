@@ -8,21 +8,28 @@ const levels = {
   prototype: { label: 'Prototype', length: 1, description: 'Built with in coursework or prototypes' },
 };
 
+// Levels follow where each tool has run: production = in production or across the live
+// projects; shipped = in one live project or at work; prototype = coursework and prototypes.
 const bins = [
   {
     label: 'Frontend',
     description: 'Responsive interfaces that turn complex workflows into clear, usable experiences.',
-    tools: [['React.js', 'production'], ['JavaScript (ES6+)', 'production'], ['HTML/CSS', 'production'], ['Tailwind CSS', 'production']],
+    tools: [['React.js', 'production'], ['JavaScript (ES6+)', 'production'], ['HTML/CSS', 'production'], ['Tailwind CSS', 'production'], ['Vite', 'shipped'], ['Framer Motion', 'shipped']],
   },
   {
     label: 'Backend & Systems',
-    description: 'APIs, data models, and cloud services that connect the product behind the interface.',
-    tools: [['Node.js', 'production'], ['Express.js', 'production'], ['MongoDB', 'production'], ['Firebase Firestore', 'shipped'], ['SQL / MySQL', 'prototype'], ['AWS S3 / EC2', 'prototype'], ['AWS DynamoDB / Aurora', 'prototype']],
+    description: 'APIs, auth, payments, and data models that connect the product behind the interface.',
+    tools: [['Node.js', 'production'], ['Express.js', 'production'], ['MongoDB', 'production'], ['JWT auth', 'production'], ['Razorpay', 'shipped'], ['Google OAuth', 'shipped'], ['Firebase Firestore', 'shipped'], ['SQL / MySQL', 'prototype']],
   },
   {
     label: 'Applied ML',
     description: 'Text analysis, matching, and predictive models delivered through practical web tools.',
-    tools: [['Python', 'shipped'], ['Flask', 'shipped'], ['Scikit-learn', 'shipped'], ['spaCy', 'shipped'], ['TF-IDF', 'shipped'], ['OpenAI API', 'shipped']],
+    tools: [['Python', 'shipped'], ['Flask', 'shipped'], ['Scikit-learn', 'shipped'], ['spaCy', 'shipped'], ['TF-IDF', 'shipped'], ['Gemini API', 'shipped'], ['OpenAI API', 'shipped']],
+  },
+  {
+    label: 'Cloud & DevOps',
+    description: 'Deploys, containers, and hosted services that keep the projects live.',
+    tools: [['Vercel', 'production'], ['Render', 'production'], ['Docker', 'shipped'], ['Cloudinary', 'shipped'], ['Hugging Face Spaces', 'shipped'], ['AWS S3 / EC2', 'prototype'], ['AWS DynamoDB / Aurora', 'prototype']],
   },
 ];
 
