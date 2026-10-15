@@ -28,7 +28,7 @@ A personal portfolio built with React, Vite, Tailwind CSS, and Framer Motion. It
 - **Tech stack:** tools grouped into tech bins and tagged **Production**, **Shipped**, or **Prototype** by how far each has gone.
 - **Editing room:** freelance editing services, toolkit, and the IFP 50-Hour Filmmaking Challenge nomination, linking to a separate page of selected edits.
 - **Selected edits page:** four thumbnail-led videos with native playback. Video files load only after a click, and only one player is mounted at a time.
-- **Contact:** email and copy-email (with a manual fallback), beside a `contact.json` panel with links, resume, and live local time.
+- **Contact:** email and copy-email (with a manual fallback), beside a `contact.json` panel with links, resume, and live local time., plus a contact form that delivers messages by email through Formspree.
 - **Navigation:** a film-reel chapter rail with a playhead that tracks the current section, running down the right edge on wide screens and along the bottom on phones and tablets. Grab and drag the rail to scrub through the page like a timeline, or tap a frame to jump to that section. Scene dividers mark each section, and there is a keyboard skip link and a back-to-top link.
 
 Reduced-motion preferences skip the title sweep, reel rotation, and counter animations, showing final states immediately. Focus indicators and accessible control labels support keyboard navigation, and decorative timeline and desk elements are hidden from screen readers. Gallery video captions remain pending accurate dialogue transcripts.
@@ -82,7 +82,7 @@ No API keys or environment variables are required for the current site. Contact 
 | Editing services and filmmaking background | `src/components/Extracurricular.jsx` |
 | Gallery titles, categories, durations, and media IDs | `src/components/SelectedEdits.jsx` |
 | Editing room page layout | `src/editing-room.jsx` |
-| Email, clipboard behavior, and the `contact.json` panel | `src/components/Contact.jsx` |
+| Email, clipboard behavior, the `contact.json` panel, and the contact form (Formspree endpoint) | `src/components/Contact.jsx` |
 | Header, resume link, and contact button | `src/components/Navbar.jsx` |
 | Footer and section order | `src/App.jsx` |
 | Shared styles | `src/index.css` |

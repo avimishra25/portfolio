@@ -1303,6 +1303,62 @@ body {
   color: var(--studio-accent);
 }
 
+/* Contact form under the email actions; inputs reuse the copy-email fallback's look. */
+.contact-form {
+  margin-top: 28px;
+  padding-top: 24px;
+  max-width: 34rem;
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid #ffffff10;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.contact-form label > span {
+  font: 10px ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--studio-muted);
+}
+
+.contact-form button[type="submit"] {
+  justify-self: start;
+}
+
+.contact-form button[disabled] {
+  opacity: .7;
+  cursor: progress;
+}
+
+.contact-form-feedback {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.contact-form-feedback.is-sent {
+  color: var(--studio-green);
+}
+
+.contact-form-feedback.is-error {
+  color: #fca5a5;
+}
+
+@media (max-width: 639px) {
+  .contact-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Contact: the pitch beside a contact.json panel. */
 .contact-layout {
   display: grid;

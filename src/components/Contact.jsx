@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Copy, Check } from 'lucide-react';
+import { ArrowUpRight, Copy, Check, Send, Loader2 } from 'lucide-react';
 
 const email = 'aviam2425@gmail.com';
+
+// Formspree form that delivers contact messages by email (formspree.io dashboard → this form).
+// If this is ever reset to the YOUR_FORM_ID placeholder, the form stops sending and points
+// visitors to email instead.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyekbweb';
+const formConnected = !FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID');
 const timeFormat = new Intl.DateTimeFormat('en-IN', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' });
 
 function useLocalTime() {
@@ -23,6 +29,83 @@ const fields = [
   { key: 'resume', value: 'Avi_Mishra_CV.pdf', href: '/assets/Avi_Mishra_CV.pdf' },
   { key: 'location', value: 'Ahmedabad, India' },
 ];
+
+const inputClass = 'w-full rounded-lg border border-white/20 bg-black/30 p-3 text-sm text-zinc-100 placeholder:text-zinc-500 transition-colors focus:border-amber-300/60 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300';
+
+function ContactForm({ reduceMotion }) {
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [errorText, setErrorText] = useState('');
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!formConnected) {
+      setErrorText(`The form isn't connected yet. Please email me at ${email}.`);
+      setStatus('error');
+      return;
+    }
+    setStatus('sending');
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.errors?.map(error => error.message).join(' ') || 'The message could not be sent.');
+      }
+      form.reset();
+      setStatus('sent');
+    } catch (error) {
+      setErrorText(`${error.message || 'The message could not be sent.'} Please try again, or email me at ${email}.`);
+      setStatus('error');
+    }
+  };
+
+  const feedback = status === 'sent' || status === 'error';
+  return (
+    <form className="contact-form" onSubmit={onSubmit}>
+      <p className="meta-label">Or send a message</p>
+      {/* Honeypot: hidden from people, filled in by bots; Formspree drops those submissions. */}
+      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <input type="hidden" name="_subject" value="New message from your portfolio" />
+      <div className="contact-form-row">
+        <label>
+          <span>Name</span>
+          <input name="name" type="text" required autoComplete="name" className={inputClass} />
+        </label>
+        <label>
+          <span>Email</span>
+          <input name="email" type="email" required autoComplete="email" className={inputClass} />
+        </label>
+      </div>
+      <label>
+        <span>Message</span>
+        <textarea name="message" required rows={4} className={`${inputClass} resize-y`} />
+      </label>
+      <button type="submit" className="btn-primary text-sm" disabled={status === 'sending'} aria-busy={status === 'sending'}>
+        {status === 'sending'
+          ? <><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Sending…</>
+          : <>Send message <Send size={15} aria-hidden="true" /></>}
+      </button>
+      <div aria-live="polite">
+        {feedback && (
+          <motion.p
+            key={status}
+            role={status === 'error' ? 'alert' : 'status'}
+            className={`contact-form-feedback ${status === 'error' ? 'is-error' : 'is-sent'}`}
+            initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {status === 'sent' ? "Message sent! I'll get back to you soon." : errorText}
+          </motion.p>
+        )}
+      </div>
+    </form>
+  );
+}
 
 export default function Contact() {
   const reduceMotion = useReducedMotion();
@@ -75,6 +158,7 @@ export default function Contact() {
             {copyStatus === 'manual' && (
               <input aria-label="Email address to copy" readOnly value={email} onFocus={event => event.target.select()} ref={node => { if (node) { node.focus(); node.select(); } }} className="mt-2 w-full max-w-sm rounded-lg border border-white/20 bg-black/30 p-3 text-sm text-zinc-100" />
             )}
+            <ContactForm reduceMotion={reduceMotion} />
           </div>
 
           <div className="contact-file">
